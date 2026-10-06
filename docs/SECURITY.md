@@ -207,3 +207,14 @@ For any other immediate concerns and questions, please create an issue in our [i
 ---
 
 _Last updated on **2026-07-24**._
+
+
+---
+
+## MORIQ AI bootstrap notes - 2026-10-06
+
+The Open WebUI security policy above is preserved verbatim and describes upstream's process. It is not a newly adopted MORIQ policy or a promise of upstream support for MORIQ-specific changes.
+
+MORIQ security contacts, supported versions, incident process, data retention, access rules, and deployment controls have not been supplied or approved. Define them before production use. No private MORIQ material or credentials have been added by this bootstrap.
+
+For development validation, use isolated local data and environment-held credentials. Do not commit environment files, provider keys, user data, or generated databases. Review plugin/tool permissions, provider data handling, authentication, and source access before a later demo deployment. These are review items, not assertions of implemented MORIQ controls.

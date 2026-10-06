@@ -1,3 +1,16 @@
+# MORIQ AI setup log
+
+## [Unreleased — MORIQ V0.1 setup] - 2026-10-06
+
+- Established the official Open WebUI baseline at `8bd8b4fac5e059578ac0c74b3c18d11139f88b7d` with its Git ancestry preserved.
+- Added initial MORIQ V1 documentation scaffolds for issue #1; V0.1 demo target: October 20, 2026.
+- Documented remotes, branch workflow, license/branding obligations, and baseline validation.
+- No application, UI, branding, or MORIQ feature changes. Setup remains on `feature/setup`, unmerged.
+
+The original Open WebUI changelog follows unchanged. Its version numbers and release claims belong to upstream.
+
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
