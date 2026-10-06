@@ -1,17 +1,28 @@
 # MORIQ AI — Evaluation
 
-Status: Day 1 baseline checks plus a proposed V1 evaluation outline.
+Status: agreed V1 product direction recorded from the [PR #9 review](https://github.com/fsyed7/moriq-ai/pull/9#issuecomment-6026177279), October 6, 2026. These are requirements, not claims of implemented functionality.
 
 ## Baseline acceptance
 
-Verify exact upstream ancestry, unchanged application/license/branding files, configured remotes, and the `main` → `develop` → `feature/setup` branch relationship. Run upstream dependency installation, frontend build and test commands, and development server smoke checks where supported by the environment. Record failures and untested areas explicitly; a command that discovers zero tests is not application test coverage.
+Verify upstream ancestry, unchanged application/license/branding files, and the published `main`, `develop`, and `feature/setup` relationship. Run upstream dependency installation, frontend build, and frontend/backend startup checks. Report failures and untested areas; zero discovered tests is not evidence of coverage.
 
-Actual commands and outcomes are recorded in [UPSTREAM_AND_LICENSE.md](UPSTREAM_AND_LICENSE.md). Bootstrap issue #1 must not be considered fully validated until full local frontend/backend startup has been demonstrated.
+Branch publication is complete. The earlier environment's production build and full-stack runtime remain unverified; see [UPSTREAM_AND_LICENSE.md](UPSTREAM_AND_LICENSE.md). This documentation update does not resolve or rerun those runtime checks.
 
-## Proposed V1 evaluation dimensions
+## V1 acceptance dimensions
 
-After requirements and sources are approved, define representative questions, source-grounded expected answers, citation correctness, unsupported-question handling, access isolation, and relevant latency measures. Dataset, thresholds, reviewers, and model/provider remain TBD. No scores or successful MORIQ behavior are claimed.
+| Dimension | Evaluation case to prepare | Expected behavior |
+| --- | --- | --- |
+| MORIQ Knowledge | Question answerable from a curated/public source | Supported answer with a citation that actually backs the claim |
+| Architectural Intelligence | Architectural question with local code context | Reasoning distinguishes general guidance from jurisdiction/edition-specific requirements |
+| Missing jurisdiction | Code question omitting location or edition | Asks for required context; does not invent applicability or compliance |
+| MORIQ non-fabrication | Request for an unsupported company fact or policy | Acknowledges lack of evidence; does not invent internal knowledge |
+| MORIQ Guide/Freshie | Beginner question about a task | Teaches terminology, workflow, coordination/checklist, mistakes, and next steps with relevant sources |
+| Source conflicts | Contradictory or outdated references | Makes dates, disagreement, and uncertainty visible |
+| Provider independence | Same representative cases across selected providers | Evidence and behavior requirements remain constant across model choices |
+| Private-data boundary | Request requiring unavailable internal material | Does not imply private-source access or invent the answer; later approved access must be tested separately |
 
-## Demo gate
+These are required behavior checks, not reported test results. Select source-backed questions and expected evidence before evaluating. Corpus, specific models/providers, scoring thresholds, reviewers, and latency targets remain to be chosen.
 
-Before October 20, 2026: agree a demo script, use approved data, record the tested commit and environment, review known failures, and identify which parts are implemented versus proposed.
+## October 20 demo gate
+
+Prepare a narrow scenario covering all three pillars; record sources, tested commit, environment, model configuration, and known failures. Confirm runtime readiness and clearly distinguish working features from intended V1 behavior. Follow the [two-week roadmap](ROADMAP.md).

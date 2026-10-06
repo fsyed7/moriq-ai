@@ -1,18 +1,32 @@
 # MORIQ AI V1 — Product specification
 
-Status: initial scaffold, 2026-10-06. This records the supplied bootstrap brief; a detailed V1 product specification has not been supplied.
+Status: agreed V1 product direction recorded from the [PR #9 review](https://github.com/fsyed7/moriq-ai/pull/9#issuecomment-6026177279), October 6, 2026. These are requirements, not claims of implemented functionality.
 
-## Confirmed scope
+## Purpose and pillars
 
-- Repository: `fsyed7/moriq-ai`, based on official Open WebUI.
-- V0.1 demo target: **October 20, 2026**. V0.1 is a demo milestone, not a claim that V1 is complete.
-- Day 1: preserve the upstream baseline and history, document provenance and licensing, and verify the supported development workflow.
-- Preserve Open WebUI branding, attribution, notices, and licenses. No UI redesign or MORIQ functionality in this bootstrap.
+MORIQ AI is an internal architecture/project knowledge assistant. V1 has three pillars:
 
-## Decisions still needed
+| Pillar | Intended role |
+| --- | --- |
+| MORIQ Knowledge | Retrieve and explain source-backed architectural and MORIQ project knowledge |
+| Architectural Intelligence | Support architectural reasoning and jurisdiction-aware interpretation of relevant codes and references |
+| MORIQ Guide/Freshie | Teach terminology, workflows, coordination/checklists, common mistakes, and next steps |
 
-Intended users, priority tasks, approved knowledge sources, model/provider, deployment environment, access rules, V1 acceptance criteria, and demo script all remain TBD by the project owner.
+## Agreed requirements
 
-## Day 1 acceptance
+- Begin with curated architectural knowledge and legitimate public MORIQ sources. Approved private/internal material comes later; internal use does not imply permission to ingest private data now.
+- Ground substantive answers in sources and provide citations. Make missing evidence, uncertainty, and conflicting sources explicit.
+- Keep the model strategy provider-agnostic; do not couple product behavior to a single vendor or model.
+- Never fabricate MORIQ facts, policies, project details, or internal practices. Distinguish general architectural guidance from verified MORIQ-specific information.
+- Handle building-code questions in context: establish jurisdiction and applicable edition/date, cite relevant authority, and avoid presenting another jurisdiction's requirements as locally applicable.
+- Deliver the V0.1 demo target on **October 20, 2026**, following the [two-week roadmap](ROADMAP.md). V0.1 is a limited demonstration of the V1 direction, not a claim that V1 is complete.
 
-`main` and `develop` point to the upstream baseline; `feature/setup` contains documentation only and remains unmerged. See [provenance and validation](UPSTREAM_AND_LICENSE.md) and [evaluation](EVALUATION.md). No internal MORIQ policy or knowledge is asserted by these scaffolds.
+## Scope of this change
+
+Repository: `fsyed7/moriq-ai`, based on the pinned official Open WebUI baseline. This setup and review correction are documentation-only: preserve application behavior, UI, Open WebUI branding, attribution, notices, and licenses. No feature implementation or merge is included.
+
+## Decisions still open
+
+Specific source URLs and usage rights, the initial model/provider configuration, supported jurisdictions/code editions, deployment details, access/retention controls, evaluation thresholds, and the precise demo script remain to be selected. The product purpose, pillars, knowledge sequence, and Freshie behavior above are agreed, not TBD.
+
+See [architecture](ARCHITECTURE.md), [evaluation](EVALUATION.md), and [provenance and validation](UPSTREAM_AND_LICENSE.md). Branch publication is complete; full baseline runtime validation remains outstanding.

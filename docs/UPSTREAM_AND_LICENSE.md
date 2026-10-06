@@ -8,7 +8,7 @@ Recorded: October 6, 2026. Task: [issue #1](https://github.com/fsyed7/moriq-ai/i
 - Selected branch: official `main` (released baseline; package version `0.11.4`).
 - Exact commit: **`8bd8b4fac5e059578ac0c74b3c18d11139f88b7d`**.
 - [Immutable upstream commit](https://github.com/open-webui/open-webui/commit/8bd8b4fac5e059578ac0c74b3c18d11139f88b7d).
-- Target remains **`fsyed7/moriq-ai`**. The target had no refs when inspected.
+- Target remains **`fsyed7/moriq-ai`**. The target was empty before the initial import; the three branches are now published.
 - Full ancestry: 18,717 reachable commits; not a shallow clone. A blob-filtered clone retains original commits and fetches historical file contents on demand. No squash or replacement root commit was created.
 
 The official development guide recommends upstream `dev` for contributing to its next release. This bootstrap intentionally selects released `main` and applies the source-development commands to that pinned baseline. MORIQ `develop` is our branch, not upstream `dev`.
@@ -24,40 +24,35 @@ develop       8bd8b4fac5e059578ac0c74b3c18d11139f88b7d
 feature/setup documentation commit(s) directly above develop
 ```
 
-These branches and remotes are configured locally. `remote.pushDefault` is `origin`. **Remote publication is pending:** Windows sandbox access to Git Credential Manager was denied; no push completed. Do not read this document as proof that the branches exist on GitHub. `feature/setup` remains unmerged.
+**Publication is complete.** Remote refs verified on October 6, 2026 before the PR #9 documentation correction:
 
-Remotes are clone-local configuration, not tracked files. Reproduce from an empty local destination:
+| Published branch | Verified head before this correction |
+| --- | --- |
+| [main](https://github.com/fsyed7/moriq-ai/tree/main) | `8bd8b4fac5e059578ac0c74b3c18d11139f88b7d` |
+| [develop](https://github.com/fsyed7/moriq-ai/tree/develop) | `8bd8b4fac5e059578ac0c74b3c18d11139f88b7d` |
+| [feature/setup](https://github.com/fsyed7/moriq-ai/tree/feature/setup) | `714b0550af6c69f3c7c9bfc5a6cd302659602307` |
+
+`main` equals the pinned upstream baseline and `develop` equals `main`. Documentation corrections are subsequent commits on `feature/setup`; the table records the initial published heads, not a permanent feature-branch SHA. [PR #9](https://github.com/fsyed7/moriq-ai/pull/9) targets `develop` and remains unmerged.
+
+Remotes are clone-local configuration, not tracked files. For a new checkout of the published repository:
 
 ```sh
-git init moriq-ai
+git clone https://github.com/fsyed7/moriq-ai.git moriq-ai
 cd moriq-ai
 git remote add upstream https://github.com/open-webui/open-webui.git
-git remote add origin https://github.com/fsyed7/moriq-ai.git
 git config remote.pushDefault origin
-git fetch --no-tags upstream main
-git switch -c main 8bd8b4fac5e059578ac0c74b3c18d11139f88b7d
-git switch -c develop
-git switch -c feature/setup
+git switch --track origin/feature/setup
 ```
 
-For an existing target clone, add `upstream` if absent. Inspect existing refs and work before any branch change; never force-push the baseline. Future upstream updates should be fetched, reviewed for license/security changes, and integrated on a separate review branch. Record each new upstream SHA and rerun validation before an approved merge.
+For an existing checkout, inspect refs and local work first and add `upstream` only if absent. Never force-push the baseline. Fetch and review future upstream updates on a separate branch, record the new SHA, and rerun validation before an approved merge.
 
-## Publishing precaution
+## Publishing safeguards
 
-Unmodified upstream `.github/workflows/docker.yaml` publishes container images on `main` pushes, and `release.yml` can create releases. Before the initial push, disable the inherited publishing workflows or temporarily disable repository Actions in GitHub settings, with the owner aware of that setting change. Keep the Git baseline untouched. Do not re-enable publishing until the downstream release process has been reviewed. No Actions settings were changed in this task.
+The PR #9 description records that repository Actions remain disabled during the initial import while inherited publishing workflows are reviewed. This documentation correction does not change Actions settings or workflow files, and does not independently certify the current setting through the administration API.
 
-Once authentication works and publishing is controlled, recheck that the remote is still empty (or contains only matching refs), then use a normal, non-forced push:
+Unmodified upstream `docker.yaml` publishes images (including a hardcoded Docker Hub destination), `release.yml` creates releases and dispatches Docker builds, and `release-pypi.yml` attempts package publication. Keep these publishing paths disabled until downstream release behavior is reviewed. Retain useful frontend/backend/regression CI rather than deleting workflow history; verify publishing workflows are disabled before re-enabling repository Actions. The exact upstream baseline remains unchanged.
 
-```sh
-git ls-remote origin
-git push --atomic origin main develop feature/setup
-git branch --set-upstream-to=origin/main main
-git branch --set-upstream-to=origin/develop develop
-git branch --set-upstream-to=origin/feature/setup feature/setup
-git ls-remote origin refs/heads/main refs/heads/develop refs/heads/feature/setup
-```
-
-If remote history differs, stop and review it rather than overwriting it. Do not merge `feature/setup`.
+Future documentation updates should push only `feature/setup`, with normal fast-forward protection. Inspect remote state before pushing; if it differs unexpectedly, review rather than overwrite. Do not merge PR #9 as part of this correction.
 
 ## License and branding review
 
@@ -126,8 +121,8 @@ Environment: Windows; isolated Node **22.20.0**, npm **10.9.3**, Python **3.12.1
 | Python formatting | `ruff format --check . --exclude .venv --exclude venv`: PASS, 285 files already formatted |
 | Python logic checks | `ruff check --select=F --ignore=F401,F403,F405,F541,F811,F841 .`: PASS |
 | Backend runtime / full-stack smoke | NOT VERIFIED: backend dependencies could not be installed; Docker engine unavailable and WSL access denied |
-| Git push | BLOCKED: Git Credential Manager credential enumeration denied by Windows sandbox; dry-run failed before any push |
+| Branch publication | COMPLETE: `main`, `develop`, and `feature/setup` published; verified heads recorded above. The earlier sandbox credential failure is historical, not a pending publication task |
 
 The Pyodide preparation step modifies tracked `static/pyodide/pyodide-lock.json` while fetching assets. That generated change was excluded/restored to the pinned baseline before the documentation commit. No application-source repair or dependency change was made to work around environment failures.
 
-**Issue #1 remains incomplete until the production build, full local run, and remote branch publication succeed.** These results describe this environment; they neither prove the baseline broken on a supported host nor claim successful runtime validation.
+**Branch publication is complete; issue #1 still requires successful production-build and full local runtime validation.** These results describe this environment; they neither prove the baseline broken on a supported host nor claim successful runtime validation.
