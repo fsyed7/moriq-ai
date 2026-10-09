@@ -5,7 +5,46 @@ quality is claimed. Base: `develop` at
 `1a9d5a973bd5205f74d512b2bc417f2c7e00abb9` (PR #10), verified through GitHub.
 Branch: `feature/local-deployment`.
 
-## Docker evidence and diagnosis
+## Resume verification — October 9, 2026
+
+**Disk-space blocker resolved; Docker engine access remains blocked.**
+
+- Reused the existing `feature/local-deployment` checkout and draft PR #11.
+- C: reports **61,824,962,560 bytes free (61.8 GB / 57.6 GiB)**, exceeding
+  the launcher's 10 GiB guard. No cleanup was performed by this resumed task.
+- Docker CLI 27.4.0 and Compose 2.31.0 remain available. `docker version`,
+  container/image/volume inspection, and the existing `manage.ps1 Start` action
+  fail on `\\.\pipe\dockerDesktopLinuxEngine` with **Access is denied**.
+  Start exits at its first engine check, before pulling, creating or starting anything.
+- This is a Windows named-pipe access failure in this execution context.
+  The checks do not distinguish host pipe ACLs from execution sandbox restrictions.
+  Network permission was granted for HTTP checks; it does not grant named-pipe access.
+  No alternative endpoint, permission change or privilege bypass was attempted.
+- With network access enabled, both localhost port 3000 endpoints (`/` and
+  `/ready`) and Ollama's `127.0.0.1:11434/api/tags` **refused connections**.
+  No port 3000/11434 listener was observed. Open WebUI is not verified running;
+  persisted remote-provider configuration cannot be inspected without the app/login.
+- Rechecked Docker logs: the latest host backend log still ends at 16:49:18 EDT.
+  The earlier WSL termination / EOF sequence remains the available evidence.
+  A new pull could not be attempted, so resolution of the original EOF is
+  **unverified**; disk recovery alone does not prove it fixed the WSL interruption.
+- Reran **8 Brain tests (all passed, no skips)**, Ruff lint/format (passed),
+  **6 mocked launcher tests (passed)**, Compose configuration validation,
+  PowerShell syntax parsing and Git whitespace checks (passed).
+  No full upstream dependency environment was installed or full-server suite run.
+- No deployment code change was needed based on these checks. Existing volumes,
+  containers, images, configurations and secrets remain untouched.
+- Brain import, real model selection and all **12 live behavioral evaluations
+  remain NOT RUN**. The existing runbook already prepares activation; a real
+  responding provider/model ID and owner admin login are still required.
+
+The next required step is access to Docker's Linux engine from an authorized
+local execution session. If this agent cannot receive that access, the owner must
+run the existing launcher from their Docker-enabled PowerShell session; account
+signup/login is a later separate boundary. Keep PR #11 draft and unmerged pending
+runtime and behavioral review.
+
+## Initial Docker evidence and diagnosis
 
 - CLI: Docker 27.4.0, API 1.47, context `desktop-linux`. Compose 2.31.0.
 - `docker version`, container/image/volume inventory calls all fail with
@@ -91,8 +130,8 @@ consistency, actual import, sharing and retrieval/citation rendering remain open
 
 ## Remaining steps
 
-1. Free or relocate data with explicit approval of the affected paths. Check
-   Windows and Docker disk capacity. No cleanup/reset/prune is authorized here.
+1. **Completed on resume:** Windows disk recovery verified at 61.8 GB free.
+   Check Docker's internal disk capacity once engine access is available.
 2. Use an authorized local execution environment with Docker engine access.
    Run `./moriq/local/manage.ps1 Check`; resolve any storage/name/port conflicts
    without data loss, then `Start` according to the existing-data procedure.
