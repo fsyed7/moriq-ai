@@ -23,6 +23,12 @@ Branch publication is complete. The earlier environment's production build and f
 
 These are required behavior checks, not reported test results. Select source-backed questions and expected evidence before evaluating. Corpus, specific models/providers, scoring thresholds, reviewers, and latency targets remain to be chosen.
 
+## Task #002 — Brain 0.1.0 validation
+
+The [Brain evaluation matrix](../moriq/brain/evaluation.md) defines twelve cases covering all seven requested scenarios plus teaching transfer, source injection, a fictional scoped code excerpt, and concise answers. It specifies inputs, expected criteria, synthetic fixtures and a human review procedure. These are **not live model results**.
+
+Focused automated checks live in `moriq/brain/tests/test_brain.py`. Run `python -m unittest discover -s moriq/brain/tests -v`; the optional upstream schema check requires Pydantic 2 (and is reported as skipped when unavailable). The other checks require only Python's standard library. See [MORIQ_BRAIN.md](MORIQ_BRAIN.md) for activation and the validation record. Full-server import, permissions, actual retrieval/citation rendering and provider behavior must be tested on a configured instance before rollout.
+
 ## October 20 demo gate
 
 Prepare a narrow scenario covering all three pillars; record sources, tested commit, environment, model configuration, and known failures. Confirm runtime readiness and clearly distinguish working features from intended V1 behavior. Follow the [two-week roadmap](ROADMAP.md).

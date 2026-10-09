@@ -1,5 +1,12 @@
 # MORIQ AI setup log
 
+## [Unreleased — MORIQ Brain 0.1.0] - 2026-10-09
+
+- Added a versioned MORIQ Brain prompt and native Open WebUI workspace-model import generator, with operator-selected base model and private-by-default access grants.
+- Defined shared evidence, MORIQ non-fabrication, jurisdiction-aware code reasoning, and adaptive Freshie teaching behavior for one assistant.
+- Added configuration/CLI and isolated upstream prompt-composition tests, a behavior evaluation matrix and installation/versioning instructions.
+- No upstream application, branding, license, retrieval or publishing-workflow changes. Activation requires model import; live-provider behavior and full-server integration remain unvalidated.
+
 ## [Unreleased — MORIQ V0.1 setup] - 2026-10-06
 
 - Established the official Open WebUI baseline at `8bd8b4fac5e059578ac0c74b3c18d11139f88b7d` with its Git ancestry preserved.
