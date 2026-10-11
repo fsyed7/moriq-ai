@@ -8,8 +8,9 @@ workspace-model import. The tag is version-pinned, not digest-pinned: record
 after a successful pull. Image/source equivalence and runtime compatibility must
 still be checked on the running instance; no automatic version upgrade is used.
 
-See [the actual validation record](LOCAL_DEPLOYMENT_RESULTS.md). Deployment and
-Brain activation were blocked, not completed, in the Task 3 execution environment.
+See [the dated validation record](LOCAL_DEPLOYMENT_RESULTS.md) for current status.
+The October 10–11 resume verified application access and imported Brain 0.1.0;
+behavioral failures and Docker inspection restrictions still prevent sign-off.
 
 ## Prerequisites and preflight
 
@@ -101,15 +102,16 @@ recreation. An HTTP/health success alone does not prove model inference works.
 
 First inspect Admin Panel > Settings > Connections and the available model list
 after authorized login. Preserve existing providers, keys, prefixes and defaults.
-No connected provider could be established in Task 3: localhost Ollama was also
-unreachable. This does not prove there are no persisted remote connections.
+The October 10–11 resume verified a local Ollama connection and the exact model
+ID `qwen3:4b`. This is an observed deployment choice, not a quality endorsement;
+consult the validation record before relying on its answers.
 
-Provider options after disk recovery:
+Provider considerations:
 
 | Option | Suitability and remaining checks |
 | --- | --- |
 | Existing authorized API connection | Small local resource footprint. Requires an existing credential and permission for inference charges/data transfer. Do not create paid accounts or purchase service. |
-| Local Ollama, small quantized model | No paid account, but extra disk/RAM required. `qwen3:4b` is a candidate (about 2.5 GB download), not a tested selection. With roughly 7.44 GiB Docker memory, start with one request and a small context; measure actual combined usage before increasing context. GPU/CPU speed, system memory and behavioral quality remain unverified. |
+| Local Ollama, small quantized model | No paid account, but extra disk/RAM required. `qwen3:4b` is installed (about 2.5 GB of weights) and was tested on CPU; responses were slow and behavioral failures were observed. Host Ollama uses host memory separately from Docker's allocation. Measure combined usage and answer quality before increasing context or choosing another model. |
 
 Do not install/download a local model while the disk is full. When Ollama is
 available, configure its reachable URL through the Admin UI; Docker Desktop uses
@@ -161,6 +163,23 @@ are additional gates. Do not label unavailable cases passed.
   Check disk, startup downloads and `/ready`; do not recreate a database to fix it.
 - **No models:** inspect authorized connection settings and provider reachability.
   Brain JSON is a prompt configuration, not model weights or a provider.
+- **Slow responses:** measure first-answer and total latency, load time, generated
+  tokens and CPU/GPU placement. Admin > Settings > Interface may run title, tag
+  and follow-up generation on the current model after each reply. Review whether
+  those tasks are needed before changing existing settings. Keep tests sequential.
+  Do not assume disabling thinking is a safe speed fix: the installed model's
+  `think:false` probe leaked reasoning into the answer and exhausted its token cap.
+- **Requests queue after cancellation:** check the host Ollama log and
+  `/api/ps`. A disconnected client or an accepted unload request does not prove
+  an active generation has stopped. During Task 3 a user-approved Ollama tray
+  restart cleared a continuing request; no model deletion was needed. Stop the
+  test client first, and have the owner restart Ollama if the execution session
+  cannot control the host process.
+- **Background title `KeyError: 'model'`:** preserve a bounded traceback and
+  verify the image digest/source before applying a fix. Upstream
+  [issue #29533](https://github.com/open-webui/open-webui/issues/29533) describes
+  a related missing-model background-task failure. A matching exception name
+  alone does not establish the same cause; Task 3 did not reproduce or patch it.
 
 [Docker troubleshooting](https://docs.docker.com/desktop/troubleshoot-and-support/troubleshoot/)
 distinguishes restarting from destructive cleanup/reset operations.
