@@ -1,0 +1,35 @@
+# Standalone local stack. Do not combine with the upstream docker-compose.yaml.
+name: moriq-local
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:v0.11.4
+    container_name: moriq-webui
+    ports:
+      - "127.0.0.1:3000:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - path: ./moriq/local/.env
+        required: false
+    environment:
+      WEBUI_AUTH: "True"
+      # Upstream generates this once; persist it alongside the database.
+      WEBUI_SECRET_KEY_FILE: /app/backend/data/.webui_secret_key
+    volumes:
+      - webui-data:/app/backend/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 180s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  webui-data:
+    name: moriq-webui-data
+    external: true
