@@ -29,8 +29,14 @@ Invoke-Docker -DockerArgs ($composeArgs + @('config', '--quiet'))
 $containerIds = @(Invoke-Docker -DockerArgs @('ps', '-aq', '--filter', 'name=^/moriq-webui$'))
 $owned = $false
 if ($containerIds.Count -gt 0) {
-    $project = Invoke-Docker -DockerArgs @('inspect', '--format', '{{ index .Config.Labels "com.docker.compose.project" }}', 'moriq-webui')
-    $service = Invoke-Docker -DockerArgs @('inspect', '--format', '{{ index .Config.Labels "com.docker.compose.service" }}', 'moriq-webui')
+    # Avoid embedded template quotes: Windows PowerShell strips them for native CLIs.
+    $labels = Invoke-Docker -DockerArgs @('inspect', '--format', '{{json .Config.Labels}}', 'moriq-webui') | ConvertFrom-Json
+    $project = $null
+    $service = $null
+    if ($null -ne $labels) {
+        $project = ($labels.PSObject.Properties | Where-Object Name -eq 'com.docker.compose.project' | Select-Object -ExpandProperty Value)
+        $service = ($labels.PSObject.Properties | Where-Object Name -eq 'com.docker.compose.service' | Select-Object -ExpandProperty Value)
+    }
     $owned = ($project -eq 'moriq-local' -and $service -eq 'open-webui')
 }
 

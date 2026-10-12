@@ -9,8 +9,8 @@ after a successful pull. Image/source equivalence and runtime compatibility must
 still be checked on the running instance; no automatic version upgrade is used.
 
 See [the dated validation record](LOCAL_DEPLOYMENT_RESULTS.md) for current status.
-The October 10–11 resume verified application access and imported Brain 0.1.0;
-behavioral failures and Docker inspection restrictions still prevent sign-off.
+The October 10–12 resume verified application access, imported Brain 0.1.0 and
+obtained host-side Docker evidence; behavioral failures still prevent sign-off.
 
 ## Prerequisites and preflight
 
