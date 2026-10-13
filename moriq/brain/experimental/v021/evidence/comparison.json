@@ -1,0 +1,183 @@
+{
+  "summaries": [
+    {
+      "version": "v01",
+      "observations": 6,
+      "overall_pass": 1,
+      "factual_pass": 2,
+      "delivery_pass": 6,
+      "citations_pass": 1,
+      "rubric_pass": 1,
+      "median_wall_seconds": 109.453,
+      "median_first_answer_seconds": 38.242,
+      "median_output_tokens": 503.0,
+      "load_range_seconds": [
+        3.888,
+        4.414
+      ]
+    },
+    {
+      "version": "v021",
+      "observations": 6,
+      "overall_pass": 1,
+      "factual_pass": 2,
+      "delivery_pass": 6,
+      "citations_pass": 4,
+      "rubric_pass": 2,
+      "median_wall_seconds": 41.898,
+      "median_first_answer_seconds": 19.782,
+      "median_output_tokens": 201.0,
+      "load_range_seconds": [
+        4.15,
+        4.428
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "case": "general",
+      "version": "v01",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": true,
+      "other_unsupported": true,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Basic distinction is present, but blanket safe removal of partitions and universal lateral-force duty for load-bearing walls are misleading. Generic thickness/material contrasts are overgeneralized. Claims consistency with IBC/ASCE/ACI without verified provisions. Eventually asks to verify structural drawings; no company policy invented."
+    },
+    {
+      "case": "general",
+      "version": "v021",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": true,
+      "delivery": "PASS",
+      "citations": "PASS",
+      "rubric": "FAIL",
+      "reason": "Core load-carrying distinction is correct and engineer consultation is requested before any alteration. However, partitions are characterized as easily moved/removed without qualifying services, fire/acoustic performance or construction constraints; structural materials are narrowly generalized. No explicit general-knowledge label. No fabricated company policy, code requirement or citation. Treat this as an oversimplified answer, not blanket approval for alteration."
+    },
+    {
+      "case": "moriq-no-source",
+      "version": "v021",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": true,
+      "delivery": "PASS",
+      "citations": "PASS",
+      "rubric": "PASS",
+      "reason": "Correctly discloses approved-source gap, requests documents/project lead and invents no naming convention. Extra closing sentence asserts formal approval by a responsible authority is required for operational use without establishing that requirement. 'Structural documentation team' is an unverified suggested contact, not proof such a MORIQ team exists. The core case rubric passes; the unsupported blanket approval requirement prevents an overall pass."
+    },
+    {
+      "case": "moriq-no-source",
+      "version": "v01",
+      "factual": "FAIL",
+      "unsupported_company": true,
+      "unsupported_code": false,
+      "other_unsupported": false,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Discloses the source gap and invents no drawing convention, but supplies the unverified company-specific document title/version/year 'MORIQ Drawing Naming Convention v2.1, 2024'. It is introduced as an example, not claimed as retrieved, yet is not clearly labeled fictional and creates an unsupported source suggestion. No actual citation or approved document supports it."
+    },
+    {
+      "case": "code-with-context",
+      "version": "v01",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": true,
+      "other_unsupported": false,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Uses Toronto/2024 context but then asserts 1.2 m and 1.8 m OBC requirements, an accessible-route minimum, section identifiers 10-102.1/10-102/10-104 and an AODA year without any authoritative provisions. These violate the explicitly source-free case; the final disclaimer does not retract them. The claimed legal details are not verified by this evaluation and must not be used as guidance."
+    },
+    {
+      "case": "code-with-context",
+      "version": "v021",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": true,
+      "other_unsupported": true,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Despite the revised evidence gate, supplies a 1.2 m minimum, claims its safety, references OBC sections 10.2/10.3, and invents an approval/assessment condition for narrowing corridors. No authoritative code extracts support any of these claims. Calling them general guidance does not make legal assertions supported. This is a decisive acceptance failure."
+    },
+    {
+      "case": "code-source",
+      "version": "v021",
+      "factual": "PASS",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": false,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Correctly applies the supplied fictional 1200 mm provision to a 40-person office, keeps scope and fictional status, and invents no exemption. Omits the required [4] source marker, so citation behavior and full case rubric fail despite correct reasoning."
+    },
+    {
+      "case": "code-source",
+      "version": "v01",
+      "factual": "PASS",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": false,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Correctly applies fictional scope and 1200 mm rule without invented exceptions. Source attribution is recognizable as [source id=\"4\"], but the required exact [4] marker is absent. This is a formatting/compliance failure, not a fabricated source or incorrect inference."
+    },
+    {
+      "case": "plan-section",
+      "version": "v01",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": true,
+      "delivery": "PASS",
+      "citations": "FAIL",
+      "rubric": "FAIL",
+      "reason": "Explains layout versus vertical relationships and practical coordination, but omits a floor plan's horizontal cut and misleadingly contrasts a 2D plan with a '3D-like' section (normally also an orthographic 2D drawing). Claims support from ASCE/ISO/NAHB guidelines without identifying or supplying them. Complete but very long, with unnecessary company-source disclaimers."
+    },
+    {
+      "case": "plan-section",
+      "version": "v021",
+      "factual": "PASS",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": false,
+      "delivery": "PASS",
+      "citations": "PASS",
+      "rubric": "PASS",
+      "reason": "Correctly distinguishes plan layout viewed from above from a vertical section and provides a practical multi-story coordination example. Answers general education without requiring company documents or inventing standards/citations. It could more explicitly describe the conventional horizontal cut; that refinement does not defeat the central explanation. Drawings support coordination rather than independently proving structural adequacy."
+    },
+    {
+      "case": "thermal-bridge",
+      "version": "v021",
+      "factual": "FAIL",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": true,
+      "delivery": "PASS",
+      "citations": "PASS",
+      "rubric": "FAIL",
+      "reason": "Correctly says framing conducts better than cavity insulation and continuity matters. However, explains bridging as a stud exposing its interior surface to interior air and locates persistence at the stud surface; thermal bridging also occurs through covered framing and does not require direct air exposure. This misleading mechanism matters in a conceptual teaching answer. Reviewer reference: DOE Building Science Education, Continuous Rigid Insulation Sheathing and Siding (https://bsesc.energy.gov/energy-basics/continuous-rigid-insulation-sheathing-and-siding)."
+    },
+    {
+      "case": "thermal-bridge",
+      "version": "v01",
+      "factual": "PASS",
+      "unsupported_company": false,
+      "unsupported_code": false,
+      "other_unsupported": false,
+      "delivery": "PASS",
+      "citations": "PASS",
+      "rubric": "PASS",
+      "reason": "Explains a more conductive path, why cavity insulation leaves framing paths and how continuous insulation/material choices can reduce them. Explicitly distinguishes material continuity from gaps. Some examples are clumsy ('concrete' studs; 'exposes' interior to exterior), and wood framing could be mentioned, but the complete explanation does not require bare stud-to-air exposure or promise a universal code solution."
+    }
+  ],
+  "minimum_ram_gib": 2.744
+}

@@ -1,0 +1,12 @@
+{
+  "original_brain_tests": {"passed": 8, "skipped": 0},
+  "v02_experimental_tests": {"passed": 4},
+  "v021_screening_tests": {"passed": 3},
+  "ruff_lint": "PASS",
+  "ruff_format": "PASS after formatting new runner",
+  "request_pair_equivalence": {"passed": 6},
+  "old_evidence_hashes": {"passed": 15},
+  "initial_test_discovery": "Top-level moriq/brain discovery found zero tests; corrected to moriq/brain/tests and all eight passed.",
+  "full_upstream_tests": "NOT RUN",
+  "live_webui_integration_suite": "NOT RUN"
+}
