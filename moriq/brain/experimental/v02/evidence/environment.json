@@ -1,0 +1,49 @@
+{
+  "observedAtUtc": "2026-10-12T17:57:30.4824745Z",
+  "ollamaVersion": "0.40.2",
+  "loadedModels": [
+    {
+      "name": "qwen3.5:2b",
+      "model": "qwen3.5:2b",
+      "size": 2361424607,
+      "digest": "0689d44085e06d165161a8a9a1731344278cfb5aade63a3c3dbdb48ab54b130a",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "1.9B",
+        "quantization_level": "Q8_0"
+      },
+      "expires_at": "2026-10-12T14:02:08.1204287-04:00",
+      "size_vram": 0,
+      "context_length": 4096,
+      "runner": "llamacpp"
+    },
+    {
+      "name": "qwen3:4b",
+      "model": "qwen3:4b",
+      "size": 3184001022,
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2026-10-12T13:57:48.1156107-04:00",
+      "size_vram": 0,
+      "context_length": 4096,
+      "runner": "llamacpp"
+    }
+  ],
+  "diskFreeBytes": 35032047616,
+  "webuiVersion": "0.11.4",
+  "webuiHealth": 200
+}

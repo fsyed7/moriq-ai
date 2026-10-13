@@ -1,0 +1,2 @@
+# Preserve the original verification bytes and their recorded SHA-256 hashes.
+* -text whitespace=cr-at-eol

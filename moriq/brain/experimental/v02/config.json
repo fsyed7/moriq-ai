@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0-experimental",
+  "id": "moriq-ai-v02-experimental",
+  "name": "MORIQ AI V0.2 Experimental",
+  "status": "unvalidated",
+  "deployment": "offline import artifact only; do not overwrite moriq-ai",
+  "capabilities": {
+    "citations": true,
+    "web_search": false,
+    "image_generation": false,
+    "code_interpreter": false,
+    "terminal": false,
+    "memory": false,
+    "builtin_tools": false
+  }
+}
