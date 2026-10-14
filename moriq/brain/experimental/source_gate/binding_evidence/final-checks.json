@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "command": [
+        "C:\\Users\\faisa\\Documents\\Codex\\2026-10-06\\we-are-starting-moriq-ai-based\\work\\backend-venv\\Scripts\\ruff.exe",
+        "check",
+        "moriq/brain/experimental/source_gate",
+        "moriq/brain/tests",
+        "moriq/brain/experimental/v02/test_experiment.py",
+        "moriq/brain/experimental/v021/test_screen.py"
+      ],
+      "exit": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\faisa\\Documents\\Codex\\2026-10-06\\we-are-starting-moriq-ai-based\\work\\backend-venv\\Scripts\\ruff.exe",
+        "format",
+        "--check",
+        "moriq/brain/experimental/source_gate",
+        "moriq/brain/tests",
+        "moriq/brain/experimental/v02/test_experiment.py",
+        "moriq/brain/experimental/v021/test_screen.py"
+      ],
+      "exit": 0,
+      "stdout": "21 files already formatted\n",
+      "stderr": ""
+    }
+  ],
+  "prior_hashes_unchanged": 67,
+  "existing_local_files_changed": [
+    "moriq/brain/experimental/source_gate/boundary.py"
+  ],
+  "existing_local_files_preserved": 18
+}

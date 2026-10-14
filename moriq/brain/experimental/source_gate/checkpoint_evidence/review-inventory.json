@@ -1,0 +1,446 @@
+[
+  {
+    "path": "moriq/brain/experimental/source_gate/TASK_3_5.md",
+    "bytes": 9578,
+    "sha256": "11469d9557aa1ee0e6c4e43279eab15e1a86b933f75501444d68ff411cd304bf"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/TASK_3_6_1.md",
+    "bytes": 7269,
+    "sha256": "5d64d047c3fb60c90d5e8b75db7d41e7764b3e989282c4869c32570695f47429"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/TASK_3_6_REVIEW.md",
+    "bytes": 10276,
+    "sha256": "26ae587e37b03bafae7038badc8c219314fed3c9c918cc611743c9df33b1c902"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/TASK_3_7_HARNESS_DESIGN.md",
+    "bytes": 12645,
+    "sha256": "b4dc85104f92ab7fe1a8184f4d5f64fdaa2d9e9b849e4a8143fe1bdd534167eb"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/TASK_3_8_MOCK_HARNESS.md",
+    "bytes": 11420,
+    "sha256": "197a11ca4a1f2d8f0db7e96117f658066ead802135931695bc79bce275ec4e0e"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/.gitattributes",
+    "bytes": 30,
+    "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/before-regression.json",
+    "bytes": 3103,
+    "sha256": "af86c9687660e26a98d8760059ebecbd66813d7ac4f7101fadc7732637437ac4",
+    "structure": [
+      "command",
+      "exit",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/binding-fix.patch",
+    "bytes": 3005,
+    "sha256": "84b7a089769ea1d0d053350dcfd7a51c0c59bc7d855317f904514c7c1ca4efbe"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/final-checks.json",
+    "bytes": 1159,
+    "sha256": "44f0732998a2bf65e8d3658eda4e82d04fb79f73797da168a8957fef46af1d53",
+    "structure": [
+      "checks",
+      "prior_hashes_unchanged",
+      "existing_local_files_changed",
+      "existing_local_files_preserved"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/initial-uncommitted-hashes.json",
+    "bytes": 2728,
+    "sha256": "67d435b7228421529b92ee2dc6ef6cd4ab2a36fe779c8d86da74b7f52b0d180b",
+    "structure": [
+      "moriq/brain/experimental/source_gate/TASK_3_5.md",
+      "moriq/brain/experimental/source_gate/TASK_3_6_REVIEW.md",
+      "moriq/brain/experimental/source_gate/boundary.py",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/.gitattributes",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/boundary-before-replay-fix.py.txt",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/frozen-suite-hashes.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/manifest.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/pre-implementation.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/prior-hashes.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/replay-regression-before-fix.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/manifest.json",
+    "bytes": 669,
+    "sha256": "c64230c8eb861abb37cdfa0d7ec14435fc7913a564acc8307c46be4770d834da",
+    "structure": [
+      ".gitattributes",
+      "before-regression.json",
+      "binding-fix.patch",
+      "final-checks.json",
+      "initial-uncommitted-hashes.json",
+      "prior-suite-retry.json",
+      "tests-after.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/prior-suite-retry.json",
+    "bytes": 2595,
+    "sha256": "6fa6b0dcdfc58c6b2aacbd1d413a89c1af34cacb92d67c9aa05e9d1c9ebf2943",
+    "structure": "list[2]"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/binding_evidence/tests-after.json",
+    "bytes": 16664,
+    "sha256": "2fa5265f715bd708f1d2154eea38ba90803938a6e569705d29d3ace278f8d379",
+    "structure": "list[5]"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/boundary.py",
+    "bytes": 11042,
+    "sha256": "278107a882b9ba4800863af46ebd92d5f4fb156dcb8b911392c95880235d421c"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/.gitattributes",
+    "bytes": 30,
+    "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/boundary-before-replay-fix.py.txt",
+    "bytes": 10037,
+    "sha256": "585678aa95d65f0ef6f872408159218fd226bd0c9da7f30481e515f20812ad52"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/frozen-suite-hashes.json",
+    "bytes": 95,
+    "sha256": "2543db06ffb391d3182ede617d47bc2e045684e398222195b9c9e96c4839ca77",
+    "structure": [
+      "test_lifecycle.py"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/manifest.json",
+    "bytes": 689,
+    "sha256": "97ed574787d1ca832bf362d63778bf120825cecfe5bb14a258ef7e6c616c2b90",
+    "structure": [
+      ".gitattributes",
+      "boundary-before-replay-fix.py.txt",
+      "frozen-suite-hashes.json",
+      "pre-implementation.json",
+      "prior-hashes.json",
+      "replay-regression-before-fix.json",
+      "validation.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/pre-implementation.json",
+    "bytes": 1271,
+    "sha256": "b818c82f81f2523bfe6fa4fe88fd9b420a07b65b677f39cbcbd8d2f74191c08e",
+    "structure": [
+      "exit",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/prior-hashes.json",
+    "bytes": 8700,
+    "sha256": "7f769e9606b084599eb9fdf429d948c1252c217f9d87caa216f0d351b852b183",
+    "structure": [
+      "moriq/brain/experimental/source_gate/README.md",
+      "moriq/brain/experimental/source_gate/RESULTS.md",
+      "moriq/brain/experimental/source_gate/REVIEW_TASK_3_4.md",
+      "moriq/brain/experimental/source_gate/adversarial_questions.json",
+      "moriq/brain/experimental/source_gate/gateway.py",
+      "moriq/brain/experimental/source_gate/review_evidence/.gitattributes",
+      "moriq/brain/experimental/source_gate/review_evidence/baseline-adversarial.json",
+      "moriq/brain/experimental/source_gate/review_evidence/baseline-hashes.json",
+      "moriq/brain/experimental/source_gate/review_evidence/baseline/README.md",
+      "moriq/brain/experimental/source_gate/review_evidence/baseline/RESULTS.md"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/replay-regression-before-fix.json",
+    "bytes": 1738,
+    "sha256": "0e992275d0e492f434aa0fa7994143c61fd16b0d21635fd35d801315db98a1ee",
+    "structure": [
+      "exit",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/lifecycle_evidence/validation.json",
+    "bytes": 8983,
+    "sha256": "2e0d459a77062908a0ceac1bb972c5d1a1e771e3d16d8cf4bc1784e625b81886",
+    "structure": [
+      "checks",
+      "prior_files_unchanged",
+      "frozen_hashes_match"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/.gitattributes",
+    "bytes": 29,
+    "sha256": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/acceptance-results.json",
+    "bytes": 5506,
+    "sha256": "29fccb96d860c87102a2ca7156d6ddbb5b531c2481af696059fa66fe72aefb22",
+    "structure": [
+      "frozen_checklist_sha256",
+      "environment",
+      "checks"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/initial-local-hashes.json",
+    "bytes": 5474,
+    "sha256": "2dedf370214d49cac3a7661441d35be87198b5568c7e322f6644a3161888379f",
+    "structure": [
+      "moriq/brain/experimental/source_gate/TASK_3_5.md",
+      "moriq/brain/experimental/source_gate/TASK_3_6_1.md",
+      "moriq/brain/experimental/source_gate/TASK_3_6_REVIEW.md",
+      "moriq/brain/experimental/source_gate/TASK_3_7_HARNESS_DESIGN.md",
+      "moriq/brain/experimental/source_gate/binding_evidence/.gitattributes",
+      "moriq/brain/experimental/source_gate/binding_evidence/before-regression.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/binding-fix.patch",
+      "moriq/brain/experimental/source_gate/binding_evidence/final-checks.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/initial-uncommitted-hashes.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/manifest.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/manifest.json",
+    "bytes": 663,
+    "sha256": "babf6b3fc8c2441d4340ac1425aa378301e8daebad9c007137c1a8105b3670a4",
+    "structure": [
+      ".gitattributes",
+      "acceptance-results.json",
+      "initial-local-hashes.json",
+      "overdue-parser-before-fix.json",
+      "preservation.json",
+      "source-hashes.json",
+      "validation.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/overdue-parser-before-fix.json",
+    "bytes": 1277,
+    "sha256": "3d292fd26066f92302a6012d8545f8aab2bc490270e01e0e0553f212d204597c",
+    "structure": [
+      "command",
+      "exit",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/preservation.json",
+    "bytes": 141,
+    "sha256": "5a8d17cae71e4babee7be2a19ef1b4586e5a524c14a5a498a2f9894efc4aa4a5",
+    "structure": [
+      "prior_experimental_files",
+      "initial_local_additions",
+      "frozen_checklist_and_design",
+      "all_match"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/source-hashes.json",
+    "bytes": 372,
+    "sha256": "d7aa28c9f667cc3c400db669f1574e8d9ea8324ca56403f80ae48f311bda8c24",
+    "structure": [
+      "mock_harness.py",
+      "mock_worker.py",
+      "test_mock_harness.py",
+      "TASK_3_8_MOCK_HARNESS.md"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_evidence/validation.json",
+    "bytes": 16656,
+    "sha256": "928860b8b349666e9616b7bcece37735d5d9ed3791c45772fc768fb28c664531",
+    "structure": "list[6]"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_harness.py",
+    "bytes": 9486,
+    "sha256": "696bcadd0cff67e1d1070d54b709a76259bc313a0ac083f225221bc0905af74c"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/mock_worker.py",
+    "bytes": 2743,
+    "sha256": "5439d0c8cb543d71c997b160f0a8a8452f17085d7e07029d85694f8c45517340"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task36_evidence/.gitattributes",
+    "bytes": 30,
+    "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task36_evidence/manifest.json",
+    "bytes": 384,
+    "sha256": "bef8bd650c2dbca32a312303f180ca3eb0a5ce294c83dedbecc6ba270da3375f",
+    "structure": [
+      ".gitattributes",
+      "review-test-hash.json",
+      "task-3.5-snapshot-hashes.json",
+      "validation.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task36_evidence/review-test-hash.json",
+    "bytes": 99,
+    "sha256": "d054fca98abf34cb73b512b77076f886b269105614479c6bec4409ce2c642793",
+    "structure": [
+      "test_task36_review.py"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task36_evidence/task-3.5-snapshot-hashes.json",
+    "bytes": 1733,
+    "sha256": "4a361a7ffc2fb96e3d37bdf36e187b69423ab7ce33bf24ce08589d3e6ddac3d5",
+    "structure": [
+      "moriq/brain/experimental/source_gate/TASK_3_5.md",
+      "moriq/brain/experimental/source_gate/boundary.py",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/.gitattributes",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/boundary-before-replay-fix.py.txt",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/frozen-suite-hashes.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/manifest.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/pre-implementation.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/prior-hashes.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/replay-regression-before-fix.json",
+      "moriq/brain/experimental/source_gate/lifecycle_evidence/validation.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task36_evidence/validation.json",
+    "bytes": 12154,
+    "sha256": "0f51ae3da0a196ee8eed4dc915722c7e1028fcab174fcd2bdb670d3afea0e4fa",
+    "structure": [
+      "checks",
+      "prior_files_unchanged",
+      "task35_files_unchanged"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_acceptance.json",
+    "bytes": 4859,
+    "sha256": "018666b01a643307a58b7cbc8d385a085ca2b85320886a176c5f4c0facef33e5",
+    "structure": [
+      "version",
+      "status",
+      "scope",
+      "checks"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/.gitattributes",
+    "bytes": 30,
+    "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/frozen-design-hashes.json",
+    "bytes": 203,
+    "sha256": "db380c1624403c8875a60fc36cf9e21d8d390f61f67a197161d1fc6692429473",
+    "structure": [
+      "task37_acceptance.json",
+      "TASK_3_7_HARNESS_DESIGN.md"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/initial-local-hashes.json",
+    "bytes": 4173,
+    "sha256": "ec061326d65c8cec698b413c97a5fa67ad15a23279f2839e127450f1d78a6546",
+    "structure": [
+      "moriq/brain/experimental/source_gate/TASK_3_5.md",
+      "moriq/brain/experimental/source_gate/TASK_3_6_1.md",
+      "moriq/brain/experimental/source_gate/TASK_3_6_REVIEW.md",
+      "moriq/brain/experimental/source_gate/binding_evidence/.gitattributes",
+      "moriq/brain/experimental/source_gate/binding_evidence/before-regression.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/binding-fix.patch",
+      "moriq/brain/experimental/source_gate/binding_evidence/final-checks.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/initial-uncommitted-hashes.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/manifest.json",
+      "moriq/brain/experimental/source_gate/binding_evidence/prior-suite-retry.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/manifest.json",
+    "bytes": 575,
+    "sha256": "777146b03b41e958982ded325794ae418adb3b5fe12f8938dafca73e95eb5dc1",
+    "structure": [
+      ".gitattributes",
+      "frozen-design-hashes.json",
+      "initial-local-hashes.json",
+      "preservation.json",
+      "prior-output-hashes.json",
+      "validation.json"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/preservation.json",
+    "bytes": 101,
+    "sha256": "7e4670e8ee246e45137edfff6c76f037824c1b9e7e730fb93cd606c46dda1291",
+    "structure": [
+      "tracked",
+      "initial_uncommitted",
+      "prior_outputs",
+      "all_unchanged"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/prior-output-hashes.json",
+    "bytes": 9165,
+    "sha256": "8c6b3adb4ea6d1343a6b3b035c82a1e49c89b31ac841ce55907f5b5fdb34697f",
+    "structure": [
+      "outputs\\task-3.1\\comparison.json",
+      "outputs\\task-3.1\\environment.json",
+      "outputs\\task-3.1\\Evaluation_Details.md",
+      "outputs\\task-3.1\\git-precommit-inspection.json",
+      "outputs\\task-3.1\\model-pull.json",
+      "outputs\\task-3.1\\models.json",
+      "outputs\\task-3.1\\moriq-brain-v02-q3-experimental.json",
+      "outputs\\task-3.1\\moriq-brain-v02-q35-experimental.json",
+      "outputs\\task-3.1\\publication.json",
+      "outputs\\task-3.1\\q3-continuation.jsonl"
+    ]
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/task37_evidence/validation.json",
+    "bytes": 14065,
+    "sha256": "b528acba1ef89a6953ca4284d2122c5b5ae04b573d20c799f64daa4afe958a1a",
+    "structure": "list[6]"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/test_lifecycle.py",
+    "bytes": 8302,
+    "sha256": "30818c995881097b9e9f5b1579b876eb3478c7a06f1749d06ccc46c5fe5f5337"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/test_lifecycle_edges.py",
+    "bytes": 5479,
+    "sha256": "e05d50dc52e5622c5c73e7cfff5e129705d2e0ff55f3e8bc455f4fd241c73205"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/test_mock_harness.py",
+    "bytes": 15533,
+    "sha256": "618cd60c44a7fc29f910204fd7cf06462eabf43cca7146f198c714f3f30fcb39"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/test_registry_binding.py",
+    "bytes": 4852,
+    "sha256": "e4c31b65c3b9e89612775bc8f27b7079da2b8b4c6acc168c07d48411564ac29e"
+  },
+  {
+    "path": "moriq/brain/experimental/source_gate/test_task36_review.py",
+    "bytes": 4382,
+    "sha256": "9c4f85c0a5908ee479e2735b1497d3d5cd7850cb5548961be0986d36cc62739e"
+  }
+]

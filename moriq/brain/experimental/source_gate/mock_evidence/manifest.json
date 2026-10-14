@@ -1,0 +1,9 @@
+{
+  ".gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+  "acceptance-results.json": "29fccb96d860c87102a2ca7156d6ddbb5b531c2481af696059fa66fe72aefb22",
+  "initial-local-hashes.json": "2dedf370214d49cac3a7661441d35be87198b5568c7e322f6644a3161888379f",
+  "overdue-parser-before-fix.json": "3d292fd26066f92302a6012d8545f8aab2bc490270e01e0e0553f212d204597c",
+  "preservation.json": "5a8d17cae71e4babee7be2a19ef1b4586e5a524c14a5a498a2f9894efc4aa4a5",
+  "source-hashes.json": "d7aa28c9f667cc3c400db669f1574e8d9ea8324ca56403f80ae48f311bda8c24",
+  "validation.json": "928860b8b349666e9616b7bcece37735d5d9ed3791c45772fc768fb28c664531"
+}

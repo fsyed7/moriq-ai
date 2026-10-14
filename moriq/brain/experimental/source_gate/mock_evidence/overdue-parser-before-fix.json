@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\faisa\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-m",
+    "unittest",
+    "test_mock_harness.HarnessAcceptanceTests.test_overdue_reply_parsing_is_discarded",
+    "-v"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "test_overdue_reply_parsing_is_discarded (test_mock_harness.HarnessAcceptanceTests.test_overdue_reply_parsing_is_discarded) ... FAIL\n\n======================================================================\nFAIL: test_overdue_reply_parsing_is_discarded (test_mock_harness.HarnessAcceptanceTests.test_overdue_reply_parsing_is_discarded)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\faisa\\Documents\\Codex\\2026-10-09\\moriq-ai-task-3-local-deployment\\work\\brain-reliability\\moriq\\brain\\experimental\\source_gate\\test_mock_harness.py\", line 328, in test_overdue_reply_parsing_is_discarded\n    self.assertEqual(self.public(harness, row()), 'generation_failed')\nAssertionError: 'review_required' != 'generation_failed'\n- review_required\n+ generation_failed\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.908s\n\nFAILED (failures=1)\n"
+}
