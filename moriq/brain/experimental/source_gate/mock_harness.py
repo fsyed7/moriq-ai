@@ -79,6 +79,8 @@ def reap(process, threads):
 
 
 class MockHarness:
+    _worker_file = 'mock_worker.py'
+
     def __init__(self, manifest_json, expected_sha256, credentials):
         if type(manifest_json) is not str or len(manifest_json.encode('utf-8')) > 1048576:
             raise ValueError('Invalid manifest')
@@ -190,7 +192,7 @@ class MockHarness:
         env = {k: os.environ[k] for k in ('SYSTEMROOT', 'WINDIR') if k in os.environ}
         flags = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
         process = subprocess.Popen(
-            [sys.executable, '-I', '-u', str(Path(__file__).with_name('mock_worker.py'))],
+            [sys.executable, '-I', '-u', str(Path(__file__).with_name(self._worker_file))],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

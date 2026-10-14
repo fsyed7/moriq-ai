@@ -1,0 +1,8 @@
+{
+  "prior_hashes_match": 67,
+  "frozen_H01_H16": "unchanged",
+  "existing_changed_files": [
+    "moriq/brain/experimental/source_gate/mock_harness.py"
+  ],
+  "baseline_commit": "6aa0ee581897bd345e7e143063d030b6dc181d01"
+}
