@@ -32,7 +32,7 @@ code. This repository supplies no live callback or executable inference path.
 | General question plus uploaded material | Clarify scope; do not forward untrusted material through the education exception. |
 | Fictional fixture | Never real authority; requires explicit trusted exercise mode and a matching fictional review. |
 
-The education list is intentionally closed and matched against the **whole**
+The education catalog and bounded grammar are intentionally closed and matched against the **whole**
 normalized question. Keyword searches label rejected requests; they never grant
 education access. An appended instruction, unknown language or clever code
 paraphrase therefore defaults to blocking, even if no risk keyword is recognized.
@@ -71,11 +71,13 @@ reusability for conservative scope; even harmless paraphrases need a new review.
 
 ## Citation gate and release boundary
 
-The callback returns a typed `Draft(text, source_ids)`. Required-source drafts
+The callback returns a typed `Draft(text, source_ids)`. The document sequence is
+snapshotted before validation so later caller mutation cannot change allowed IDs. Required-source drafts
 must have at least one exact ASCII `[id]`, all declared IDs must match the inline
 IDs, and every ID must belong to the reviewed evidence supplied on that request.
 Unknown, duplicate declared, missing, malformed and common Unicode-lookalike IDs
-are rejected. Bracket variants and model-written HTTP links are unsupported.
+are rejected. Bracket variants, HTML markup, Markdown citation links and model-written HTTP
+links (regardless of case) are unsupported.
 The exact `[source id="4"]` output from the screen is deliberately rejected.
 No automatic citation repair invents a connection between a claim and a source.
 
@@ -85,10 +87,13 @@ claim, numeric correctness, source truth, or absence of injection. Plain-text
 invented section names can evade citation parsing. A false claim with a valid
 [4] intentionally passes the syntax check in a regression test.
 
-Consequently **all model prose, including general education, is held as an
-internal `review_draft`**. `Result.answer` contains only fixed messages. There is
-no release method. A consuming UI must not render `review_draft` as a user answer
-or treat `review_required` as PASS. The model has no tools in this prototype;
+Consequently **no model prose is present in the returned `Result`**, including
+its dataclass serialization or representation. Trusted host code may configure
+`review_sink=callable` at gateway construction to receive a separate `ReviewerDraft`.
+With no sink, the draft is discarded. `Result.answer` contains only fixed messages.
+There is no release method. A consuming UI must never serialize the private sink
+item as a public response or treat `review_required` as PASS. The sink is a trusted
+capability, not an authenticated reviewer service; authorization remains unimplemented. The model has no tools in this prototype;
 source text is passed separately as untrusted evidence, with an instruction to
 ignore embedded commands. That instruction is not claimed to resist injection:
 the deterministic protection is no-call gating and no automatic draft release.
@@ -135,3 +140,10 @@ These are control-flow tests, not live behavior, legal correctness or latency te
    separate authorization. Keep CPU tests bounded, use one loaded model, preserve
    the deployed instance, and verify access control and prompt/source composition
    in an isolated environment before considering deployment or merge.
+
+## Task 3.4 review
+
+See `REVIEW_TASK_3_4.md` for five reproduced defects, isolated fixes, frozen
+adversarial baseline/post-fix results and the live-screen go/no-go decision.
+The Task 3.3 `RESULTS.md` and `validation.json` are preserved historical evidence;
+the returned-draft contract described there was superseded by this review.
