@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "status": "FROZEN DESIGN; HARNESS NOT IMPLEMENTED",
+  "scope": "Offline fake transports first; no inference authorization",
+  "checks": [
+    {
+      "id": "H01",
+      "name": "Default offline mode",
+      "acceptance": "Replace all socket/HTTP entry points with failing spies; constructing and running fake fixtures performs zero network calls.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H02",
+      "name": "Source gaps",
+      "acceptance": "Paraphrased, mixed, company and compliance requests without eligible evidence launch no worker and make zero provider calls; public output is fixed.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H03",
+      "name": "Public output isolation",
+      "acceptance": "Inject distinct sentinels into successful replies, malformed JSON, unknown fields/statuses, exceptions, paths and logs; no sentinel or review_draft field appears in public bytes.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H04",
+      "name": "Native stdout/stderr",
+      "acceptance": "A fake worker uses print, logging and os.write on both descriptors; capture separately, reject contaminated protocol, never inherit/forward to public output.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H05",
+      "name": "Bounds and parser",
+      "acceptance": "Oversized input/stdout/stderr, duplicate JSON keys, multiple replies, trailing bytes, missing fields and invalid types fail closed within configured memory/time limits.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H06",
+      "name": "Streaming and partial failure",
+      "acceptance": "Fake partial chunks, truncated output, tool calls, missing terminal completion and error after content yield no stored/viewable draft and no public tokens.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H07",
+      "name": "Cancellation",
+      "acceptance": "Cancel while fake worker is blocked; join/terminate worker, discard partial output, latch batch stopped; second request cannot run until separate operator reset/new batch.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H08",
+      "name": "Deadline",
+      "acceptance": "Fake silent reads, slow endless chunks and simulated overdue completion hit controller deadline independent of reads; late response is discarded and batch stops.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H09",
+      "name": "Concurrency",
+      "acceptance": "Two simultaneous submissions produce at most one active worker/provider call; other request fails with fixed busy status and is not queued.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H10",
+      "name": "Reviewer boundary",
+      "acceptance": "Missing/wrong/author-only authorization never invokes private serialization; no public command/path reaches view or debug state; private drafts remain inert data.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H11",
+      "name": "Attestation races",
+      "acceptance": "Revoke, expire or supersede evidence during fake generation; result never enters private viewing; registry substitution, legacy and replay regressions remain passing.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H12",
+      "name": "Citation integrity",
+      "acceptance": "Malformed/missing/fabricated IDs reject; valid IDs on a false claim do not mark it factual or release it; adapter does not repair/invent source IDs.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H13",
+      "name": "Manifest and provider configuration",
+      "acceptance": "Changed hash/count/model/endpoint/tools/options fails before launch; caller/source/model text cannot select URL, shell command, credentials or worker settings.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H14",
+      "name": "Private artifacts and credentials",
+      "acceptance": "Worker receives no signing key or reviewer token; public logs contain only fixed events; no raw persistence by default; any later raw export requires verified operator-only access.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H15",
+      "name": "Preservation and measured results",
+      "acceptance": "Existing 77 tests and hashes remain valid; save each harness check result separately. Mock latency is not model latency; denied calls are not completed answers.",
+      "harness_result": "NOT RUN"
+    },
+    {
+      "id": "H16",
+      "name": "Live approval barrier",
+      "acceptance": "No fake-mode path enables live transport. All checks PASS and exact tiny manifest/configuration require explicit separate approval before first provider connection.",
+      "harness_result": "NOT RUN"
+    }
+  ]
+}

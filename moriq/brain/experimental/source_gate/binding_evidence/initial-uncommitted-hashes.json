@@ -1,0 +1,21 @@
+{
+  "moriq/brain/experimental/source_gate/TASK_3_5.md": "11469d9557aa1ee0e6c4e43279eab15e1a86b933f75501444d68ff411cd304bf",
+  "moriq/brain/experimental/source_gate/TASK_3_6_REVIEW.md": "26ae587e37b03bafae7038badc8c219314fed3c9c918cc611743c9df33b1c902",
+  "moriq/brain/experimental/source_gate/boundary.py": "defbaf530f052193d8acd377441a3c49095ac5c1ba10703fc4f33d97bdad04e5",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/.gitattributes": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/boundary-before-replay-fix.py.txt": "585678aa95d65f0ef6f872408159218fd226bd0c9da7f30481e515f20812ad52",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/frozen-suite-hashes.json": "2543db06ffb391d3182ede617d47bc2e045684e398222195b9c9e96c4839ca77",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/manifest.json": "97ed574787d1ca832bf362d63778bf120825cecfe5bb14a258ef7e6c616c2b90",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/pre-implementation.json": "b818c82f81f2523bfe6fa4fe88fd9b420a07b65b677f39cbcbd8d2f74191c08e",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/prior-hashes.json": "7f769e9606b084599eb9fdf429d948c1252c217f9d87caa216f0d351b852b183",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/replay-regression-before-fix.json": "0e992275d0e492f434aa0fa7994143c61fd16b0d21635fd35d801315db98a1ee",
+  "moriq/brain/experimental/source_gate/lifecycle_evidence/validation.json": "2e0d459a77062908a0ceac1bb972c5d1a1e771e3d16d8cf4bc1784e625b81886",
+  "moriq/brain/experimental/source_gate/task36_evidence/.gitattributes": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8",
+  "moriq/brain/experimental/source_gate/task36_evidence/manifest.json": "bef8bd650c2dbca32a312303f180ca3eb0a5ce294c83dedbecc6ba270da3375f",
+  "moriq/brain/experimental/source_gate/task36_evidence/review-test-hash.json": "d054fca98abf34cb73b512b77076f886b269105614479c6bec4409ce2c642793",
+  "moriq/brain/experimental/source_gate/task36_evidence/task-3.5-snapshot-hashes.json": "4a361a7ffc2fb96e3d37bdf36e187b69423ab7ce33bf24ce08589d3e6ddac3d5",
+  "moriq/brain/experimental/source_gate/task36_evidence/validation.json": "0f51ae3da0a196ee8eed4dc915722c7e1028fcab174fcd2bdb670d3afea0e4fa",
+  "moriq/brain/experimental/source_gate/test_lifecycle.py": "30818c995881097b9e9f5b1579b876eb3478c7a06f1749d06ccc46c5fe5f5337",
+  "moriq/brain/experimental/source_gate/test_lifecycle_edges.py": "e05d50dc52e5622c5c73e7cfff5e129705d2e0ff55f3e8bc455f4fd241c73205",
+  "moriq/brain/experimental/source_gate/test_task36_review.py": "9c4f85c0a5908ee479e2735b1497d3d5cd7850cb5548961be0986d36cc62739e"
+}

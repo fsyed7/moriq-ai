@@ -1,0 +1,11 @@
+{
+  "commit": "05a7d9de721bc81da51e5198bef2aed49272b98d",
+  "source_gate": {
+    "gateway.py": "15415db2d08a37a496b7217d1f228bf57e3f75068af3e416ad71d9c3f194ebc2",
+    "README.md": "ea8bedbb1662dfc3df20baa4260fece60d02bee736ca5a9635a024824df01ec6",
+    "RESULTS.md": "b84b73be6133b9398d349ddf261e8c3fa9817077823bd34a3f3c0ae002ec5249",
+    "test_gateway.py": "2881e091b1a8e9a0a8c6f1cf978973ab037d74624ebd34f7aa1760f4ca711b62",
+    "validation.json": "30bb6b1f5eeb7a7ae74bc9a25e1e52d79f4a8d055c8c850548624d7184edd7f6"
+  },
+  "previous_evidence_files_verified": 31
+}

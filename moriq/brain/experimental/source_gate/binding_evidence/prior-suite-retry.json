@@ -1,0 +1,32 @@
+[
+  {
+    "name": "v02",
+    "command": [
+      "C:\\Users\\faisa\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "moriq/brain/experimental/v02",
+      "-v"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "test_artifact_is_disabled_private_and_separate (test_experiment.ExperimentTests.test_artifact_is_disabled_private_and_separate) ... ok\ntest_cases_retain_all_fixture_ids_and_original_inputs (test_experiment.ExperimentTests.test_cases_retain_all_fixture_ids_and_original_inputs) ... ok\ntest_cli_refuses_overwrite (test_experiment.ExperimentTests.test_cli_refuses_overwrite) ... ok\ntest_prompt_pairs_keep_identical_provider_settings_and_question (test_experiment.ExperimentTests.test_prompt_pairs_keep_identical_provider_settings_and_question) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.445s\n\nOK\n"
+  },
+  {
+    "name": "brain",
+    "command": [
+      "C:\\Users\\faisa\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "moriq/brain/tests",
+      "-v"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "test_cli_exports_import_array_from_another_directory_and_does_not_overwrite (test_brain.BuildTests.test_cli_exports_import_array_from_another_directory_and_does_not_overwrite) ... ok\ntest_invalid_cli_does_not_create_artifact (test_brain.BuildTests.test_invalid_cli_does_not_create_artifact) ... ok\ntest_invalid_or_self_referencing_base_model_is_rejected (test_brain.BuildTests.test_invalid_or_self_referencing_base_model_is_rejected) ... ok\ntest_provider_selection_does_not_change_behavior (test_brain.BuildTests.test_provider_selection_does_not_change_behavior) ... ok\ntest_version_mismatch_is_rejected (test_brain.BuildTests.test_version_mismatch_is_rejected) ... ok\ntest_empty_chat_receives_system_prompt (test_brain.UpstreamCompositionTests.test_empty_chat_receives_system_prompt) ... ok\ntest_prompt_preserves_existing_context_citations_and_non_system_payload (test_brain.UpstreamCompositionTests.test_prompt_preserves_existing_context_citations_and_non_system_payload) ... ok\ntest_generated_model_validates_without_dropping_prompt_or_access_settings (test_brain.UpstreamSchemaTests.test_generated_model_validates_without_dropping_prompt_or_access_settings) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 1.028s\n\nOK\n"
+  }
+]

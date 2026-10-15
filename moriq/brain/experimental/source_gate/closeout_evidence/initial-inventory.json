@@ -1,0 +1,54 @@
+{
+  "moriq/brain/experimental/source_gate/TASK_3_9_HTTP_TRANSPORT.md": {
+    "sha256": "5fdcdbde09268ced10aec3a56d354246fb824b4cf0e16dc26690d0cd6c677f84",
+    "bytes": 9944
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/.gitattributes": {
+    "sha256": "f06202a408fef9b9ea69bb6b1cb8160dbb0378c5bb67a444d510d231813824c8",
+    "bytes": 30
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/baseline.json": {
+    "sha256": "5d0be9b8667cfc8e1c41b5d618bd6307c4e19c59588b59bbf67efc3f0562e571",
+    "bytes": 195
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/initial-http-tests.json": {
+    "sha256": "f715cdddb49d862b0133903b52c75e0b462971a68a8869108cb8b519b084af27",
+    "bytes": 1759
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/manifest.json": {
+    "sha256": "c3829d7a09ddad6863c33e2446ddf9904715ed5c42e052b9c647201cfe440e4a",
+    "bytes": 654
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/mock_harness.before.py.txt": {
+    "sha256": "696bcadd0cff67e1d1070d54b709a76259bc313a0ac083f225221bc0905af74c",
+    "bytes": 9486
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/preservation.json": {
+    "sha256": "98aa0d0f76966809cf1c7799f07ab103e67540b16987bdae22900586e0bb3c6f",
+    "bytes": 229
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/source-hashes.json": {
+    "sha256": "fa7bfe62061684860997050781206af84dcf3f1e838077757013c5876d8e00e8",
+    "bytes": 484
+  },
+  "moriq/brain/experimental/source_gate/http_evidence/validation.json": {
+    "sha256": "951df1457c4ac62892ca62d91c766d181494017230fdea7296596ff59f01bd9e",
+    "bytes": 18513
+  },
+  "moriq/brain/experimental/source_gate/http_fixture_harness.py": {
+    "sha256": "214b837efa5505ef7e243392d4544c879d88faa182254094fe0a1ba9b322d39b",
+    "bytes": 706
+  },
+  "moriq/brain/experimental/source_gate/http_fixture_worker.py": {
+    "sha256": "294c52beac6038c55f6fe39d9c1d2f6f279b21dc2988bcdbf202c250d28d59b2",
+    "bytes": 7875
+  },
+  "moriq/brain/experimental/source_gate/test_http_fixture.py": {
+    "sha256": "0fe5b6b5ef7b2338e1900aa3d78e094139cd43d037fe888c3aca30b3711bdf19",
+    "bytes": 12731
+  },
+  "moriq/brain/experimental/source_gate/mock_harness.py": {
+    "sha256": "e587c2fa09fb5a0f716e83f50e243f2d14fd3c940b32065aefd441444463f3d6",
+    "bytes": 9526
+  }
+}

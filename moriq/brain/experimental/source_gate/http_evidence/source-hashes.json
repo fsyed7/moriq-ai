@@ -1,0 +1,7 @@
+{
+  "mock_harness.py": "e587c2fa09fb5a0f716e83f50e243f2d14fd3c940b32065aefd441444463f3d6",
+  "http_fixture_harness.py": "214b837efa5505ef7e243392d4544c879d88faa182254094fe0a1ba9b322d39b",
+  "http_fixture_worker.py": "294c52beac6038c55f6fe39d9c1d2f6f279b21dc2988bcdbf202c250d28d59b2",
+  "test_http_fixture.py": "0fe5b6b5ef7b2338e1900aa3d78e094139cd43d037fe888c3aca30b3711bdf19",
+  "TASK_3_9_HTTP_TRANSPORT.md": "5fdcdbde09268ced10aec3a56d354246fb824b4cf0e16dc26690d0cd6c677f84"
+}

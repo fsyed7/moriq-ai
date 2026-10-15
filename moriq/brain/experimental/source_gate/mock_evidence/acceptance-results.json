@@ -1,0 +1,138 @@
+{
+  "frozen_checklist_sha256": "018666b01a643307a58b7cbc8d385a085ca2b85320886a176c5f4c0facef33e5",
+  "environment": "Windows, deterministic subprocess fake outputs; no inference",
+  "checks": [
+    {
+      "id": "H01",
+      "acceptance": "Replace all socket/HTTP entry points with failing spies; constructing and running fake fixtures performs zero network calls.",
+      "result": "PASS",
+      "evidence": [
+        "test_H01 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H02",
+      "acceptance": "Paraphrased, mixed, company and compliance requests without eligible evidence launch no worker and make zero provider calls; public output is fixed.",
+      "result": "PASS",
+      "evidence": [
+        "test_H02 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H03",
+      "acceptance": "Inject distinct sentinels into successful replies, malformed JSON, unknown fields/statuses, exceptions, paths and logs; no sentinel or review_draft field appears in public bytes.",
+      "result": "PASS",
+      "evidence": [
+        "test_H03 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H04",
+      "acceptance": "A fake worker uses print, logging and os.write on both descriptors; capture separately, reject contaminated protocol, never inherit/forward to public output.",
+      "result": "PASS",
+      "evidence": [
+        "test_H04 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H05",
+      "acceptance": "Oversized input/stdout/stderr, duplicate JSON keys, multiple replies, trailing bytes, missing fields and invalid types fail closed within configured memory/time limits.",
+      "result": "PASS",
+      "evidence": [
+        "test_H05 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H06",
+      "acceptance": "Fake partial chunks, truncated output, tool calls, missing terminal completion and error after content yield no stored/viewable draft and no public tokens.",
+      "result": "PASS",
+      "evidence": [
+        "test_H06 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H07",
+      "acceptance": "Cancel while fake worker is blocked; join/terminate worker, discard partial output, latch batch stopped; second request cannot run until separate operator reset/new batch.",
+      "result": "PASS",
+      "evidence": [
+        "test_H07 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H08",
+      "acceptance": "Fake silent reads, slow endless chunks and simulated overdue completion hit controller deadline independent of reads; late response is discarded and batch stops.",
+      "result": "PASS",
+      "evidence": [
+        "test_H08 in test_mock_harness.py",
+        "test_overdue_reply_parsing_is_discarded"
+      ]
+    },
+    {
+      "id": "H09",
+      "acceptance": "Two simultaneous submissions produce at most one active worker/provider call; other request fails with fixed busy status and is not queued.",
+      "result": "PASS",
+      "evidence": [
+        "test_H09 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H10",
+      "acceptance": "Missing/wrong/author-only authorization never invokes private serialization; no public command/path reaches view or debug state; private drafts remain inert data.",
+      "result": "PASS",
+      "evidence": [
+        "test_H10 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H11",
+      "acceptance": "Revoke, expire or supersede evidence during fake generation; result never enters private viewing; registry substitution, legacy and replay regressions remain passing.",
+      "result": "PASS",
+      "evidence": [
+        "test_H11 in test_mock_harness.py",
+        "test_invalid_attestations_never_launch_worker",
+        "existing lifecycle and registry binding suites"
+      ]
+    },
+    {
+      "id": "H12",
+      "acceptance": "Malformed/missing/fabricated IDs reject; valid IDs on a false claim do not mark it factual or release it; adapter does not repair/invent source IDs.",
+      "result": "PASS",
+      "evidence": [
+        "test_H12 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H13",
+      "acceptance": "Changed hash/count/model/endpoint/tools/options fails before launch; caller/source/model text cannot select URL, shell command, credentials or worker settings.",
+      "result": "PASS",
+      "evidence": [
+        "test_H13 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H14",
+      "acceptance": "Worker receives no signing key or reviewer token; public logs contain only fixed events; no raw persistence by default; any later raw export requires verified operator-only access.",
+      "result": "PASS",
+      "evidence": [
+        "test_H14 in test_mock_harness.py"
+      ]
+    },
+    {
+      "id": "H15",
+      "acceptance": "Existing 77 tests and hashes remain valid; save each harness check result separately. Mock latency is not model latency; denied calls are not completed answers.",
+      "result": "PASS",
+      "evidence": [
+        "test_H15 in test_mock_harness.py",
+        "all four suites and preservation.json"
+      ]
+    },
+    {
+      "id": "H16",
+      "acceptance": "No fake-mode path enables live transport. All checks PASS and exact tiny manifest/configuration require explicit separate approval before first provider connection.",
+      "result": "PASS",
+      "evidence": [
+        "test_H16 in test_mock_harness.py"
+      ]
+    }
+  ]
+}

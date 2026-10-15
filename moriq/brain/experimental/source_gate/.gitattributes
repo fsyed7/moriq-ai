@@ -1,0 +1,21 @@
+# Preserve frozen Task 3.5-3.8 bytes across checkout platforms.
+TASK_3_5.md -text whitespace=cr-at-eol
+TASK_3_6_1.md -text whitespace=cr-at-eol
+TASK_3_6_REVIEW.md -text whitespace=cr-at-eol
+TASK_3_7_HARNESS_DESIGN.md -text whitespace=cr-at-eol
+TASK_3_8_MOCK_HARNESS.md -text whitespace=cr-at-eol
+boundary.py -text whitespace=cr-at-eol
+mock_harness.py -text whitespace=cr-at-eol
+mock_worker.py -text whitespace=cr-at-eol
+task37_acceptance.json -text whitespace=cr-at-eol
+test_lifecycle.py -text whitespace=cr-at-eol
+test_lifecycle_edges.py -text whitespace=cr-at-eol
+test_mock_harness.py -text whitespace=cr-at-eol
+test_registry_binding.py -text whitespace=cr-at-eol
+test_task36_review.py -text whitespace=cr-at-eol
+
+# Preserve Task 3.9 source/report hashes.
+http_fixture_harness.py -text whitespace=cr-at-eol
+http_fixture_worker.py -text whitespace=cr-at-eol
+test_http_fixture.py -text whitespace=cr-at-eol
+TASK_3_9_HTTP_TRANSPORT.md -text whitespace=cr-at-eol
