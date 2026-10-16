@@ -105,3 +105,75 @@ retrieval, exact jurisdiction/edition filters and disabled Task 3 integration.
 
 No database, embeddings, models, new dependencies, scraping, production deployment,
 Docker, WebUI, paid service or Task 5 work is included.
+
+## Task 4.3 — lexical-v1 and structured citations
+
+Task 4.3 supersedes the retrieval return contract described above. `retrieve`
+returns a `RetrievalResult` with `status`, fixed `reason`, `hits` and trusted
+request `context`. Every result has `claim_status='not_assessed'` and
+`release_allowed=False`. There is no answer field, generation callback or public
+adapter. Non-passage results have no hits. Invalid inputs return fixed statuses.
+
+Scope defaults to `general` (educational/guidance only). `scope='code'` requires
+both exact jurisdiction and edition; missing scope is an evidence gap. Company
+and mixed scope are unsupported; conservative company-query sentinels also gap.
+No query routing or source review establishes company/code authority.
+
+Matching uses Unicode casefolding followed by the specified ASCII `[a-z0-9]+`
+tokenizer. Original Unicode text, CRLF and code-point offsets are unchanged;
+there is no NFC/NFKC, stemming or multilingual-tokenizer promise. Every non-stop
+query token must occur in the body. Titles cannot qualify a passage. Rank by
+contiguous phrase, exact rational match density, then source/document/start/chunk
+identity. Exact text duplicates within type/jurisdiction/edition share one
+representative. Contradictory or merely similar text is not merged.
+
+Each retrieval uses a locked, bounded integrity snapshot. It verifies original
+byte hash, contiguous offsets, content hashes, existing document/chunk identity
+algorithms and current approved/active provenance. No persistent index is built.
+A monotonic process-local write counter detects intervening registry operations;
+any write conservatively produces a stale-snapshot gap, including writes outside
+the query scope. This can over-refuse but never reuses a stale ranking. Previously
+returned bytes cannot be recalled. Host-private dictionary tampering is not a
+supported update path or a security boundary against arbitrary Python execution.
+
+Hard retrieval limits: 100 ingested documents, 10,000 chunks, 10,000,000 UTF-8
+bytes; query 512 code points, 64 raw tokens, 32 retained distinct terms; k=1–20,
+default 5. Corpus checks happen before flattening/hash/tokenization. The existing
+per-document byte limit is unchanged. These bounds do not provide a hostile-user
+quota for the underlying registry's number of pending proposals.
+
+`validate_references(registry, result, references)` in `citations.py` accepts a
+list/tuple of dictionaries containing exactly `source_id`, `document_id` and
+`chunk_id`. Pass the original host-held retrieval result; never accept a result
+or allowlist from an untrusted upload. It checks membership in selected hits,
+current provenance, scope, offsets and hashes using a new integrity snapshot.
+
+The citation status contract is exactly:
+
+- `resource_limit`: more than 20 submitted references, checked BEFORE elements,
+  registry or result context, even if entries are malformed. No truncation.
+- `references_invalid`: within the count limit, but empty, malformed, duplicate,
+  unselected, mismatched, stale, withdrawn or otherwise unresolvable references.
+- `references_valid`: all submitted references resolve to current selected hits.
+
+Within-limit registry resource/integrity failure produces `references_invalid`,
+not `resource_limit`; only excessive submitted-reference count uses that status.
+All failures return no validated references. Citation validity is structural,
+never semantic entailment; even a valid citation on a false sentence cannot
+release an answer. Task 3 remains entirely separate and its adapter disabled.
+
+`evaluation/task43-v1.json` preserves all 44 scope-v1 rows verbatim, exact
+synthetic fixtures and independently calculated IDs. It records the original
+specification and authorized v2 clarification hashes. `test_citations.py` maps
+one named test to each row, plus explicit 20/21 count precedence, Unicode/offset
+and manifest regressions. Existing retrieval tests were migrated for explicit
+results and no title weighting; safety assertions remain. No Task 3 files changed.
+
+The 2026-10-16 specification correction only adds the third citation status and
+count-first precedence. Original specification SHA-256:
+`589e778966d3094ee12b8ac1fd44afc1ad854090921dedb5b2afd2d67e663e9a`.
+Corrected specification (v1 bytes + LF + authorized addendum bytes) SHA-256:
+`e4c8e7f0158873920c4a557f7910f4154c93a2befa44c38a21e6a885cbdd5df3`.
+
+No real-source correctness, production identity, durable audit, automatic expiry,
+semantic relevance or live inference is established by this synthetic checkpoint.

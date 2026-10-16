@@ -14,6 +14,17 @@ from urllib.parse import urlsplit
 
 MAX_BYTES = 1_000_000
 CHUNK_CHARS = 1200
+MAX_DOCUMENTS = 100
+MAX_CHUNKS = 10_000
+MAX_CORPUS_BYTES = 10_000_000
+
+
+class SnapshotLimit(ValueError):
+    pass
+
+
+class SnapshotIntegrity(ValueError):
+    pass
 
 
 def sha256(data: bytes) -> str:
@@ -89,6 +100,7 @@ class Registry:
         self._records = {}
         self._chunks = {}
         self._lock = threading.RLock()
+        self._epoch = 0
 
     def _auth(self, token, role):
         if type(token) is not str or token not in self._credentials:
@@ -155,6 +167,7 @@ class Registry:
             record = SourceRecord(metadata, document_id, actor, version)
             self._records[metadata.source_id] = record
             self._chunks.pop(metadata.source_id, None)
+            self._epoch += 1
             return record
 
     def inspect(self, token, source_id) -> SourceRecord:
@@ -178,6 +191,7 @@ class Registry:
                 reviewer=actor,
                 reviewed_at=dt.datetime.now(dt.UTC).isoformat(),
             )
+            self._epoch += 1
 
     def withdraw(self, token, source_id, *, state='revoked') -> None:
         self._auth(token, 'reviewer')
@@ -189,6 +203,7 @@ class Registry:
                 raise ValueError('Already withdrawn.')
             self._records[source_id] = replace(record, lifecycle=state, review_status='withdrawn')
             self._chunks.pop(source_id, None)
+            self._epoch += 1
 
     def ingest(self, token, source_id, content: bytes) -> tuple[Chunk, ...]:
         self._auth(token, 'author')
@@ -213,7 +228,90 @@ class Registry:
                 )
                 chunks.append(Chunk(chunk_id, record.document_id, source_id, start, end, digest, body, record))
             self._chunks[source_id] = tuple(chunks)
+            self._epoch += 1
             return tuple(chunks)
+
+    def _snapshot_bounds(self):
+        # Check budgets before flattening, hashing or tokenizing the corpus.
+        if len(self._chunks) > MAX_DOCUMENTS:
+            raise SnapshotLimit('corpus_limit')
+        count = 0
+        size = 0
+        for chunks in self._chunks.values():
+            if type(chunks) is not tuple:
+                raise SnapshotIntegrity('integrity_error')
+            count += len(chunks)
+            if count > MAX_CHUNKS:
+                raise SnapshotLimit('corpus_limit')
+            for chunk in chunks:
+                if type(chunk) is not Chunk or type(chunk.text) is not str or len(chunk.text) > CHUNK_CHARS:
+                    raise SnapshotIntegrity('integrity_error')
+                size += len(chunk.text.encode('utf-8'))
+                if size > MAX_CORPUS_BYTES:
+                    raise SnapshotLimit('corpus_limit')
+
+    def _verify_document(self, key, chunks):
+        record = self._records[key]
+        self._validate(record.metadata)
+        if (
+            type(record) is not SourceRecord
+            or record.metadata.source_id != key
+            or record.lifecycle != 'active'
+            or record.review_status != 'approved'
+            or not record.reviewer
+            or record.reviewer == record.creator
+            or not record.reviewed_at
+            or type(record.version) is not int
+            or record.version < 1
+            or not chunks
+        ):
+            raise SnapshotIntegrity('integrity_error')
+        if record.document_id != fingerprint({'metadata': asdict(record.metadata), 'version': record.version}):
+            raise SnapshotIntegrity('integrity_error')
+        position, byte_count = 0, 0
+        whole = hashlib.sha256()
+        for chunk in chunks:
+            if (
+                type(chunk.start) is not int
+                or type(chunk.end) is not int
+                or chunk.start != position
+                or chunk.end != position + len(chunk.text)
+                or not chunk.text
+                or chunk.source_id != key
+                or chunk.document_id != record.document_id
+                or chunk.provenance != record
+            ):
+                raise SnapshotIntegrity('integrity_error')
+            data = chunk.text.encode('utf-8')
+            digest = sha256(data)
+            identity = fingerprint(
+                {'document_id': record.document_id, 'start': chunk.start, 'end': chunk.end, 'sha256': digest}
+            )
+            if digest != chunk.content_sha256 or identity != chunk.chunk_id:
+                raise SnapshotIntegrity('integrity_error')
+            whole.update(data)
+            byte_count += len(data)
+            position = chunk.end
+        if byte_count > MAX_BYTES or whole.hexdigest() != record.metadata.content_sha256:
+            raise SnapshotIntegrity('integrity_error')
+
+    def snapshot(self) -> tuple[int, tuple[Chunk, ...]]:
+        """Bounded, integrity-checked snapshot for trusted offline consumers only."""
+        with self._lock:
+            try:
+                self._snapshot_bounds()
+                for key, chunks in self._chunks.items():
+                    self._verify_document(key, chunks)
+                return self._epoch, tuple(c for chunks in self._chunks.values() for c in chunks)
+            except SnapshotLimit:
+                raise
+            except (ValueError, TypeError, KeyError, AttributeError, UnicodeError) as exc:
+                raise SnapshotIntegrity('integrity_error') from exc
+
+    def current(self, epoch: int) -> bool:
+        """Any intervening registry write conservatively invalidates the snapshot."""
+        with self._lock:
+            return type(epoch) is int and epoch == self._epoch
 
     def chunks(self) -> tuple[Chunk, ...]:
         """Current approved public passages, never pending bodies."""
