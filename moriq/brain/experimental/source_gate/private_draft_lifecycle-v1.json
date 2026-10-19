@@ -1,0 +1,198 @@
+{
+  "spec": {
+    "original_sha256": "a4c1ca5707ff725728223871d2edcc4d6844a8213cdc59c3c6d338a5d6c48f78",
+    "addendum_sha256": "9e00006deee5696cb8c4cee9cbcc26c42b80b45e12dd0c6662a7dcfb870b173f",
+    "composite_sha256": "7459dd0df22da226d5f9db557c220803039fa839fe39c67fde8b982808ef1d60",
+    "matrix_sha256": "b1a55b1e1dd084ba497cf0690f77df332669515687649547897978ecfb547dc9",
+    "composition": "original bytes + LF + addendum bytes"
+  },
+  "cases": [
+    {
+      "id": "B01",
+      "verbatim_row": "| B01 | Healthy default; begin, complete, issue permit, private view | V(F); second use of same permit D; no public text. |"
+    },
+    {
+      "id": "B02",
+      "verbatim_row": "| B02 | Unknown credential, bare string `PV`, SA, IR, AP and QR each attempt private access | D in all six variants, no content serialization; original PV permit remains unused. |"
+    },
+    {
+      "id": "B03",
+      "verbatim_row": "| B03 | Valid PV credential with missing audience grant, or grant for another draft | D in both variants; no permit minted. |"
+    },
+    {
+      "id": "B04",
+      "verbatim_row": "| B04 | After permit issuance revoke PV grant, or increment grant version | D in both variants; no copy event. |"
+    },
+    {
+      "id": "B05",
+      "verbatim_row": "| B05 | Revoke s-a after retrieval and before complete | Complete denied; reservation consumed, no held draft; view D. |"
+    },
+    {
+      "id": "B06",
+      "verbatim_row": "| B06 | Retire s-a, or supersede s-a, after holding F | D for each state; old draft terminally invalidated. |"
+    },
+    {
+      "id": "B07",
+      "verbatim_row": "| B07 | Revoke applicability after successful preflight and before view | D despite active source; no copy event. |"
+    },
+    {
+      "id": "B08",
+      "verbatim_row": "| B08 | Supersede applicability with independently approved successor | Old draft/permit D; new reservation using successor may complete and yield V(F) after fresh grant/permit. |"
+    },
+    {
+      "id": "B09",
+      "verbatim_row": "| B09 | No source lease; then separately exact lease expiry T+600 | D for each; source's Registry approval alone never suffices. |"
+    },
+    {
+      "id": "B10",
+      "verbatim_row": "| B10 | New held draft with long enough lease at 2026-10-17 noon, then new attempt on 2026-10-18 | First V(F) before draft/permit TTL; second D because Task 3 inclusive expiry has elapsed. Use fresh reservations to avoid confusing TTL with attestation expiry. |"
+    },
+    {
+      "id": "B11",
+      "verbatim_row": "| B11 | Permit deadline T+30; view at T+29 and separately at T+30 | V(F) at T+29; D at T+30 in separate fresh runs. |"
+    },
+    {
+      "id": "B12",
+      "verbatim_row": "| B12 | Hold F, advance to its draft deadline T+300, obtain/view permit | D; no new permit and no resurrection. |"
+    },
+    {
+      "id": "B13",
+      "verbatim_row": "| B13 | Change exact question by space, case or punctuation after holding | D for each old binding even when altered request is separately allowlisted. |"
+    },
+    {
+      "id": "B14",
+      "verbatim_row": "| B14 | Change jurisdiction to Testland-B or edition to E2 | D for both; no fallback to old or unfiltered evidence. |"
+    },
+    {
+      "id": "B15",
+      "verbatim_row": "| B15 | Change query to `stair`, retaining exact question | D for old binding; new review required even if same passage selected. |"
+    },
+    {
+      "id": "B16",
+      "verbatim_row": "| B16 | Repropose/approve/ingest same bytes under new document identity | Old held draft D; unchanged byte hash cannot resurrect old authority. |"
+    },
+    {
+      "id": "B17",
+      "verbatim_row": "| B17 | Test-only corruption of chunk text, hash, start offset or source/chunk association | D in all four variants through fresh registry/preflight integrity checks; no copy event. |"
+    },
+    {
+      "id": "B18",
+      "verbatim_row": "| B18 | Test-only corruption of held text or replacement citation alias `99` | D in both variants by fixture/hash/citation checks. |"
+    },
+    {
+      "id": "B19",
+      "verbatim_row": "| B19 | Restart with new empty owner; submit old draft/reservation/permit/attestation IDs | D in all variants; no imported approvals, no held text in new owner. |"
+    },
+    {
+      "id": "B20",
+      "verbatim_row": "| B20 | Replay consumed complete handle; replay consumed view permit | D for each; at most one retention and one copy event respectively. |"
+    },
+    {
+      "id": "B21",
+      "verbatim_row": "| B21 | Two sources selected; only first has applicability approval | Begin D; zero held draft, no partial output. |"
+    },
+    {
+      "id": "B22",
+      "verbatim_row": "| B22 | Two sources selected; both approved, leased and correctly bound | V of exact multi-source fixture; two current attestation versions bound. |"
+    },
+    {
+      "id": "B23",
+      "verbatim_row": "| B23 | Caller adds mode/exercise/reviewed flags; mixed fictional and non-fictional review; real-document fixture substitution | D for each variant; no mode switch or authority creation. |"
+    },
+    {
+      "id": "B24",
+      "verbatim_row": "| B24 | Use s-inject with authorized synthetic approvals and a pinned F fixture | V(F) allowed structurally; source instructions cause zero command, generator, view, worker or network calls; no role/state change. |"
+    },
+    {
+      "id": "B25",
+      "verbatim_row": "| B25 | Authorized fixture X with valid alias | V(X) remains claim_status not_assessed and release_allowed false; no factual-verification flag, no public X. |"
+    },
+    {
+      "id": "B26",
+      "verbatim_row": "| B26 | Separately approved s-a/s-b with different width assertions | V of comparison fixture allowed structurally; no conflict-resolved or correctness claim. Withhold one applicability approval: D. |"
+    },
+    {
+      "id": "B27",
+      "verbatim_row": "| B27 | Barrier: revocation completes before view acquires owner lock | D; committed revocation precedes denied view, no copy event. |"
+    },
+    {
+      "id": "B28",
+      "verbatim_row": "| B28 | Barrier: view holds owner lock; revoker waits, then completes | Exactly one V(F) may linearize first; subsequent fresh permit/view D. No claim of recalling first copy. |"
+    },
+    {
+      "id": "B29",
+      "verbatim_row": "| B29 | Barrier: source reproposal writer waits during view validation | Writer cannot complete inside view interval; first view may V(F); after writer completion old draft D. |"
+    },
+    {
+      "id": "B30",
+      "verbatim_row": "| B30 | Clock rolls back, date sources disagree, or date changes between checks | D for all three; owner poisoned; subsequent corrected-clock request still D. |"
+    },
+    {
+      "id": "B31",
+      "verbatim_row": "| B31 | Audit unavailable before begin or before private view | D for both; no copy event; owner poisoned; restored audit alone does not reopen access. |"
+    },
+    {
+      "id": "B32",
+      "verbatim_row": "| B32 | Audit append throws after recording event or after serialization before commit | D for both; no private response text; uncertain owner poisoned even if an event remains. |"
+    },
+    {
+      "id": "B33",
+      "verbatim_row": "| B33 | Authentication authority unavailable, even with otherwise correct PV credential | D without content serialization; no fallback to role/identity fields. |"
+    },
+    {
+      "id": "B34",
+      "verbatim_row": "| B34 | Corrupt Task 3 seal or replay pre-revocation signed record against latest version | D in both variants; unchanged Task 3 integrity enforcement still applies. |"
+    },
+    {
+      "id": "B35",
+      "verbatim_row": "| B35 | Submit 16 correctly approved references; then 17 references including invalid IDs in separate setup | Sixteen admitted at evidence binding; seventeen D before per-reference work, no truncation; standalone 20-reference contract unaffected. |"
+    },
+    {
+      "id": "B36",
+      "verbatim_row": "| B36 | Text exactly 65,536 then 65,537 UTF-8 bytes; bundle exactly 65,536 then 65,537 canonical bytes in isolated boundary fixtures | At-limit fixtures accepted if all other checks pass; over-limit fixtures D before retention. No source/fixture requirement waived. |"
+    },
+    {
+      "id": "B37",
+      "verbatim_row": "| B37 | Fill 32 draft records, 64 permits, 256 owner operations or 2,048 audit events, separately with lower budgets arranged not to mask target | Next addition D in each variant; no eviction/reset. Full audit poisons. Counters never exceed caps. Use test-only state seeding for otherwise unreachable audit cap. |"
+    },
+    {
+      "id": "B38",
+      "verbatim_row": "| B38 | Two private readers overlap at barrier | Admitted reader may V(F); second D immediately, no queued second copy. Lifecycle writer still executes after admitted reader exits. |"
+    },
+    {
+      "id": "B39",
+      "verbatim_row": "| B39 | Inject secret sentinel into fixture/source/exception; exercise success and every denial schema | Public JSON, denial JSON, audit, repr, stdout/stderr contain zero sentinel occurrences. Authorized private success may contain its own fixture sentinel only. No exception traceback escapes interface. |"
+    },
+    {
+      "id": "B40",
+      "verbatim_row": "| B40 | Repeat same operation schedule in 100 fresh sessions | Identical statuses and text/oracle fields after replacing opaque handles; no test of deterministic random IDs. Every denied response byte-identical D, every public response byte-identical P. |"
+    },
+    {
+      "id": "B41",
+      "verbatim_row": "| B41 | Tripwire existing Gateway respond/hold, OfflinePrototype public/view, MockHarness worker/public, socket, subprocess and provider entrypoints during all new paths | Zero calls; test-only fixed fixture copying is the sole draft input. Existing unchanged regressions execute separately under original permissions. |"
+    },
+    {
+      "id": "B42",
+      "verbatim_row": "| B42 | Attempt same-identity AP/QR; ingestion-only approval; forged source/chunk/attestation IDs | Constructor rejection for same-identity role configuration; D for other three variants; no approval bypass. |"
+    },
+    {
+      "id": "B43",
+      "verbatim_row": "| B43 | View begins just before source lease deadline; clock reaches deadline at final authorization check | D, zero copy event even though earlier checks succeeded. |"
+    },
+    {
+      "id": "B44",
+      "verbatim_row": "| B44 | Renew source lease or change reviewer grant after holding; restore withdrawn source through fresh proposal | Old permit D for every variant; lease/source binding changes require fresh reservation. Fresh grant alone may authorize only a still-current held binding, never an invalidated one. |"
+    }
+  ],
+  "fixture_text": {
+    "F": "SYNTHETIC TEST ONLY: Testland-A stair width is 900 units [1].",
+    "X": "SYNTHETIC TEST ONLY: All real buildings are certified compliant [1].",
+    "M": "SYNTHETIC TEST ONLY: Compare these fictional passages [1] [2]."
+  },
+  "preflight_manifest_sha256": "13e2cf142d816e9e604e9eb953e1d55c00ba3ee9dd32b42150efd5e78541ffb2",
+  "fixture_hashes": {
+    "F": "9d3f07aec4e780f5b9ba3a6a6c358e3eef78690a52053c780779d818d04c3c70",
+    "X": "28b67e6b13f477856b43712d907956b1786e12b00c57997af6d6429ff1f5ce25",
+    "M": "083a8932535d2b1d408a35f0d8817f1aa1e66b725571fd9747e9301acb5f4d32"
+  }
+}
