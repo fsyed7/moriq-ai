@@ -1,0 +1,13 @@
+# Preserve exact historical H15 checkout bytes.
+source_gate/README.md text eol=crlf
+source_gate/gateway.py text eol=lf
+source_gate/test_adversarial.py text eol=lf
+source_gate/test_gateway.py text eol=crlf
+source_gate/test_review_boundary.py text eol=lf
+source_gate/validation.json text eol=crlf
+v02/build.py text eol=lf
+v02/evaluate.py text eol=lf
+v02/test_experiment.py text eol=lf
+v021/README.md text eol=crlf
+v021/screen.py text eol=crlf
+v021/test_screen.py text eol=lf
