@@ -47,3 +47,19 @@
 # Misc
 *.env text eol=lf
 *.lock text eol=lf
+
+# Preserve verified checkout bytes for Task 4 artifacts.
+/moriq/brain/build.py text eol=crlf
+/moriq/brain/experimental/source_gate/knowledge_preflight.py text eol=lf
+/moriq/brain/experimental/source_gate/private_draft_lifecycle.py text eol=lf
+/moriq/brain/experimental/source_gate/test_knowledge_preflight.py text eol=lf
+/moriq/brain/experimental/source_gate/test_private_draft_lifecycle.py text eol=lf
+/moriq/brain/tests/test_brain.py text eol=crlf
+/moriq/knowledge/citations.py text eol=lf
+/moriq/knowledge/conftest.py text eol=lf
+/moriq/knowledge/registry.py text eol=crlf
+/moriq/knowledge/retrieval.py text eol=lf
+/moriq/knowledge/test_citations.py text eol=lf
+/moriq/knowledge/test_registry.py text eol=crlf
+/moriq/knowledge/test_retrieval.py text eol=crlf
+/moriq/knowledge/README.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
