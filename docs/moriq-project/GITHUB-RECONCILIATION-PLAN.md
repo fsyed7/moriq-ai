@@ -1,0 +1,17 @@
+# GitHub preparation and reconciliation
+Verified November 4: PR11 is draft/open/unmerged, base develop, head feature/local-deployment at 567e4332e68e391579cb110c6504b70335e382ec. PR12 is draft/open/unmerged, base develop, head feature/brain-v0.2-experiments at 21a03cc2af98cf8a0a0d6541ffdc1fbf35e07bfb. PR13 is draft/open/unmerged, base feature/brain-v0.2-experiments, head feature/knowledge-rag-v0 at b78466029a751825c75424ff14d80e2bc82ee631. GitHub reported all three mergeable at inspection; this is not review approval or a test result. Combined commit-status queries returned no status entries for all three heads; check-run/workflow coverage is not established.
+
+main remains 8bd8b4fac5e059578ac0c74b3c18d11139f88b7d; develop and feature/task-5-moriq-ui both resolve to 1a9d5a973bd5205f74d512b2bc417f2c7e00abb9. The Studio preview source is local and is not delivered by that UI branch. Setup and Brain branches are preserved. PR13 stacks on PR12; PR11 is a sibling deployment change. Do not merge all three to simulate a completed V1.
+
+Prepared local branch: docs/migration-2026-11-04 based on b784660, with unchanged source and inherited dirty/untracked work. Proposed publication scope is README, CLAUDE, AGENTS, CONTRIBUTING, MORIQ changelog and docs/moriq-project only. Studio and the five integration files require separate source review. The ten historical byte restorations must not be swept into a documentation commit. Stage explicit paths only after approval; never git add -A here.
+
+Keep src, backend, moriq and evaluation locations intact. Do not impose the conceptual frontend/moriq/integration tree. Review .gitignore separately for model weights, private data, archives and local settings; existing ignored files were inventoried before proposing changes. No ignore rule was changed. Upstream publishing workflows require review before any push; this migration does not disable or trigger them.
+
+Recommended management: one V1 epic, bounded issues for recovered 6.1B, identity/audit/lifecycle, Studio connection, accessibility, rights/acceptance and reproducible build. Reuse existing issues before creating any. Suggested labels: component:brain, component:knowledge, component:studio, security, documentation, blocked, offline-only. Milestones should express evidence gates, not invented dates. No issue/label/project/PR mutation is authorized or performed here.
+
+Before publication, review the exact diff, secret scan scope, license/media decisions and new tests, approve target branch and files, then commit/push/create PR separately. Leave drafts untouched and never auto-merge.
+
+## Documentation publication qualification
+Read [PUBLICATION-SCOPE.md](PUBLICATION-SCOPE.md): the first commit excludes studio-preview and offline_integration. Their setup/test instructions describe the local recovery workspace, not a fresh clone. Keep the actual recovered files; do not regenerate them from these documents. The initial documentation PR should target feature/knowledge-rag-v0, not develop, to avoid including unrelated unmerged history. CLAUDE.md is ignored by inherited rules and needs an exact-file force-add only after approval.
+
+[Task 6.1B error analysis](TASK-6.1B-TEST-ERROR-ANALYSIS.md) establishes one oversized parameter-ID case with setup and teardown errors. No application or frozen-test change was made; the milestone remains incomplete.

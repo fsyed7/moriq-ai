@@ -1,0 +1,18 @@
+# Developer setup
+Use the designated Desktop repository. Do not switch branches in the original dirty knowledge workspace. The migration branch retains b784660 as HEAD and all original source bytes; it is not a new release. studio-preview contains the separate fixture prototype, copied without modifying it.
+
+For offline checks use Python 3.12 and the existing pytest environment, with repository root and moriq/brain/experimental/source_gate on PYTHONPATH. Historical Windows tests used Python 3.12.14; plain python on this host resolves to 3.10, so verify the interpreter explicitly. Set PYTHONDONTWRITEBYTECODE=1, PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 and writable TEMP/TMP. Commands and actual outcomes are in TESTING-AND-VALIDATION.md and MIGRATION-TEST-RESULTS.md.
+
+For Studio, open studio-preview and run `npm run dev` (equivalent to `node server.mjs`). It serves only localhost:5175 and a static allowlist. In another shell run `npm test`; storage-test.mjs is standalone, while check.mjs requires that local server. Do not confuse localhost preview with public deployment. No dependency installation is required by this package's scripts. Stop only the server you started.
+
+The inherited application uses package.json/package-lock.json for npm and pyproject.toml/uv.lock plus backend requirements for Python. Keep exact locks; do not update dependencies as part of migration. The source has Svelte/Vite frontend and FastAPI backend; offline tests do not require starting the full application or Ollama.
+
+Historical deployment instructions live at docs/LOCAL_DEPLOYMENT.md on the separate deployment branch/PR11 and in its focused Task 1 snapshot; that sibling change is not merged into the canonical knowledge branch. They use localhost:3000 and persistent moriq-webui-data storage. Preserve volumes/accounts/provider settings. No Docker/WSL setup, model download, import or service restart was performed by migration. Full-stack setup/build is not newly certified. Historical Windows failures include EPERM, temp-path access, loopback restrictions and dependency extraction; resolve tooling constraints without weakening tests.
+
+## Documentation publication qualification
+Read [PUBLICATION-SCOPE.md](PUBLICATION-SCOPE.md): the first commit excludes studio-preview and offline_integration. Their setup/test instructions describe the local recovery workspace, not a fresh clone. Keep the actual recovered files; do not regenerate them from these documents. The initial documentation PR should target feature/knowledge-rag-v0, not develop, to avoid including unrelated unmerged history. CLAUDE.md is ignored by inherited rules and needs an exact-file force-add only after approval.
+
+[Task 6.1B error analysis](TASK-6.1B-TEST-ERROR-ANALYSIS.md) establishes one oversized parameter-ID case with setup and teardown errors. No application or frozen-test change was made; the milestone remains incomplete.
+
+## Test environment reproducibility limit
+The recorded checks used an existing Python 3.12.14 interpreter and pytest 9.0.0 supplied through the existing tool environment. This is not evidence that all application dependencies or a clean, locked test environment were installed. Verify `python --version` and `python -m pytest --version` before following the commands; the default host python was 3.10. No dependency update/install is part of this documentation review. The test-error report gives portable environment-variable setup; use an explicitly selected interpreter when the default is unsuitable.

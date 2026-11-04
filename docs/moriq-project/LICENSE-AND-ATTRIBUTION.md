@@ -1,0 +1,6 @@
+# License and attribution review
+The recovered repository retains LICENSE, LICENSE_HISTORY, LICENSE_NOTICE and CONTRIBUTOR_LICENSE_AGREEMENT unchanged. The pinned LICENSE is titled Open WebUI License and includes copyright, redistribution notice, non-endorsement and branding provisions with exceptions. Do not describe this whole tree as an unrestricted MORIQ-only MIT project or remove upstream notices. This inventory is not legal clearance; the exact pinned terms and deployment circumstances require human review.
+
+Retain inherited changelog and author history. Dependency licenses remain governed by their packages and the lockfiles; a complete dependency-license/SBOM review has not been performed. No dependency was upgraded.
+
+Local approval to use Courtyard Villa in the preview does not establish public GitHub redistribution rights. Authentic photographs, presentation media and brand film are preserved privately; public approval remains unverified unless a specific rights record establishes it. The official logo master remains missing. Review ownership, third-party fonts/music/video dependencies and distribution rights before publishing any media. No fabricated replacement imagery was created.
