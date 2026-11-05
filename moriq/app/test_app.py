@@ -12,7 +12,7 @@ from moriq.app.corpus import build_registry
 from moriq.app.knowledge import Knowledge
 from moriq.app.pipeline import build_messages, classify, decide
 from moriq.app.provider import ClaudeProvider, ProviderUnavailable
-from moriq.app.server import Service, make_server
+from moriq.app.server import STUDIO, Service, make_server
 from moriq.app.store import Store
 
 TESTLAND = {'jurisdiction': 'TESTLAND', 'edition': 'TEST-v1'}
@@ -247,8 +247,11 @@ class AppTest(unittest.TestCase):
         self.assertEqual(json.loads(self.request('GET', '/api/chats')[1])['chats'][0]['title'], 'Renamed')
         self.assertEqual(self.request('DELETE', f'/api/chats/{chat}')[0], 200)
         self.assertEqual(self.request('GET', f'/api/chats/{chat}')[0], 404)
-        for path in ['/', '/app.js', '/live.css', '/styles.css', '/assets/courtyard-villa.jpg']:
+        for path in ['/', '/app.js', '/live.css', '/styles.css']:
             self.assertEqual(self.request('GET', path)[0], 200, path)
+        # The approved image is local-only, so a clone gets a 404 and the page shows its placeholder.
+        image = STUDIO / 'assets' / 'courtyard-villa.jpg'
+        self.assertEqual(self.request('GET', '/assets/courtyard-villa.jpg')[0], 200 if image.exists() else 404)
         self.assertEqual(self.request('GET', '/favicon.ico')[0], 204)
         self.assertEqual(self.request('GET', '/../CLAUDE.md')[0], 404)
 
