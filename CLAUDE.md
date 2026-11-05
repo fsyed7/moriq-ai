@@ -9,7 +9,7 @@ Migration branch docs/migration-2026-11-04 starts at b78466029a751825c75424ff14d
 
 Use Python 3.12 with the repository and source_gate on PYTHONPATH; isolated command: python -B -m pytest -q -p no:cacheprovider offline_integration/test_contracts.py. Full environment and outcomes are in the testing documents. Studio: npm run dev then npm test from studio-preview; port 5175. Do not activate models.
 
-The owner accepted the [Task 6.1B closeout record](docs/moriq-project/TASK-6.1B-CLOSEOUT.md) on 2026-11-04. Next: committing the local-only work and proposing Phase B each need separate owner approval. Never overwrite them as if the task had not started. Source approval is not answer release; citation identity is not claim truth. Original V12 independent review remains unmet.
+The owner accepted the [Task 6.1B closeout record](docs/moriq-project/TASK-6.1B-CLOSEOUT.md) on 2026-11-04. The first connected app is in moriq/app; see its README for how to run it and its limits. On 2026-11-04 the owner told agents to build without per-step permission, which does not cover publishing, real or unapproved sources, or releasing answers as verified. Never overwrite them as if the task had not started. Source approval is not answer release; citation identity is not claim truth. Original V12 independent review remains unmet.
 
 No commit, push, merge, remote mutation, deployment, live inference, real/confidential ingestion, automatic answer release, disabled-adapter activation, fixture weakening, dependency upgrade or brand-image alteration without explicit authorization. See AGENTS.md for matching rules.
 

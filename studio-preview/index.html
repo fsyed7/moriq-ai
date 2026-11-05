@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MORIQ AI · Studio preview</title><link rel="stylesheet" href="/styles.css"><script type="module" src="/app.js"></script></head>
+<body>
+<a class="skip" href="#workspace">Skip to workspace</a>
+<div class="demo-bar"><span><i></i> DEMO / FIXTURE DATA</span><span>Local studio preview <b>·</b> No live AI</span><a href="/review.html" target="_blank">Review sizes ↗</a></div>
+<main id="arrival" aria-labelledby="arrival-title">
+  <figure class="arrival-image" aria-label="Courtyard Villa, MORIQ">
+    <img id="courtyard-image" src="/assets/courtyard-villa.jpg" width="1500" height="1000" alt="Courtyard Villa: a planted courtyard framed by concrete living spaces, timber decking and patterned paving." fetchpriority="high">
+    <span class="eyebrow">MORIQ / SELECTED ARCHITECTURE</span>
+    <div class="asset-placeholder" hidden><span aria-hidden="true">＋</span><strong>COURTYARD VILLA</strong><span>Architectural image unavailable</span></div>
+    <figcaption>COURTYARD VILLA / MORIQ</figcaption>
+  </figure>
+  <section class="arrival-copy"><div class="brand"><span>MORIQ<span class="brand-ai"> AI</span></span><small>INTERIORS &amp; DESIGN CONSULTANTS</small></div><div><p class="eyebrow">LOCAL STUDIO / 01</p><h1 id="arrival-title">Welcome to <span class="wordmark-lockup">MORIQ AI</span></h1><p class="intro">Where architecture meets intelligence.</p><a class="enter-workspace" href="#workspace">Enter Workspace <span aria-hidden="true">↗</span></a><p class="composer-note">Fictional fixtures only. No live AI or real documents.</p><p id="route-status" role="status"></p></div><small class="arrival-credit">Courtyard Villa is a portfolio reference, not an active project.<br>Official logo pending · Provisional wordmark</small></section>
+</main>
+<div class="studio evidence-closed" hidden>
+<aside class="sidebar" id="navigation" aria-label="Project navigation">
+  <button id="close-navigation" aria-label="Close project navigation">Close ×</button><div class="brand"><span>MORIQ<span class="brand-ai"> AI</span></span><small>INTERIORS & DESIGN CONSULTANTS</small></div>
+  <div class="sidebar-top"><button id="new-session" class="new-session"><span>＋</span> New Chat <span>↗</span></button></div>
+  <div class="nav-heading">STUDIO <span>01 — 03</span></div>
+  <nav id="projects" aria-label="Fictional projects"></nav><div class="nav-heading">SAVED FIXTURE CHATS</div><nav id="chat-list" aria-label="Saved fixture chats"></nav>
+  <div class="sidebar-footer"><span>LOCAL / PRIVATE PREVIEW</span><small>Fictional workspaces only</small></div>
+</aside>
+<section class="main-shell">
+  <header class="workspace-header"><button id="project-toggle" aria-expanded="true" aria-controls="navigation" aria-label="Toggle project sidebar">☰</button><div class="breadcrumb"><span>Studio</span><span>/</span><strong id="project-title">Demo Residence 01</strong></div><span class="stage" id="project-stage">Concept</span><button id="evidence-toggle" class="quiet" aria-expanded="false" aria-controls="inspector">Evidence <span>↗</span></button></header>
+  <div class="chat-tools"><a href="#landing">← Welcome</a><button id="rename-chat">Rename chat</button><button id="delete-chat">Delete chat</button></div><p id="storage-status" role="status"></p>
+  <main id="workspace" tabindex="-1">
+    <div id="welcome">
+      <div class="eyebrow">MORIQ / DESIGN INTELLIGENCE <span>01 — START</span></div>
+      <h1>DESIGN.<br>THINK.<br>EXPLORE.</h1>
+      <p class="intro">A space for considered questions.<br>Explore an idea. Examine the evidence.</p>
+      <figure class="cover-photo"><img id="cover-image" src="/assets/courtyard-villa.jpg" width="1500" height="1000" alt="Courtyard Villa by MORIQ: planting, concrete volumes and patterned paving." loading="lazy"><span class="cover-fallback" hidden>Courtyard Villa · Image unavailable</span><figcaption><span>01 / COURTYARD VILLA</span><span>MORIQ · PORTFOLIO REFERENCE</span></figcaption></figure>
+    </div>
+    <div id="conversation" hidden role="log" aria-label="Demo conversation" aria-live="polite"></div>
+    <p id="chat-status" role="status" aria-live="polite"></p><form id="composer"><label class="sr-only" for="prompt">Message in the fixture conversation</label><textarea id="prompt" rows="2" maxlength="1200" aria-describedby="composer-help" placeholder="Ask a question. Explore an idea."></textarea><div class="composer-bottom"><span>SCRIPTED DEMO <b>/</b> ENTER TO SEND</span><button class="send" type="submit" disabled aria-label="Send demo message">↑</button></div></form>
+    <div class="suggestions"><button data-prompt="Explore the courtyard concept">Explore a concept <span>↗</span></button><button data-prompt="Review the fictional material note">Read a sample note <span>↗</span></button></div>
+
+    <p class="composer-note" id="composer-help">Only scripted examples are saved. Typed text stays in memory. Use fictional chat names; never enter private documents or secrets. Try “long answer” or “evidence gap”. Shift + Enter adds a line.</p>
+  </main>
+  <footer class="workspace-footer"><span>MORIQ AI <b>/</b> STUDIO EXPLORATION</span><span>Official logo pending · Provisional visual system</span></footer>
+</section>
+<aside class="inspector" id="inspector" role="dialog" aria-modal="true" aria-label="Citation and evidence inspector">
+  <div class="inspector-heading"><span>Evidence inspector</span><button id="close-evidence" aria-label="Close evidence inspector">×</button></div>
+  <div class="inspector-content"><div class="eyebrow">SOURCE CONTEXT <span>01</span></div><h2>Source / 01</h2><p class="muted">Inspect the passage behind a sample response. All content here is fictional.</p>
+  <label class="field-label" for="scenario">PREVIEW STATE</label><select id="scenario"></select>
+  <div class="source-card"><div class="source-type"><span>▤ &nbsp; DESIGN NOTE</span><span>FIXTURE</span></div><h3>Courtyard concept note</h3><p>Demo Residence 01 · Synthetic source</p><div id="source-status" role="status"></div></div>
+  <div id="passage-panel"><div class="passage-heading"><span>SAMPLE PASSAGE</span><span>01</span></div><blockquote id="passage"></blockquote></div>
+  <dl class="metadata"><div><dt>Source ID</dt><dd>FX-NOTE-001</dd></div><div><dt>Revision</dt><dd>demo-r1</dd></div><div><dt>Jurisdiction</dt><dd>Not applicable</dd></div><div><dt>Edition</dt><dd>Not applicable</dd></div><div><dt>Hash</dt><dd>Not computed</dd></div><div><dt>Claim status</dt><dd>Not assessed</dd></div></dl>
+  <div class="evidence-notice"><span>ⓘ</span><p>Identity is not claim validation.<br>Release is not allowed in this demo.</p></div>
+  </div><div class="inspector-footer">PRESENTATION ONLY <span>◌</span></div>
+</aside>
+</div>
+<dialog id="chat-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+<form id="chat-dialog-form"><h2 id="dialog-title"></h2><p id="dialog-description"></p><div id="rename-field"><label for="chat-name">Fictional chat name</label><input id="chat-name" maxlength="60" autocomplete="off"></div><p id="dialog-error" role="alert"></p><div class="dialog-actions"><button type="button" id="dialog-cancel">Cancel</button><button type="submit" id="dialog-confirm">Save name</button></div></form></dialog>
+</body></html>

@@ -18,3 +18,6 @@ Read [PUBLICATION-SCOPE.md](PUBLICATION-SCOPE.md): the first commit excludes stu
 After the investigation above, the owner permitted one label-only test ID change in test_backend.py. Fresh results: backend 57 passed, contracts 66, knowledge 116, preflight 53 and lifecycle 95, each in its own process. Earlier runs with 56 passes and 2 errors remain evidence. The owner accepted [the closeout record](TASK-6.1B-CLOSEOUT.md) on 2026-11-04 as an offline facade only, not as independent review or production approval. 6.1B remains uncommitted. A passing oversized case does not prove the size limit works.
 
 Correction to the statement above about ten LF/CRLF-only differences: three tracked files differ from HEAD, LF to CRLF; the other seven are byte-identical to HEAD. Details are in the closeout record.
+
+## Connected local app — 2026-11-04
+The first connected version is in moriq/app: the Studio interface, Brain prompt, governed retrieval and a local model on one computer. See its [README](../../moriq/app/README.md). Only synthetic sources are loaded, answers remain unreviewed drafts, there is no login, and model quality has not been evaluated. This is not a released V1.
