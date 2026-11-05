@@ -8,6 +8,7 @@ const LABELS = {
   out_of_scope: 'OUTSIDE MORIQ AI SCOPE',
   starter_guide: 'DRAFT USING AI-WRITTEN STARTER GUIDE · NOT A MORIQ DOCUMENT',
   moriq_document: 'DRAFT USING LOADED MORIQ DOCUMENT · NOT INDEPENDENTLY REVIEWED',
+  moriq_public: 'DRAFT USING PUBLIC MORIQ RECORD · NOT CONFIRMED BY MORIQ',
   code_gap: 'GENERAL EXPLANATION · NOT A CODE REQUIREMENT',
   public_profile: 'PUBLIC LISTINGS · NOT AN APPROVED MORIQ SOURCE',
   stopped: 'STOPPED · PARTIAL DRAFT',
@@ -89,7 +90,7 @@ function showEvidence(meta, trigger) {
   $('#evidence-summary').textContent = CHECKS[meta.citation_check] || (meta.label === 'evidence_gap' ? 'No approved source supports an answer, so the model was not asked.' : meta.label === 'public_profile' ? 'These details come from public listings and the firm should confirm them.' : '');
   const items = $('#evidence-items');
   items.replaceChildren();
-  const KINDS = {starter_guide: 'AI-written starter guide, not reviewed', owner_document: 'Loaded MORIQ document, not independently reviewed', registry: 'Registry source'};
+  const KINDS = {starter_guide: 'AI-written starter guide, not reviewed', owner_document: 'Loaded MORIQ document, not independently reviewed', moriq_public: 'Public listings and press, not confirmed by MORIQ', registry: 'Registry source'};
   (meta.sources || []).forEach(source => items.append(evidenceItem(`[${source.number}] ${source.title}`, [
     `${KINDS[source.kind]} · ${source.source_id}${source.revision ? ' · revision ' + source.revision : ''}`,
     ...(source.jurisdiction ? [`${source.jurisdiction} · ${source.edition}`] : []),

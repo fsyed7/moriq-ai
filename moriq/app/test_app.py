@@ -132,6 +132,25 @@ class AppTest(unittest.TestCase):
             self.assertEqual(events[-1]['code'], 'no_approved_source')
         self.assertEqual(self.provider.calls, [])
 
+    def test_public_record_answers_portfolio_but_not_practice(self):
+        self.provider.reply = ['Amwaj Villa is in Bahrain [1].']
+        _, events = self.ask('What projects has MORIQ designed in Bahrain?')
+        done = events[-1]
+        self.assertEqual((done['label'], done['citation_check']), ('moriq_public', 'identity_valid'))
+        self.assertTrue(all(s['kind'] == 'moriq_public' for s in done['sources']))
+        for question in ['What is the MORIQ leave policy?', 'What is the MORIQ staircase detailing standard?']:
+            calls = len(self.provider.calls)
+            _, events = self.ask(question)
+            self.assertEqual(events[-1]['code'], 'no_approved_source', question)
+            self.assertEqual(len(self.provider.calls), calls)
+
+    def test_permit_process_question_uses_guide_not_a_block(self):
+        self.provider.reply = ['Apply through Benayat [1].']
+        _, events = self.ask('How do I get a building permit in Bahrain?')
+        done = events[-1]
+        self.assertEqual((done['status'], done['label']), ('draft', 'code_gap'))
+        self.assertTrue(any('Bahrain' in s['title'] for s in done['sources']))
+
     def test_loaded_document_answers_company_question(self):
         docs = self.home / 'documents'
         docs.mkdir()
@@ -270,6 +289,8 @@ class AppTest(unittest.TestCase):
     def test_guide_is_found_for_core_topics(self):
         cases = {'vaastu kitchen planning': 'Vaastu', 'how do beams carry load to the foundation': 'load path',
                  'timber decking next to pebble paving': 'junctions', 'waterproofing a wet bathroom': 'Waterproofing',
+                 'writing a client fee agreement': 'Fees', 'hotel guest room mock-up': 'Hotel',
+                 'marble in a kitchen': 'marble', 'architect registration in India': 'registration',
                  'How should a parapet be detailed against rainwater?': 'Roofs'}
         for question, expected in cases.items():
             titles = [p.title for p in self.knowledge.search(question)]

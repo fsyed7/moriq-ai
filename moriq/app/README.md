@@ -32,7 +32,8 @@ Put `.md` or `.txt` files in the `documents` folder inside `.moriq` in your home
 |Outside architecture and engineering|Declined|No, or the model declines when the wording is unclear|
 |General architecture or engineering|Answered from the starter guide where it matches, otherwise as general explanation|Yes|
 |MORIQ practice, policy or standard|Answered from loaded documents, otherwise reported as an evidence gap|Only with a matching document|
-|Code concept, such as what a setback is|Explained with no limits, labelled as not a code requirement|Yes|
+|MORIQ projects and public facts|Answered from the public record, marked as not confirmed by MORIQ|Yes|
+|Permit process or a code concept|Explained from the guide with no limits, labelled as not a code requirement|Yes|
 |Specific code limit|Asks for jurisdiction and edition, then needs an approved source|Only with an approved source|
 |Who MORIQ is|Shows public listing facts with links, marked as not approved by MORIQ|No|
 
@@ -42,13 +43,14 @@ Every answer stays `claim_status=not_assessed` and `release_allowed=false`. Answ
 
 This is not a model trained on MORIQ's work. It is a general language model restricted by rules to this field, and grounded in the guide and any documents you load. Its knowledge of MORIQ is only as good as those documents.
 
-- **Starter guide:** the `guide` folder is general guidance written by AI. No architect or engineer has reviewed it, and every answer using it says so.
+- **Starter guide:** most of the `guide` folder is general guidance written by AI. No architect or engineer has reviewed it, and every answer using it says so. Its regulation pointers rely partly on secondary sources, so confirm them with the authority.
+- **Public record:** `guide/moriq-public.md` summarises public listings in our own words, with links and no photographs. MORIQ has not confirmed it. It cannot establish internal practice, so practice questions need loaded documents.
 - **Scope lock:** keyword rules plus the model's own judgement, so unusual wording can slip through in either direction.
 - **Access:** there is no login or audit trail, and the app listens on this computer only. Do not expose it to a network or enter confidential client information.
 - **Stop:** closing the connection asks the model to stop, but nothing proves it has gone idle.
 - **Offline facade:** the Task 6.1B facade refuses generation by design, so this app does not route through it. It reuses the same registry, retrieval, citation checks and public status fields.
 - **Image:** `courtyard-villa.jpg` is approved for local preview only and is left out of Git. A clone without it shows the labelled placeholder.
-- **Public facts:** `profile.py` holds facts from public listings, checked on 2026-11-04, and stays out of model prompts. The firm should confirm them. The site listed by ArchDaily, moriq.co.in, could not be reached when checked.
+- **Firm website:** the site listed by ArchDaily, moriq.co.in, could not be reached on 2026-11-04, so nothing comes from it.
 
 ## Test it
 

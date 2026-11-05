@@ -1,8 +1,8 @@
 """Public facts about MORIQ, shown with their sources.
 
-These facts are display content, not knowledge sources. They stay out of the
-registry and out of model prompts: public listings do not establish internal
-practice, and the firm's own award claims are reported as claims.
+A short answer to "who is MORIQ". The fuller record is guide/moriq-public.md. Neither goes in
+the registry: public listings do not establish internal practice, and the firm's own award
+claims are reported as claims.
 """
 
 PROFILE = {
@@ -21,7 +21,7 @@ PROFILE = {
          'url': 'https://www.archdaily.com/913785/courtyard-villa-moriq'},
         {'text': 'Amwaj Villa: Amwaj, Bahrain, 2015, with architecture, interiors and landscape credited to MORIQ.',
          'source': 'ArchDaily', 'url': 'https://www.archdaily.com/954404/amwaj-villa-moriq'},
-        {'text': 'Villa 430: Hyderabad, 2017, credited to MORIQ.', 'source': 'ArchDaily',
+        {'text': 'Villa 430: Hyderabad, 2017, a joint family home with two built forms across a central lawn.', 'source': 'ArchDaily',
          'url': 'https://www.archdaily.com/896185/villa-430-moriq'},
         {'text': 'The firm reports winning the first Trends Excellence Awards for Architecture and Design in 2012 and '
                  'a National Award for excellence in design for 2016. These are the firm\'s own statements.',

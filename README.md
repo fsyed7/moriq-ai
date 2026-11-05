@@ -13,6 +13,17 @@
 - **Warns about likely inventions:** it flags made-up citations, code sections and measurements that no source contains.
 - **Teaches juniors:** a "Guide me" setting adds definitions and checklists.
 
+## What it knows
+
+|Knowledge|Covers|How it's labelled|
+|---|---|---|
+|Public MORIQ record|Firm profile, people, services, reported awards and nine published projects, summarised from public listings with links|Not confirmed by MORIQ|
+|Regulation pointers|Who governs permits, rules and registration in Telangana, India and Bahrain, with no limits stated|General explanation, not a code requirement|
+|Starter guide|Design and climate, structure and services, materials and interiors, hospitality, sustainability, project stages, fees, contracts, site work and mentoring|AI-written, not reviewed|
+|MORIQ documents|Whatever you add to the documents folder|Loaded document, not independently reviewed|
+
+It holds nothing about MORIQ's internal standards, templates, staff or live projects until those documents are added.
+
 ## Run it
 
 You need Python 3.12 and one model: either [Ollama](https://ollama.com) with the local model, or a Claude API key.
@@ -23,7 +34,7 @@ cd moriq-ai
 py -3.12 -m moriq.app
 ```
 
-Then open http://127.0.0.1:5180. On Windows you can double-click `start-moriq.bat` instead.
+Then open http://127.0.0.1:5180. On Windows, double-click `start-moriq.bat` instead to open it in its own app window.
 
 See the [app guide](moriq/app/README.md) for choosing a model and adding MORIQ documents.
 
@@ -33,16 +44,16 @@ Run on 4 November 2026 with the local model on a laptop CPU:
 
 |Check|Result|
 |---|---|
-|App tests, with a simulated model|22 of 22 pass|
+|App tests, with a simulated model|24 of 24 pass|
 |Browser click-through, including live answers and phone sizes|20 of 20 pass|
-|Live spot check of routing, scope and references|10 of 10 pass, with answers taking about 20 to 25 seconds|
+|Live spot check of routing, scope and references|15 of 15 pass, with most answers taking about 25 to 35 seconds|
 |Backend, contract and knowledge suites|57, 66 and 116 pass|
 
-The spot check is a small set that was adjusted against during development. It does not grade whether answers are architecturally correct, and no architect or engineer has reviewed them. The Claude connection has only been tested against a simulated model.
+The spot check is a small set that was adjusted against during development. It does not grade whether answers are correct, and a passing run still included a wrong answer that missed a published project, which was then fixed in the record. No architect or engineer has reviewed the answers. The Claude connection has only been tested against a simulated model.
 
 ## Before wider use
 
-- Add MORIQ's own documents, which it does not have yet.
+- Add MORIQ's own documents, which it does not have yet, and have the firm confirm the public record.
 - Have an architect or engineer review answer quality and the AI-written starter guide.
 - Run the live evaluation on a stronger model.
 - Add logins and access control before anyone else uses it.

@@ -1,10 +1,11 @@
-"""Built-in starter guide plus documents the owner drops into MORIQ_HOME/documents.
+"""Built-in guide, public MORIQ record, and documents the owner drops into MORIQ_HOME/documents.
 
-Neither is registry-approved. Each answer is labelled with what it actually used:
-the starter guide is AI-written, and owner-loaded documents have no independent review.
+None is registry-approved. Each answer is labelled with what it actually used: the starter guide
+is AI-written, the public record is unconfirmed, and owner-loaded documents have no independent review.
 """
 
 import re
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -21,7 +22,7 @@ MAX_PASSAGE = 1000
 
 @dataclass(frozen=True)
 class Passage:
-    kind: str  # starter_guide or owner_document
+    kind: str  # starter_guide, moriq_public or owner_document
     title: str
     source: str
     text: str
@@ -43,11 +44,12 @@ def _passage(kind, title, source, text):
 
 
 def _guide_passages(path):
+    kind = 'moriq_public' if path.stem == 'moriq-public' else 'starter_guide'
     sections = re.split(r'(?m)^## +', path.read_text(encoding='utf-8'))[1:]
     for section in sections:
         title, _, body = section.partition('\n')
         if body.strip():
-            yield _passage('starter_guide', title.strip(), path.stem, body.strip())
+            yield _passage(kind, title.strip(), path.stem, body.strip())
 
 
 def _document_passages(path):
@@ -80,13 +82,14 @@ class Knowledge:
         if documents and Path(documents).is_dir():
             files = sorted(p for p in Path(documents).iterdir() if p.suffix.lower() in {'.md', '.txt'})
             self.passages += [p for path in files[:MAX_DOCUMENTS] for p in _document_passages(path)]
+        self._frequency = Counter(term for p in self.passages for term in p.terms | p.title_terms)
 
     @property
     def has_documents(self):
         return any(p.kind == 'owner_document' for p in self.passages)
 
     def search(self, question, *, kinds=('owner_document', 'starter_guide'), limit=2):
-        query = _terms(question)
+        query = _terms(question) - {'moriq', 'moriqs', 'firm', 'company'}
         if not query:
             return ()
         needed = 1 if len(query) == 1 else 2
@@ -97,7 +100,8 @@ class Knowledge:
             matched = query & (passage.terms | passage.title_terms)
             if len(matched) < needed:
                 continue
-            score = len(matched) + len(query & passage.title_terms) + (1 if passage.kind == 'owner_document' else 0)
-            scored.append((-score, passage.title, passage))
+            # Rare words say more about a topic than common ones, and a title match counts double.
+            score = sum((2 if term in passage.title_terms else 1) / self._frequency[term] for term in matched)
+            scored.append((-score * (2 if passage.kind == 'owner_document' else 1), passage.title, passage))
         scored.sort(key=lambda row: row[:2])
         return tuple(row[2] for row in scored[:limit])

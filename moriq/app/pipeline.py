@@ -16,12 +16,12 @@ MAX_MESSAGE = 1200
 OUT_OF_SCOPE_MARK = 'OUT_OF_SCOPE'
 
 _IDENTITY = re.compile(
-    r'\b(who|what)\b.{0,20}\bmoriq\b(?!.{0,30}\b(policy|policies|standard|standards|process|procedure|template|naming)\b)'
-    r'|\babout moriq\b|\bmoriq\b.{0,12}\b(founder|founders|partners?|location|located|based|office address|projects|portfolio)\b',
+    r'^\W*(who|what)\s+(is|are|does)\s+moriq\b(?!.{0,30}\b(policy|policies|standard|standards|process|procedure|template|naming)\b)'
+    r'|\babout moriq\b|\bmoriq\b.{0,12}\b(location|located|based|office address)\b',
     re.I,
 )
 _COMPANY = re.compile(
-    r'\bmoriq\b|\bcompany\b|\binternal\b|\bour\s+(firm|office|studio|practice|standard|standards|policy|policies|'
+    r'\bmoriq\b|\bcourtyard villa\b|\bvilla 430\b|\bamwaj\b|\baak villa\b|\bkukatpally\b|\bcompany\b|\binternal\b|\bour\s+(firm|office|studio|practice|standard|standards|policy|policies|'
     r'process|procedure|procedures|template|templates|naming|convention|conventions|client|clients|project|projects)\b'
     r'|\boffice policy\b|\bhouse style\b',
     re.I,
@@ -34,8 +34,14 @@ _CODE = re.compile(
     re.I,
 )
 _CODE_LIMIT = re.compile(
-    r'\b(minimum|maximum|min|max|required|requirement|requirements|applies|allowed|permitted|must|mandatory|legal|'
-    r'legally|compliant|compliance|how (much|many|wide|high|tall|far|deep)|what (width|height|distance|size))\b',
+    r'\b(minimum|maximum|min|max|compliant|compliance|how (much|many|wide|high|tall|far|deep)|what (width|height|distance|size)|'
+    r'(width|height|distance|size|depth|clearance|setback|setbacks|fsi|ratio|rating)\b.{0,30}\b(required|requirement|allowed|permitted|applies|must))\b',
+    re.I,
+)
+# Practice questions need the firm's own documents; public listings cannot establish them.
+_PRACTICE = re.compile(
+    r'\b(polic(y|ies)|standards?|process|procedures?|templates?|naming|conventions?|guidelines?|leave|salary|salaries|hr|'
+    r'internal|allow|allows|approval matrix|checklist|handbook)\b',
     re.I,
 )
 _CITATION = re.compile(r'\[(\d{1,2})\]')
@@ -65,7 +71,9 @@ _DOMAIN = re.compile(
     r'doors?|windows?|glazing|skylights?|roofs?|walls?|ceilings?|kitchens?|bathrooms?|bedrooms?|parapets?|basements?|'
     r'setbacks?|plots?|site|zoning|permits?|codes?|by-?laws?|egress|fire|accessib\w*|acoustic\w*|lighting|shading|'
     r'climate|passive|sustainab\w*|cooling|boq|tender\w*|specification\w*|contractor\w*|consultant\w*|submittals?|rfis?|'
-    r'mock-?ups?|clash\w*|materials?|massing|circulation|orientation|jali|pergola|verandah?|balcon\w*|pool)\b',
+    r'mock-?ups?|clash\w*|materials?|massing|circulation|orientation|jali|pergola|verandah?|balcon\w*|pool|'
+    r'moriq|clients?|fees?|contracts?|appointment|snag\w*|handover|programme|budget|project|projects|regulations?|'
+    r'hotels?|hospitality|furniture|joinery|marble|veneer|automation)\b',
     re.I,
 )
 # Other fields are declined unless the question also names building work, such as a script for beam loads.
@@ -85,7 +93,7 @@ OUT_OF_SCOPE = (
     'so it will not answer this. Try a question about a design, a detail, a drawing or a site issue.'
 )
 COMPANY_GAP = (
-    'No loaded MORIQ document covers this, so MORIQ AI will not state it as company practice. '
+    'Neither the public record nor a loaded MORIQ document covers this, so MORIQ AI will not state it as company practice. '
     'Check with the responsible project lead, or add the document to the MORIQ documents folder. '
     'You can also ask the question in general terms, and the answer will be labelled as general guidance.'
 )
@@ -135,7 +143,8 @@ def decide(text, registry, knowledge=None, *, jurisdiction='', edition=''):
     if category == 'off_topic':
         return Decision(category, 'blocked', 'out_of_scope', OUT_OF_SCOPE)
     if category == 'company':
-        notes = knowledge.search(text, kinds=('owner_document',)) if knowledge else ()
+        kinds = ('owner_document',) if _PRACTICE.search(text) else ('owner_document', 'moriq_public')
+        notes = knowledge.search(text, kinds=kinds, limit=3) if knowledge else ()
         if notes:
             return Decision(category, 'answer', notes=notes)
         return Decision(category, 'blocked', 'no_approved_source', COMPANY_GAP)
@@ -159,7 +168,7 @@ def _rules(decision, level, checked_scope):
     rules = [SYSTEM_PROMPT, '\n## This deployment',
              'You serve architects and engineers at MORIQ, an architecture and interior design practice. '
              'When a project location matters, ask for it, and consider hot-dry, composite and hot-humid coastal '
-             'climates where relevant. Do not state facts about MORIQ itself.']
+             'climates where relevant. State facts about MORIQ only from the sources given here.']
     if not checked_scope:
         rules.append(
             'You only help with architecture, interior design, landscape, building engineering, construction and '
@@ -243,6 +252,8 @@ def _label(decision, sources):
         return 'code_gap'
     if any(s['kind'] == 'owner_document' for s in sources):
         return 'moriq_document'
+    if any(s['kind'] == 'moriq_public' for s in sources):
+        return 'moriq_public'
     if sources:
         return 'starter_guide'
     return 'general'
