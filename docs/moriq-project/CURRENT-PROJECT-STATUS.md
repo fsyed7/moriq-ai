@@ -7,7 +7,7 @@ Fresh validation is listed in MIGRATION-TEST-RESULTS.md, including errors/skips.
 
 Task 4 has dated owner-led offline acceptance under an amended criterion; original independent V12 remains unmet. Old pending status files are preserved as historical evidence, not silently rewritten. Production identity/audit/lifecycle, real-source rights/review, provider contract, cancellation/idleness, accessibility and deployment gates remain open.
 
-This is one canonical development workspace containing distinct components, not a verified runnable integrated V1. Studio is independently runnable; offline Python suites exercise the backend. Full Open WebUI startup was not performed. Next: committing the local-only work and proposing Phase B each need separate owner approval.
+This is one canonical development workspace containing distinct components, not a verified runnable integrated V1. Studio is independently runnable; offline Python suites exercise the backend. Full Open WebUI startup was not performed. Next: load real MORIQ documents, evaluate a stronger model, and have a professional review answers.
 
 ## Documentation publication qualification
 Read [PUBLICATION-SCOPE.md](PUBLICATION-SCOPE.md): the first commit excludes studio-preview and offline_integration. Their setup/test instructions describe the local recovery workspace, not a fresh clone. Keep the actual recovered files; do not regenerate them from these documents. The initial documentation PR should target feature/knowledge-rag-v0, not develop, to avoid including unrelated unmerged history. CLAUDE.md matches an inherited ignore rule but has been tracked since the documentation commit; commit changes to it only with approval.
@@ -15,9 +15,9 @@ Read [PUBLICATION-SCOPE.md](PUBLICATION-SCOPE.md): the first commit excludes stu
 [Task 6.1B error analysis](TASK-6.1B-TEST-ERROR-ANALYSIS.md) establishes one oversized parameter-ID case with setup and teardown errors. That investigation made no application or frozen-test change. The owner later accepted 6.1B as an offline facade; see the [closeout record](TASK-6.1B-CLOSEOUT.md).
 
 ## Task 6.1B update — 2026-11-04
-After the investigation above, the owner permitted one label-only test ID change in test_backend.py. Fresh results: backend 57 passed, contracts 66, knowledge 116, preflight 53 and lifecycle 95, each in its own process. Earlier runs with 56 passes and 2 errors remain evidence. The owner accepted [the closeout record](TASK-6.1B-CLOSEOUT.md) on 2026-11-04 as an offline facade only, not as independent review or production approval. 6.1B remains uncommitted. A passing oversized case does not prove the size limit works.
+After the investigation above, the owner permitted one label-only test ID change in test_backend.py. Fresh results: backend 57 passed, contracts 66, knowledge 116, preflight 53 and lifecycle 95, each in its own process. Earlier runs with 56 passes and 2 errors remain evidence. The owner accepted [the closeout record](TASK-6.1B-CLOSEOUT.md) on 2026-11-04 as an offline facade only, not as independent review or production approval. 6.1B is now committed. A passing oversized case does not prove the size limit works.
 
 Correction to the statement above about ten LF/CRLF-only differences: three tracked files differ from HEAD, LF to CRLF; the other seven are byte-identical to HEAD. Details are in the closeout record.
 
-## Connected local app — 2026-11-04
-The first connected version is in moriq/app: the Studio interface, Brain prompt, governed retrieval and a local model on one computer. See its [README](../../moriq/app/README.md). Only synthetic sources are loaded, answers remain unreviewed drafts, there is no login, and model quality has not been evaluated. This is not a released V1.
+## Version 1 — 2026-11-04
+A working single-user Version 1 is in moriq/app, published on main with earlier branches kept as archive tags. See its [README](../../moriq/app/README.md). It restricts itself to architecture and building engineering, and uses an AI-written starter guide plus any documents the owner loads. Answers remain unreviewed drafts, there is no login, and no architect or engineer has reviewed answer quality. The owner accepted having no reviewer for now; original V12 independent review remains unmet.

@@ -10,7 +10,7 @@ import uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from moriq.app.pipeline import MAX_MESSAGE, build_messages, decide, finish
+from moriq.app.pipeline import MAX_MESSAGE, OUT_OF_SCOPE, OUT_OF_SCOPE_MARK, build_messages, decide, finish
 from moriq.app.profile import PROFILE, WORKSPACES, profile_text
 from moriq.app.provider import ProviderUnavailable
 
@@ -34,8 +34,8 @@ PUBLIC = {'claim_status': 'not_assessed', 'release_allowed': False}
 class Service:
     """Holds one model run at a time, because this machine has no GPU."""
 
-    def __init__(self, store, registry, provider):
-        self.store, self.registry, self.provider = store, registry, provider
+    def __init__(self, store, registry, provider, knowledge=None):
+        self.store, self.registry, self.provider, self.knowledge = store, registry, provider, knowledge
         self.lock = threading.Lock()
         self.active = {}
         self.run = threading.Semaphore(1)
@@ -63,7 +63,7 @@ def chat_events(service, body):
         yield {'type': 'error', 'code': 'invalid_message', **PUBLIC}
         return
     level = 'freshie' if body.get('level') == 'freshie' else 'standard'
-    decision = decide(text, service.registry, jurisdiction=_clean(body.get('jurisdiction'), 80),
+    decision = decide(text, service.registry, service.knowledge, jurisdiction=_clean(body.get('jurisdiction'), 80),
                       edition=_clean(body.get('edition'), 80))
     history = service.store.history(chat_id)
     if not service.store.append(chat_id, 'user', text):
@@ -77,8 +77,14 @@ def chat_events(service, body):
         service.store.append(chat_id, 'assistant', profile_text(), meta)
         yield {'type': 'done', 'text': profile_text(), **meta}
         return
+    if decision.action == 'intro':
+        meta = {'status': 'intro', 'code': 'none', 'label': 'intro', **PUBLIC}
+        service.store.append(chat_id, 'assistant', decision.message, meta)
+        yield {'type': 'done', 'text': decision.message, **meta}
+        return
     if decision.action == 'blocked':
-        meta = {'status': 'blocked', 'code': decision.code, 'label': 'evidence_gap', **PUBLIC}
+        label = 'out_of_scope' if decision.code == 'out_of_scope' else 'evidence_gap'
+        meta = {'status': 'blocked', 'code': decision.code, 'label': label, **PUBLIC}
         service.store.append(chat_id, 'assistant', decision.message, meta)
         yield {'type': 'done', 'text': decision.message, **meta}
         return
@@ -91,15 +97,32 @@ def chat_events(service, body):
         service.active[request_id] = cancelled
     pieces = []
     meta = {'status': 'failed', 'code': 'model_unavailable', 'label': 'failed', **PUBLIC}
+    stream = None
+    declined = False
     try:
         yield {'type': 'start', 'request_id': request_id, 'category': decision.category, **PUBLIC}
-        for piece in service.provider.stream(build_messages(decision, text, history, level), cancelled):
+        stream = service.provider.stream(build_messages(decision, text, history, level), cancelled)
+        released = False
+        for piece in stream:
             pieces.append(piece)
+            if not released:
+                # Hold the first characters so a scope refusal never reaches the screen.
+                held = ''.join(pieces).lstrip()
+                if held.startswith(OUT_OF_SCOPE_MARK):
+                    declined = True
+                    break
+                if OUT_OF_SCOPE_MARK.startswith(held):
+                    continue
+                released = True
+                piece = ''.join(pieces)
             yield {'type': 'token', 'text': piece}
             if cancelled.is_set():
                 break
         answer = ''.join(pieces)
-        if cancelled.is_set():
+        if declined:
+            pieces = [OUT_OF_SCOPE]
+            meta = {'status': 'blocked', 'code': 'out_of_scope', 'label': 'out_of_scope', 'text': OUT_OF_SCOPE, **PUBLIC}
+        elif cancelled.is_set():
             meta = {'status': 'cancelled', 'code': 'none', 'label': 'stopped', **PUBLIC}
         elif not answer.strip():
             meta = {'status': 'failed', 'code': 'empty_response', 'label': 'failed', **PUBLIC}
@@ -113,6 +136,8 @@ def chat_events(service, body):
         service.store.append(chat_id, 'assistant', ''.join(pieces), meta)
         raise
     finally:
+        if stream is not None:
+            stream.close()
         with service.lock:
             service.active.pop(request_id, None)
         service.run.release()
@@ -191,7 +216,10 @@ class Handler(BaseHTTPRequestHandler):
             self._headers(200, kind, len(data))
             return self.wfile.write(data)
         if route == '/api/status':
-            return self._json(200, {'model': self.service.provider.name, 'model_ready': self.service.provider.available(),
+            provider = self.service.provider
+            documents = bool(self.service.knowledge and self.service.knowledge.has_documents)
+            return self._json(200, {'model': provider.name, 'model_label': provider.label,
+                                    'model_ready': provider.available(), 'documents_loaded': documents,
                                     'workspaces': WORKSPACES, 'profile': PROFILE, **PUBLIC})
         if route == '/api/chats':
             return self._json(200, {'chats': self.service.store.list_chats()})

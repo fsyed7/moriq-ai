@@ -5,6 +5,10 @@ const LABELS = {
   source_supported: 'DRAFT USING RETRIEVED SOURCE · NOT REVIEWED',
   code_evidence: 'DRAFT USING CODE SOURCE · NOT A COMPLIANCE DECISION',
   evidence_gap: 'EVIDENCE GAP · NO ANSWER GENERATED',
+  out_of_scope: 'OUTSIDE MORIQ AI SCOPE',
+  starter_guide: 'DRAFT USING AI-WRITTEN STARTER GUIDE · NOT A MORIQ DOCUMENT',
+  moriq_document: 'DRAFT USING LOADED MORIQ DOCUMENT · NOT INDEPENDENTLY REVIEWED',
+  code_gap: 'GENERAL EXPLANATION · NOT A CODE REQUIREMENT',
   public_profile: 'PUBLIC LISTINGS · NOT AN APPROVED MORIQ SOURCE',
   stopped: 'STOPPED · PARTIAL DRAFT',
   failed: 'NO ANSWER',
@@ -17,6 +21,7 @@ const CHECKS = {
   unexpected_citation: 'The draft shows a citation, but no source was retrieved. Ignore that citation.',
   not_applicable: 'No approved source was retrieved. This is general explanation.',
   unsupported_reference: 'The draft names a code or section that no retrieved source contains. It may be invented, so verify it against the adopted text.',
+  unsupported_limit: 'The draft states a measurement that no retrieved source contains. It may be invented, so verify it.',
 };
 const ERRORS = {
   busy: 'The local model is already answering another question. Try again when it finishes.',
@@ -84,9 +89,10 @@ function showEvidence(meta, trigger) {
   $('#evidence-summary').textContent = CHECKS[meta.citation_check] || (meta.label === 'evidence_gap' ? 'No approved source supports an answer, so the model was not asked.' : meta.label === 'public_profile' ? 'These details come from public listings and the firm should confirm them.' : '');
   const items = $('#evidence-items');
   items.replaceChildren();
+  const KINDS = {starter_guide: 'AI-written starter guide, not reviewed', owner_document: 'Loaded MORIQ document, not independently reviewed', registry: 'Registry source'};
   (meta.sources || []).forEach(source => items.append(evidenceItem(`[${source.number}] ${source.title}`, [
-    `Source ${source.source_id} · revision ${source.revision}`,
-    source.jurisdiction ? `${source.jurisdiction} · ${source.edition}` : 'No jurisdiction',
+    `${KINDS[source.kind]} · ${source.source_id}${source.revision ? ' · revision ' + source.revision : ''}`,
+    ...(source.jurisdiction ? [`${source.jurisdiction} · ${source.edition}`] : []),
     source.passage,
   ])));
   (meta.links || []).forEach(link => {
@@ -108,13 +114,13 @@ function addMessage(label, text) {
 }
 function decorate(article, meta) {
   if (meta.label && LABELS[meta.label]) {
-    const kind = meta.label === 'evidence_gap' ? ' gap' : meta.label === 'failed' ? ' failed' : '';
+    const kind = meta.label === 'evidence_gap' || meta.label === 'out_of_scope' ? ' gap' : meta.label === 'failed' ? ' failed' : '';
     article.querySelector('.message-label').after(element('div', LABELS[meta.label], 'answer-label' + kind));
   }
-  if (['unsupported_reference', 'unknown_reference', 'stale_or_invalid', 'unexpected_citation'].includes(meta.citation_check)) {
+  if (['unsupported_reference', 'unsupported_limit', 'unknown_reference', 'stale_or_invalid', 'unexpected_citation'].includes(meta.citation_check)) {
     article.querySelector('.answer-label').after(element('div', 'WARNING · ' + CHECKS[meta.citation_check], 'answer-label failed'));
   }
-  if (meta.status === 'draft' || meta.status === 'blocked' || meta.status === 'profile') {
+  if (meta.status === 'draft' || (meta.status === 'blocked' && meta.label === 'evidence_gap') || meta.status === 'profile') {
     const button = element('button', `Evidence${meta.sources?.length ? ` (${meta.sources.length})` : ''} ↗`, 'citation');
     button.addEventListener('click', () => showEvidence(meta, button));
     article.append(button);
@@ -178,7 +184,7 @@ async function ask(text) {
   const {article, body} = addMessage('MORIQ AI', '');
   body.classList.add('streaming');
   $('#prompt').value = '';
-  setStatus('Thinking. On this computer an answer can take a minute or more.');
+  setStatus('Thinking. With the local model an answer can take a minute or more.');
   let response;
   try {
     response = await fetch('/api/ask', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
@@ -307,7 +313,7 @@ for (const [image, fallback] of [['#courtyard-image', '.arrival-image .asset-pla
   try {
     const status = await api('/api/status');
     workspaces = status.workspaces;
-    $('#model-state').textContent = status.model_ready ? 'Local model ready' : 'Local model offline';
+    $('#model-state').textContent = `${status.model_label} ${status.model_ready ? 'ready' : 'offline'}`;
     $('#model-state').classList.toggle('offline', !status.model_ready);
   } catch { $('#model-state').textContent = 'App unavailable'; }
   route();

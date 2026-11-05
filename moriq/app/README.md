@@ -1,6 +1,6 @@
-# MORIQ AI local app
+# MORIQ AI app
 
-The first connected version: the Studio interface, MORIQ Brain prompt, governed retrieval and a local model, working together on one computer. It is a single-user prototype, not a production service.
+An AI assistant for architects and engineers at MORIQ. It connects the Studio interface, the MORIQ Brain prompt, a built-in knowledge guide and a language model, and it only answers questions in that field.
 
 ## Run it
 
@@ -10,32 +10,51 @@ Double-click `start-moriq.bat` in the repository root, or run this from the root
 py -3.12 -m moriq.app
 ```
 
-Then open http://127.0.0.1:5180. It needs Python 3.12 and Ollama running with the model named in `provider.py`. It installs nothing, and chats are saved in `.moriq` in your home folder.
+Then open http://127.0.0.1:5180. It needs Python 3.12, with nothing else to install for the local model.
 
-Test it with `py -3.12 -B -m unittest moriq.app.test_app`.
+## Choose a model
+
+|Model|How to use it|Trade-off|
+|---|---|---|
+|Claude Opus 5.5 (recommended)|`pip install anthropic`, then set `ANTHROPIC_API_KEY` before starting|Much stronger and faster, but questions go to Anthropic and usage is billed|
+|Local Ollama model (default)|Run Ollama with the model named in `provider.py`|Private and free, but slow on a CPU and weaker|
+
+The app picks Claude automatically when a key and the SDK are present, and the top bar shows which model is running. Claude calls use server-side fallback, so a declined request is retried on another model.
+
+## Add MORIQ documents
+
+Put `.md` or `.txt` files in the `documents` folder inside `.moriq` in your home folder, then restart the app. The app prints the exact folder when it starts. It can then answer MORIQ questions from those files, and it labels those answers as loaded MORIQ documents that have not been independently reviewed. Only add documents you have the right to use.
 
 ## How a question is handled
 
 |Question|What happens|Model used?|
 |---|---|---|
-|General architecture|Answered and labelled as general explanation, or as source-supported if a source matches|Yes|
-|MORIQ practice, policy or standard|Blocked as an evidence gap, because no approved MORIQ document is loaded|No|
-|Building code, without jurisdiction and edition|Asks for both|No|
-|Building code, with no approved source|Blocked as an evidence gap|No|
-|Building code, with an approved source|Answered from that source and marked as not a compliance decision|Yes|
+|Outside architecture and engineering|Declined|No, or the model declines when the wording is unclear|
+|General architecture or engineering|Answered from the starter guide where it matches, otherwise as general explanation|Yes|
+|MORIQ practice, policy or standard|Answered from loaded documents, otherwise reported as an evidence gap|Only with a matching document|
+|Code concept, such as what a setback is|Explained with no limits, labelled as not a code requirement|Yes|
+|Specific code limit|Asks for jurisdiction and edition, then needs an approved source|Only with an approved source|
 |Who MORIQ is|Shows public listing facts with links, marked as not approved by MORIQ|No|
 
-Routing uses keyword rules, so a question can be sorted wrongly. Every answer stays `claim_status=not_assessed` and `release_allowed=false`. Answers also get automatic warnings for citation numbers that do not exist, and for code or section names that no retrieved source contains. These checks catch some invented references. They cannot show that the rest of an answer is true.
+Every answer stays `claim_status=not_assessed` and `release_allowed=false`. Answers get automatic warnings for citation numbers that do not exist, for code or section names that no retrieved source contains, and for numeric limits stated with no code source. These checks catch some invented content. They cannot show that an answer is true.
 
-## Public company facts
+## What it is, and is not
 
-`profile.py` holds facts from public listings, checked on 2026-11-04. They are shown to users with links but are not knowledge sources: they stay out of the registry and out of model prompts. The firm should confirm them. The site listed by ArchDaily, moriq.co.in, could not be reached when checked.
+This is not a model trained on MORIQ's work. It is a general language model restricted by rules to this field, and grounded in the guide and any documents you load. Its knowledge of MORIQ is only as good as those documents.
 
-## Known limits
-
-- **Knowledge:** only two clearly synthetic sample sources are loaded. Real MORIQ documents need rights and an independent reviewer before they go in.
-- **Model:** a small local model on a CPU. Answers took about 50 to 75 seconds in testing, and it invented a code reference during testing despite its instructions. Quality has not been evaluated.
-- **Stop:** closing the connection asks Ollama to stop, but nothing proves the model has gone idle.
+- **Starter guide:** the `guide` folder is general guidance written by AI. No architect or engineer has reviewed it, and every answer using it says so.
+- **Scope lock:** keyword rules plus the model's own judgement, so unusual wording can slip through in either direction.
 - **Access:** there is no login or audit trail, and the app listens on this computer only. Do not expose it to a network or enter confidential client information.
+- **Stop:** closing the connection asks the model to stop, but nothing proves it has gone idle.
 - **Offline facade:** the Task 6.1B facade refuses generation by design, so this app does not route through it. It reuses the same registry, retrieval, citation checks and public status fields.
 - **Image:** `courtyard-villa.jpg` is approved for local preview only and is left out of Git. A clone without it shows the labelled placeholder.
+- **Public facts:** `profile.py` holds facts from public listings, checked on 2026-11-04, and stays out of model prompts. The firm should confirm them. The site listed by ArchDaily, moriq.co.in, could not be reached when checked.
+
+## Test it
+
+```shell
+py -3.12 -B -m unittest moriq.app.test_app
+py -3.12 -B -m moriq.app.evaluate results.json
+```
+
+The first uses a fake model. The second runs live questions through the configured model and checks routing, scope and references. A person still needs to read the answers to judge whether they are architecturally correct.

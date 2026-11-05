@@ -1,28 +1,67 @@
 # MORIQ AI
-Architectural Intelligence & Knowledge Assistant, built on the preserved Open WebUI foundation.
 
-MORIQ aims to combine source-aware architectural reasoning, project knowledge and a dark architectural Studio interface. **Current status: offline prototypes and local fixture UI; V1 integration is incomplete.** Historical live Brain behavior failed its release gate. No production readiness is claimed.
+**An AI assistant for architects and engineers at MORIQ.** It answers questions on design, climate, materials, structure, services, drawings and site coordination, and it declines everything else. Every answer says what it rests on.
 
-- Brain: versioned workspace-model prompt/configuration.
-- Reliability: isolated source enforcement, private drafts and mock transport.
-- Knowledge: approved synthetic registry, bounded retrieval, citation identity and lifecycle tests.
-- Studio: responsive HTML/CSS/JS fixture preview with local chat state and authentic approved local hero.
-- Integration: completed local 6.1A contracts plus unfinished, untracked 6.1B work.
+> **Version 1, working prototype.** It runs for one person on one computer. Answers are unreviewed drafts to check, not professional advice. It has no login and is not ready for a shared deployment.
 
-The source retains Svelte/TypeScript src, FastAPI/Python backend and moriq modules. Studio remains separately launched under studio-preview. See [architecture](docs/moriq-project/SYSTEM-ARCHITECTURE.md), [current status](docs/moriq-project/CURRENT-PROJECT-STATUS.md) and [V1 roadmap](docs/moriq-project/ROADMAP-TO-V1.md).
+## What it does
 
-## Development
-Read [setup](docs/moriq-project/DEVELOPER-SETUP.md) before installing or launching anything. For the fixture UI, run npm run dev from studio-preview and open localhost:5175; npm test requires that local preview. Offline Python checks use Python 3.12 and the documented import paths. See [test commands](docs/moriq-project/TESTING-AND-VALIDATION.md) and [actual migration results](docs/moriq-project/MIGRATION-TEST-RESULTS.md). Full upstream setup/build/runtime has not been freshly validated.
+- **Stays in its field:** questions outside architecture and building engineering are declined.
+- **Doesn't invent company practice:** MORIQ questions are answered only from documents you load. Otherwise it says the evidence is missing.
+- **Careful with building codes:** it explains code concepts, but won't state a limit without an approved source for that jurisdiction and edition.
+- **Labels every answer:** each one shows whether it used general knowledge, the built-in guide or a loaded document, with an evidence panel to inspect.
+- **Warns about likely inventions:** it flags made-up citations, code sections and measurements that no source contains.
+- **Teaches juniors:** a "Guide me" setting adds definitions and checklists.
 
-## Documentation and review
-[Complete documentation index](docs/moriq-project/DOCUMENTATION-INDEX.md) · [History](docs/moriq-project/FULL-DEVELOPMENT-HISTORY.md) · [Claude handoff](CLAUDE.md) · [Agent rules](AGENTS.md) · [Contributing](CONTRIBUTING.md) · [MORIQ changelog](MORIQ-CHANGELOG.md).
+## Run it
 
-PR11, PR12 and PR13 remain draft/unmerged; PR13 depends on PR12. The migration branch and documentation are uncommitted. Private backup/media inventories and screenshots remain outside the proposed public publication scope until rights review. See [GitHub plan](docs/moriq-project/GITHUB-RECONCILIATION-PLAN.md).
+You need Python 3.12 and one model: either [Ollama](https://ollama.com) with the local model, or a Claude API key.
 
-## Safety and attribution
-Citation validity is not claim truth; ingestion approval does not authorize answer release. Live inference, real-source ingestion, automatic release and deployment remain restricted. Read [security limitations](docs/moriq-project/SECURITY-AND-LIMITATIONS.md).
+```shell
+git clone https://github.com/fsyed7/moriq-ai.git
+cd moriq-ai
+py -3.12 -m moriq.app
+```
 
-[LICENSE](LICENSE), [license history](LICENSE_HISTORY), [notice](LICENSE_NOTICE) and upstream history are preserved. [Original Open WebUI README](README-OPEN-WEBUI.md) is retained unchanged as historical upstream documentation; its broad runtime commands are not migration authorization. [License and asset review](docs/moriq-project/LICENSE-AND-ATTRIBUTION.md) remains necessary before redistribution.
+Then open http://127.0.0.1:5180. On Windows you can double-click `start-moriq.bat` instead.
 
-## Publication boundary
-This first proposed commit is documentation-only. Studio and offline_integration are recovered local work and are excluded from it; a fresh GitHub clone will not contain them. The launch and integration-test commands above apply to the local recovery copy. See [exact scope and branch base](docs/moriq-project/PUBLICATION-SCOPE.md). No source integration or deployment is implied.
+See the [app guide](moriq/app/README.md) for choosing a model and adding MORIQ documents.
+
+## Test results
+
+Run on 4 November 2026 with the local model on a laptop CPU:
+
+|Check|Result|
+|---|---|
+|App tests, with a simulated model|22 of 22 pass|
+|Browser click-through, including live answers and phone sizes|20 of 20 pass|
+|Live spot check of routing, scope and references|10 of 10 pass, with answers taking about 20 to 25 seconds|
+|Backend, contract and knowledge suites|57, 66 and 116 pass|
+
+The spot check is a small set that was adjusted against during development. It does not grade whether answers are architecturally correct, and no architect or engineer has reviewed them. The Claude connection has only been tested against a simulated model.
+
+## Before wider use
+
+- Add MORIQ's own documents, which it does not have yet.
+- Have an architect or engineer review answer quality and the AI-written starter guide.
+- Run the live evaluation on a stronger model.
+- Add logins and access control before anyone else uses it.
+- Confirm the rights to use company images and documents.
+
+## What's where
+
+|Folder|Contents|
+|---|---|
+|[`moriq/app`](moriq/app)|**The MORIQ AI app:** server, question routing, model connection, starter guide and interface|
+|[`moriq/brain`](moriq/brain)|The assistant's instructions and earlier reliability experiments|
+|[`moriq/knowledge`](moriq/knowledge)|Source registry, retrieval and citation checks|
+|[`studio-preview`](studio-preview)|Studio design and styles used by the app|
+|[`offline_integration`](offline_integration), [`offline_evaluation`](offline_evaluation), [`synthetic_pilot`](synthetic_pilot)|Earlier offline contracts and test suites|
+|[`docs/moriq-project`](docs/moriq-project/DOCUMENTATION-INDEX.md)|Project history, architecture, status and limitations|
+|`backend`, `src`, `static` and root config files|Inherited Open WebUI code, which the app doesn't run on|
+
+Earlier branches are kept as `archive/*` tags.
+
+## Licence
+
+This repository grew from [Open WebUI](https://github.com/open-webui/open-webui). Its [licence](LICENSE), [notice](LICENSE_NOTICE), [history](LICENSE_HISTORY) and [original README](README-OPEN-WEBUI.md) are preserved. The Courtyard Villa photograph is approved for local preview only, so it's left out of this repository and a clone shows a labelled placeholder instead.

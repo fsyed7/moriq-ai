@@ -1,5 +1,5 @@
 # System architecture
-The source retains upstream paths: Svelte/TypeScript in src, FastAPI/Python in backend/open_webui. MORIQ prompt configuration is under moriq/brain; experimental enforcement is under moriq/brain/experimental/source_gate. The registry and retrieval code live in moriq/knowledge. offline_evaluation and synthetic_pilot are test infrastructure. offline_integration contains uncommitted 6.1A contracts and the 6.1B facade, which the owner accepted for offline use only. studio-preview is a preserved, independently launched fixture UI.
+The source retains upstream paths: Svelte/TypeScript in src, FastAPI/Python in backend/open_webui. MORIQ prompt configuration is under moriq/brain; experimental enforcement is under moriq/brain/experimental/source_gate. The registry and retrieval code live in moriq/knowledge. offline_evaluation and synthetic_pilot are test infrastructure. offline_integration contains 6.1A contracts and the 6.1B facade, which the owner accepted for offline use only. moriq/app is the connected Version 1 app; it does not route through the facade, which refuses generation by design. studio-preview is a preserved, independently launched fixture UI.
 
 ```mermaid
 flowchart LR

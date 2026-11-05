@@ -1,6 +1,6 @@
 # Task 6.1B closeout record — accepted 2026-11-04
 
-**Status: accepted by the owner on 2026-11-04 as an offline, in-process facade only (criterion A8).** This acceptance is limited by the findings below and is not independent review or production approval. Nothing described here has been committed. The integration source remains local-only and untracked; see [publication scope](PUBLICATION-SCOPE.md).
+**Status: accepted by the owner on 2026-11-04 as an offline, in-process facade only (criterion A8).** This acceptance is limited by the findings below and is not independent review or production approval. When this record was accepted nothing had been committed; the source was committed and published later on 2026-11-04.
 
 ## Bounded scope
 In scope: the offline, in-process facade in offline_integration/backend.py: `handle`, `tick`, `issue_session` and `revoke_session`, and the JSON operations `start`, `status` and `cancel`.
