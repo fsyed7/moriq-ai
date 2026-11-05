@@ -205,6 +205,12 @@ class AppTest(unittest.TestCase):
         self.provider.reply = ['Make the drip edge 10-15 mm.']
         _, events = self.ask(general)
         self.assertEqual(events[-1]['citation_check'], 'unsupported_limit')
+        self.provider.reply = ['The figure is 44 in that source, and IS 456 is unrelated.']
+        _, events = self.ask(general)
+        self.assertEqual(events[-1]['citation_check'], 'unsupported_reference')
+        self.provider.reply = ['The figure is 44 in that source.']
+        _, events = self.ask(general)
+        self.assertEqual(events[-1]['citation_check'], 'not_applicable')
         self.provider.reply = ['See the National Building Code for this.']
         _, events = self.ask(general)
         self.assertEqual(events[-1]['citation_check'], 'unsupported_reference')
@@ -290,7 +296,7 @@ class AppTest(unittest.TestCase):
         cases = {'vaastu kitchen planning': 'Vaastu', 'how do beams carry load to the foundation': 'load path',
                  'timber decking next to pebble paving': 'junctions', 'waterproofing a wet bathroom': 'Waterproofing',
                  'writing a client fee agreement': 'Fees', 'hotel guest room mock-up': 'Hotel',
-                 'marble in a kitchen': 'marble', 'architect registration in India': 'registration',
+                 'marble in a kitchen': 'marble', 'Hyderabad seismic zone': 'seismic', 'thermal insulation in Bahrain': 'insulation', 'architect registration in India': 'registration',
                  'How should a parapet be detailed against rainwater?': 'Roofs'}
         for question, expected in cases.items():
             titles = [p.title for p in self.knowledge.search(question)]

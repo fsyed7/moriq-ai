@@ -32,6 +32,7 @@ Sources: https://www.archdaily.com/896185/villa-430-moriq and https://indiadesig
 
 ## Amwaj Villa, Bahrain
 A contemporary single-family home in Amwaj, Bahrain, completed in 2015, of about 778 sq m on a 690 sq m plot according to ArchDaily, while ek magazine reports 721 sq m. The brief emphasised interior architecture and close links between inside and outside. MORIQ is credited for architecture, interiors and landscape, and Ghumais Constructions for construction, MEP and project management.
+The three storeys hold living, dining, kitchens, a gym and staff rooms at ground level, children's bedrooms and a communal sitting room above, and the master suite with a home cinema at the top, linked by a stair and lift. Materials include reclaimed timber with walnut veneer for the main door, gate and façade louvres, grey limestone, travertine, slate and Greek marble floors. Small planted pockets with palms and shallow ponds soften the hot climate.
 Sources: https://www.archdaily.com/954404/amwaj-villa-moriq and https://ek-mag.com/amwaj-villa/
 
 ## AAK Villa, Bahrain
@@ -42,10 +43,14 @@ Source: https://www.archdaily.com/801530/aak-villa-moriq
 A duplex of about 710 sq m on the 29th and 30th floors in Kukatpally, also published as the Sky High Duplex. The owners first wanted fully classical interiors, and the designers proposed blending opulence with contemporary decor, which they said was faster, cheaper and easier to maintain. Social spaces and a central family lounge are layered by function across the levels. Materials include beige and black Italian marble with teak on an L-shaped metal staircase, and a sliding wooden jaali.
 Sources: https://www.houzz.in/magazine/houzz-tour-contemporary-meets-classical-in-this-hyderabad-home-stsetivw-vs~75412970 and https://homeworlddesign.com/sky-high-duplex-apartment-by-moriq-studio
 
+## Villa in Meenakshi Bamboos, Hyderabad
+A contemporary family home in a gated community, designed in 2012, where the interior was revamped across three floors while keeping the façade. A water body under a skylight forms the core, with each floor looking onto the atrium and a glass bridge crossing to the dining area. The designers stated an emphasis on interior architecture over decoration. Materials include composite stone and polished wood floors, leather-finish granite cladding on a triple-height wall, and travertine around the water.
+Source: https://homeadore.com/?p=88951
+
 ## Other published apartments and villas in Hyderabad
-Apartment @ 11, completed in 2016, mixes modern lines and traditional elements with warm wood, patterned tile and a large mural. A studio apartment designed in 2016 was published by The Architect's Diary. An apartment for a young couple, published in 2017, uses a largely open plan despite mostly shear walls, with wooden flooring against Spanish tiles. A villa in Meenakshi Bamboos has also been published, and its details were not checked.
-Sources: https://homeadore.com/?p=147582 and https://thearchitectsdiary.com/studio-apartment-in-hyderabad-by-moriq and https://indiaartndesign.com/building-narratives/ and https://homeadore.com/?p=88951
+Apartment @ 11, completed in 2016, mixes modern lines and traditional elements with warm wood, patterned tile and a large mural. A studio apartment designed in 2016 was published by The Architect's Diary. An apartment for a young couple, published in 2017, uses a largely open plan despite mostly shear walls, with wooden flooring against Spanish tiles.
+Sources: https://homeadore.com/?p=147582 and https://thearchitectsdiary.com/studio-apartment-in-hyderabad-by-moriq and https://indiaartndesign.com/building-narratives/
 
 ## Recurring themes in published MORIQ work
-This is an interpretation of published projects, not a stated MORIQ philosophy. Common themes are linear plots organised around courts, lawns or water, strong links between inside and outside, concrete with timber and stone, neutral palettes with selective colour, and layered interiors planned around how a family gathers. Vaastu appears as a client requirement in at least one published project.
+This is an interpretation of published projects, not a stated MORIQ philosophy. Common themes are linear plots organised around courts, lawns or water, strong links between inside and outside, concrete with timber and stone, neutral palettes with selective colour, and layered interiors planned around how a family gathers. Water bodies and skylights recur as the centre of a plan. Designers have stated a preference for interior architecture over decoration in at least one project. Vaastu appears as a client requirement in at least one published project.
 Sources: the project listings above.

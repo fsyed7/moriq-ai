@@ -47,7 +47,7 @@ _PRACTICE = re.compile(
 _CITATION = re.compile(r'\[(\d{1,2})\]')
 _CODE_REFERENCE = re.compile(
     r'\b(?:section|sec\.|clause|article|§)\s*\d[\d.]*'
-    r'|\b(?:IBC|NBC|ADA|NFPA|ASHRAE|BS|IS|ISO|ASTM)\s*(?:section\s*)?\d[\d.:-]*'
+    r'|\b(?:IBC|NBC|(?-i:ADA|BS|IS)|NFPA|ASHRAE|ISO|ASTM)\s*(?:section\s*)?\d[\d.:-]*'
     r'|\b(?:IBC|NBC|NFPA|ASHRAE|International Building Code|National Building Code)\b',
     re.I,
 )

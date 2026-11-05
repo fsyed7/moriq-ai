@@ -18,7 +18,7 @@
 |Knowledge|Covers|How it's labelled|
 |---|---|---|
 |Public MORIQ record|Firm profile, people, services, reported awards and nine published projects, summarised from public listings with links|Not confirmed by MORIQ|
-|Regulation pointers|Who governs permits, rules and registration in Telangana, India and Bahrain, with no limits stated|General explanation, not a code requirement|
+|Regulation pointers|Who governs permits, fire, RERA, energy, insulation and registration in Telangana, India and Bahrain, with reported figures to verify|Depends on the question; not a code source|
 |Starter guide|Design and climate, structure and services, materials and interiors, hospitality, sustainability, project stages, fees, contracts, site work and mentoring|AI-written, not reviewed|
 |MORIQ documents|Whatever you add to the documents folder|Loaded document, not independently reviewed|
 
@@ -46,7 +46,7 @@ Run on 4 November 2026 with the local model on a laptop CPU:
 |---|---|
 |App tests, with a simulated model|24 of 24 pass|
 |Browser click-through, including live answers and phone sizes|20 of 20 pass|
-|Live spot check of routing, scope and references|15 of 15 pass, with most answers taking about 25 to 35 seconds|
+|Live spot check of routing, scope and references|18 of 18 pass, with most answers taking about 25 to 35 seconds|
 |Backend, contract and knowledge suites|57, 66 and 116 pass|
 
 The spot check is a small set that was adjusted against during development. It does not grade whether answers are correct, and a passing run still included a wrong answer that missed a published project, which was then fixed in the record. No architect or engineer has reviewed the answers. The Claude connection has only been tested against a simulated model.
