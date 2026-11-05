@@ -7,7 +7,7 @@
 ## What it does
 
 - **Stays in its field:** questions outside architecture and building engineering are declined.
-- **Doesn't invent company practice:** MORIQ questions are answered only from documents you load. Otherwise it says the evidence is missing.
+- **Doesn't invent company practice:** questions on MORIQ's projects use its public record, and questions on its internal practice are answered only from documents you load. Otherwise it says the evidence is missing.
 - **Careful with building codes:** it explains code concepts, but won't state a limit without an approved source for that jurisdiction and edition.
 - **Labels every answer:** each one shows whether it used general knowledge, the built-in guide or a loaded document, with an evidence panel to inspect.
 - **Warns about likely inventions:** it flags made-up citations, code sections and measurements that no source contains.
