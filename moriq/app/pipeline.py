@@ -61,19 +61,38 @@ _OFF_TOPIC = re.compile(
     r'|\b(ignore|disregard|forget)\b.{0,30}\b(instructions|rules|prompt)\b|\bsystem prompt\b|\bjailbreak\b|\bpretend (you|to be)\b',
     re.I,
 )
+# Words that clearly mean building work. Questions using them go straight to the model.
 _DOMAIN = re.compile(
-    r'\b(architect\w*|architectur\w*|engineer\w*|build(?:ing|ings)?|construct\w*|structur\w*|civil|mep|hvac|plumbing|'
-    r'electrical|drainage|ventilat\w*|daylight\w*|thermal|insulat\w*|waterproof\w*|concrete|rcc|steel|timber|masonry|'
-    r'brick\w*|plaster|mortar|rebar|reinforce\w*|beams?|columns?|slabs?|footings?|foundations?|retaining|cantilever\w*|'
-    r'shear|seismic|load\w*|soil|facades?|elevations?|sections?|floor ?plans?|site ?plans?|plans?|drawings?|detail\w*|'
-    r'revit|autocad|cad|bim|sketchup|rhino|rendering|courtyards?|vaastu|vastu|villa\w*|residen\w*|interiors?|'
-    r'landscap\w*|planting|paving|decking|tiles?|tiling|stone|marble|granite|joinery|finishes|stairs?|staircase|ramps?|'
-    r'doors?|windows?|glazing|skylights?|roofs?|walls?|ceilings?|kitchens?|bathrooms?|bedrooms?|parapets?|basements?|'
-    r'setbacks?|plots?|site|zoning|permits?|codes?|by-?laws?|egress|fire|accessib\w*|acoustic\w*|lighting|shading|'
-    r'climate|passive|sustainab\w*|cooling|boq|tender\w*|specification\w*|contractor\w*|consultant\w*|submittals?|rfis?|'
-    r'mock-?ups?|clash\w*|materials?|massing|circulation|orientation|jali|pergola|verandah?|balcon\w*|pool|'
-    r'moriq|clients?|fees?|contracts?|appointment|snag\w*|handover|programme|budget|project|projects|regulations?|'
-    r'hotels?|hospitality|furniture|joinery|marble|veneer|automation)\b',
+    r'\b(architect\w*|architectur\w*|engineer\w*|buildings?|construct\w*|structur\w*|civil|mep|hvac|plumbing|'
+    r'drainage|ventilat\w*|daylight\w*|thermal|insulat\w*|waterproof\w*|concrete|rcc|masonry|'
+    r'brick\w*|plaster\w*|mortar|cement|rebar|reinforc\w*|beams?|columns?|slabs?|footings?|foundations?|retaining|lintels?|'
+    r'cantilever\w*|shear|seismic|deflection|bending moment|truss\w*|formwork|shuttering|curing|excavation|piling|'
+    r'facades?|façades?|elevations?|floor ?plans?|site ?plans?|drawings?|'
+    r'revit|autocad|cad|bim|sketchup|rhino|courtyards?|vaastu|vastu|villas?|interiors?|'
+    r'landscap\w*|paving|decking|tiles?|tiling|marble|granite|travertine|limestone|gypsum|joinery|veneer|'
+    r'stairs?|staircases?|ramps?|glazing|skylights?|roofs?|roofing|ceilings?|parapets?|basements?|'
+    r'setbacks?|zoning|by-?laws?|egress|acoustic\w*|shading|massing|jali|jaali|pergolas?|verandah?|balcon\w*|'
+    r'boq|tenders?|submittals?|rfis?|mock-?ups?|snag\w*|as-?builts?|contractors?|'
+    r'ducts?|chillers?|ahu|sewage|septic|sump|borewell|gridlines?|corridors?|wardrobes?|false ceiling|puja room|'
+    r'ghmc|hmda|nbc|ecbc|griha|igbc|rera|benayat|sq ?ft|square f(?:oo|ee)t|fsi|'
+    r'moriq|amwaj)\b',
+    re.I,
+)
+# Everyday words that may or may not be about building work, so the model is asked to judge.
+_DOMAIN_WEAK = re.compile(
+    r'\b(plans?|plots?|sites?|details?|detailing|sections?|codes?|permits?|permission|fire|lighting|electrical|load\w*|soil|'
+    r'steel|timber|wood|stone|glass|paint\w*|sand|materials?|finishes|doors?|windows?|walls?|floors?|rooms?|kitchens?|'
+    r'bathrooms?|bedrooms?|toilets?|living|residen\w*|homes?|houses?|apartments?|hotels?|hospitality|offices?|schools?|'
+    r'furniture|sofas?|curtains?|cabinets?|lifts?|elevators?|pumps?|tanks?|cables?|voltage|transformers?|bolts?|welding|'
+    r'climate|passive|cooling|heating|sustainab\w*|circulation|orientation|pool|consultants?|clients?|fees?|contracts?|'
+    r'appointment|handover|programme|schedule|budget|cost|estimat\w*|specification\w*|project|projects|regulations?|'
+    r'survey|contour|renovat\w*|extension|automation|design\w*|sequence|trades?|site visit)\b',
+    re.I,
+)
+# A short follow-up inside a chat that already has an answer.
+_FOLLOW_UP = re.compile(
+    r'\b(it|that|this|those|these|them|they|more|why|example|examples|again|previous|above|same|else|another|also|instead)\b'
+    r'|^\W*(and|but|so|how about|what about|then|ok|okay)\b',
     re.I,
 )
 # Other fields are declined unless the question also names building work, such as a script for beam loads.
@@ -134,7 +153,7 @@ def classify(text):
     return 'general'
 
 
-def decide(text, registry, knowledge=None, *, jurisdiction='', edition=''):
+def decide(text, registry, knowledge=None, *, jurisdiction='', edition='', has_answer=False):
     category = classify(text)
     if category == 'identity':
         return Decision(category, 'profile')
@@ -160,6 +179,9 @@ def decide(text, registry, knowledge=None, *, jurisdiction='', edition=''):
             return Decision(category, 'blocked', 'missing_scope', SCOPE_GAP)
         notes = knowledge.search(text) if knowledge else ()
         return Decision(category, 'answer', notes=notes)
+    related = _DOMAIN.search(text) or _DOMAIN_WEAK.search(text) or (has_answer and _FOLLOW_UP.search(text))
+    if not related:
+        return Decision(category, 'blocked', 'out_of_scope', OUT_OF_SCOPE)
     notes = knowledge.search(text) if knowledge else ()
     return Decision(category, 'answer', notes=notes)
 
@@ -210,7 +232,7 @@ def _source_texts(decision):
 
 
 def build_messages(decision, text, history=(), level='standard'):
-    checked = decision.category != 'general' or bool(_DOMAIN.search(text))
+    checked = decision.category == 'company' or bool(_DOMAIN.search(text))
     messages = [{'role': 'system', 'content': _rules(decision, level, checked)}]
     messages.extend({'role': role, 'content': content} for role, content in history[-6:])
     sources = _source_texts(decision)

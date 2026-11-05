@@ -96,9 +96,9 @@ def chat_events(service, body, user):
         yield {'type': 'error', 'code': 'invalid_message', **PUBLIC}
         return
     level = 'freshie' if body.get('level') == 'freshie' else 'standard'
-    decision = decide(text, service.registry, service.knowledge, jurisdiction=_clean(body.get('jurisdiction'), 80),
-                      edition=_clean(body.get('edition'), 80))
     history = service.store.history(chat_id, owner)
+    decision = decide(text, service.registry, service.knowledge, jurisdiction=_clean(body.get('jurisdiction'), 80),
+                      edition=_clean(body.get('edition'), 80), has_answer=any(role == 'assistant' for role, _ in history))
     if not service.store.append(chat_id, 'user', text):
         yield {'type': 'error', 'code': 'chat_full', **PUBLIC}
         return

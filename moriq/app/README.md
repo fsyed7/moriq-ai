@@ -29,7 +29,8 @@ Put `.md` or `.txt` files in the `documents` folder inside `.moriq` in your home
 
 |Question|What happens|Model used?|
 |---|---|---|
-|Outside architecture and engineering|Declined|No, or the model declines when the wording is unclear|
+|No clear link to architecture and engineering|Declined|No|
+|Everyday words that may or may not be about building work|The model judges, and declines if off-topic|Yes|
 |General architecture or engineering|Answered from the starter guide where it matches, otherwise as general explanation|Yes|
 |MORIQ practice, policy or standard|Answered from loaded documents, otherwise reported as an evidence gap|Only with a matching document|
 |MORIQ projects and public facts|Answered from the public record, marked as not confirmed by MORIQ|Yes|
@@ -45,7 +46,7 @@ This is not a model trained on MORIQ's work. It is a general language model rest
 
 - **Starter guide:** most of the `guide` folder is general guidance written by AI. No architect or engineer has reviewed it, and every answer using it says so. Its regulation pointers rely partly on secondary sources, so confirm them with the authority.
 - **Public record:** `guide/moriq-public.md` summarises public listings in our own words, with links and no photographs. MORIQ has not confirmed it. It cannot establish internal practice, so practice questions need loaded documents.
-- **Scope lock:** keyword rules plus the model's own judgement, so unusual wording can slip through in either direction.
+- **Scope lock:** keyword rules plus the model's own judgement. A real question with unusual wording can be declined and may need rephrasing, and an off-topic question using everyday building words can occasionally get through.
 - **Access:** each person signs in and sees only their own chats, and the app listens on this computer only. Host it only behind HTTPS, as the [hosting guide](../../docs/moriq-project/DEPLOYMENT-AND-SECURITY.md) explains. Do not enter confidential client information.
 - **Stop:** closing the connection asks the model to stop, but nothing proves it has gone idle.
 - **Offline facade:** the Task 6.1B facade refuses generation by design, so this app does not route through it. It reuses the same registry, retrieval, citation checks and public status fields.

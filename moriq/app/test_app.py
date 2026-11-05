@@ -109,9 +109,68 @@ class AppTest(unittest.TestCase):
             self.assertEqual((events[-1]['status'], events[-1]['code']), ('blocked', 'out_of_scope'), question)
         self.assertEqual(self.provider.calls, [])
 
+    def test_questions_with_no_link_to_the_field_never_reach_the_model(self):
+        for question in ['who is spiderman', 'Who is Batman?', 'Who won the election last year?', 'What is the meaning of life?',
+                         'Tell me about the Roman Empire', 'how are you today', 'What is 2 + 2?', 'Who is Elon Musk?']:
+            _, events = self.ask(question)
+            self.assertEqual(events[-1]['code'], 'out_of_scope', question)
+        self.assertEqual(self.provider.calls, [])
+
+    def test_follow_ups_need_an_earlier_answer_and_must_read_as_follow_ups(self):
+        chat, _ = self.ask('How should a parapet be detailed?')
+        calls = len(self.provider.calls)
+        _, events = self.ask('Can you give an example of that?', chat=chat)
+        self.assertEqual(events[-1]['status'], 'draft')
+        self.assertEqual(len(self.provider.calls), calls + 1)
+        self.assertIn('You only help with architecture', self.provider.calls[-1][0]['content'])
+        _, events = self.ask('who is spiderman', chat=chat)
+        self.assertEqual(events[-1]['code'], 'out_of_scope')
+        _, events = self.ask('Can you give an example of that?')
+        self.assertEqual(events[-1]['code'], 'out_of_scope')
+
+    def test_declined_question_does_not_count_as_an_earlier_answer(self):
+        chat, _ = self.ask('who is spiderman')
+        _, events = self.ask('Tell me more about that', chat=chat)
+        self.assertEqual(events[-1]['code'], 'out_of_scope')
+
+    def test_real_work_questions_are_not_declined(self):
+        questions = '''How wide should a corridor be in a villa?
+What is a good ceiling height for a living room?
+How do I calculate rebar for a slab?
+What causes beam deflection?
+How do I read a section drawing?
+Where should the puja room go?
+What is the difference between RCC and steel framing?
+How do I size a duct for a bedroom?
+What is the cost per square foot for finishes?
+How should I sequence first-fix trades on site?
+What do I check before a concrete pour?
+How do I prepare a BOQ for tiling?
+What should a client fee agreement cover?
+How do we handle a change to the kitchen layout?
+What paint suits an exterior wall in a humid climate?
+How do I detail a false ceiling with cove lighting?
+Which timber suits an outdoor deck?
+What should a site visit report include?
+How do I lay out a wardrobe in a small bedroom?
+What is a sump and overhead tank arrangement?
+How do septic tanks work for a house?
+What is FSI?
+How does solar shading work on a west wall?
+What goes in an RFI?
+How do I coordinate MEP with the structure?
+Should a home use a split AC or VRF cooling?
+How do I renovate an old apartment?
+How do I estimate plaster quantity?
+What is formwork?
+What makes a good design presentation for a client?'''.splitlines()
+        for question in questions:
+            decision = decide(question, self.registry, self.knowledge)
+            self.assertEqual(decision.code == 'out_of_scope', False, question)
+
     def test_model_can_decline_unclear_questions_without_showing_the_mark(self):
         self.provider.reply = ['OUT_', 'OF_SCOPE']
-        chat, events = self.ask('Who won the election last year?')
+        chat, events = self.ask('What is a good budget for a holiday?')
         self.assertIn('You only help with architecture', self.provider.calls[0][0]['content'])
         self.assertEqual(events[-1]['code'], 'out_of_scope')
         self.assertFalse([e for e in events if e['type'] == 'token'])
@@ -119,8 +178,8 @@ class AppTest(unittest.TestCase):
         self.assertNotIn('OUT_OF_SCOPE', saved['messages'][1]['text'])
 
     def test_clear_domain_question_skips_scope_rule(self):
-        decision = decide('How do I detail a timber door threshold?', self.registry, self.knowledge)
-        system = build_messages(decision, 'How do I detail a timber door threshold?')[0]['content']
+        decision = decide('How do I detail a parapet coping?', self.registry, self.knowledge)
+        system = build_messages(decision, 'How do I detail a parapet coping?')[0]['content']
         self.assertNotIn('OUT_OF_SCOPE', system)
 
     def test_greeting_needs_no_model(self):

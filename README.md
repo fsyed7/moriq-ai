@@ -53,9 +53,9 @@ Run on 4 November 2026 with the local model on a laptop CPU:
 
 |Check|Result|
 |---|---|
-|App, account and security tests, with a simulated model|57 of 57 pass|
+|App, account and security tests, with a simulated model|61 of 61 pass|
 |Browser click-through, including sign-in, team management, live answers and phone sizes|31 of 31 pass|
-|Live spot check of routing, scope and references|18 of 18 pass, with most answers taking about 25 to 35 seconds|
+|Live spot check of routing, scope and references|22 of 22 pass, with most answers taking about 25 to 45 seconds|
 |Backend, contract and knowledge suites|57, 66 and 116 pass|
 
 The spot check is a small set that was adjusted against during development. It does not grade whether answers are correct, and a passing run still included a wrong answer that missed a published project, which was then fixed in the record. No architect or engineer has reviewed the answers. The Claude connection has only been tested against a simulated model. The Strix penetration test has not been run, since it needs Docker and a paid AI key.
