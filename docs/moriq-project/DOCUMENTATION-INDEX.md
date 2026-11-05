@@ -39,6 +39,7 @@ Local provenance/backup/Git/media manifests are in the review output folder link
 ## Publication and diagnostic review
 - [First publication scope](PUBLICATION-SCOPE.md)
 - [Task 6.1B error investigation](TASK-6.1B-TEST-ERROR-ANALYSIS.md)
+- [Task 6.1B closeout record](TASK-6.1B-CLOSEOUT.md)
 
 ## Task history summaries
 - [Task 1 — Foundation](development-history/01/README.md)

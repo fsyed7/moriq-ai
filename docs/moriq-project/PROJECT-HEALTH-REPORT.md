@@ -6,7 +6,7 @@
 |Reliability|OFFLINE CHECKPOINT|Mock gate/transport tests and preserved evidence; production identity/audit absent|
 |Knowledge|OFFLINE ACCEPTED UNDER AMENDMENT|Owner-led acceptance, original independent V12 unmet|
 |Studio|LOCAL PROTOTYPE|Source/assets and fixture tests recovered; backend disconnected and accessibility gaps|
-|Integration|PARTIAL|6.1A recovered; 6.1B incomplete with test errors|
+|Integration|PARTIAL|6.1A recovered; 6.1B accepted as an offline facade only; no end-to-end connection|
 |Testing|PARTIAL|Fresh selections recorded; full build/e2e/benchmarks/manual accessibility not repeated|
 |Deployment/security|BLOCKED|No live inference, real-source or production approval|
 |Documentation|PREPARED FOR REVIEW|History, setup, architecture, risks and Claude package; original contradictory records retained|
