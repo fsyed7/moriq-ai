@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>MORIQ AI</title>
 <meta name="description" content="An AI assistant for architects and engineers at MORIQ.">
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F2F7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1EB"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141411">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MORIQ AI"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icons/icon-192.png" type="image/png"><link rel="apple-touch-icon" href="/icons/icon-180.png">
 <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/welcome.css"><script type="module" src="/welcome.js"></script><script type="module" src="/app.js"></script></head>
@@ -53,8 +53,10 @@
   </section>
 </div>
 <main id="signin" hidden aria-labelledby="auth-title">
+  <figure class="auth-photo"><img id="auth-photo" src="/projects/villa-430.jpg" alt=""><figcaption id="auth-photo-caption">Villa 430, Hyderabad</figcaption></figure>
+  <div class="auth-side">
+  <header class="auth-top"><span class="wordmark" aria-label="MORIQ AI">MORIQ<span> AI</span></span><a id="auth-back" href="#landing">← Welcome</a></header>
   <form id="auth-form" class="auth-card" novalidate>
-    <img class="app-icon" src="/icons/icon-192.png" width="64" height="64" alt="">
     <h1 id="auth-title">Sign In</h1>
     <p id="auth-intro" class="muted"></p>
     <div class="auth-fields">
@@ -68,14 +70,14 @@
     <button id="auth-submit" class="primary" type="submit">Sign In</button>
     <button id="auth-cancel" class="plain" type="button" hidden>Cancel</button>
     <p id="auth-help" class="fine-print"></p>
-    <a id="auth-back" href="#landing">← Back to welcome</a>
   </form>
+  </div>
 </main>
 <div class="studio evidence-closed" hidden>
 <aside class="sidebar" id="navigation" aria-label="Disciplines and chats">
-  <div class="sidebar-head"><h2>MORIQ AI</h2><button id="close-navigation" class="plain" aria-label="Close sidebar">Done</button></div>
+  <div class="sidebar-head"><span class="wordmark" aria-label="MORIQ AI">MORIQ<span> AI</span></span><button id="close-navigation" class="plain" aria-label="Close sidebar">Done</button></div>
   <button id="new-session" class="new-session"><span aria-hidden="true">＋</span> New Chat</button>
-  <h3 class="group-title">Studio</h3>
+  <h3 class="group-title">Disciplines</h3>
   <nav id="projects" class="group" aria-label="Disciplines"></nav>
   <h3 class="group-title">Chats</h3>
   <nav id="chat-list" class="group" aria-label="Saved chats"></nav>

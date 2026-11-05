@@ -73,7 +73,7 @@ The spot check is a small set that was adjusted against during development. It d
 
 |Folder|Contents|
 |---|---|
-|[`moriq/app`](moriq/app)|**The MORIQ AI app:** server, question routing, model connection, knowledge guide and iOS-style interface|
+|[`moriq/app`](moriq/app)|**The MORIQ AI app:** server, question routing, model connection, knowledge guide and interface|
 |[`moriq/brain`](moriq/brain)|The assistant's instructions and earlier reliability experiments|
 |[`moriq/knowledge`](moriq/knowledge)|Source registry, retrieval and citation checks|
 |[`studio-preview`](studio-preview)|The earlier dark Studio prototype, kept for reference|

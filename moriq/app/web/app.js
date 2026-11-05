@@ -1,7 +1,7 @@
 const $ = selector => document.querySelector(selector);
 const studio = $('.studio');
 const LABELS = {
-  general: 'GENERAL ARCHITECTURAL EXPLANATION · NOT A MORIQ SOURCE',
+  general: 'GENERAL EXPLANATION · NOT A MORIQ SOURCE',
   source_supported: 'DRAFT USING RETRIEVED SOURCE · NOT REVIEWED',
   code_evidence: 'DRAFT USING CODE SOURCE · NOT A COMPLIANCE DECISION',
   evidence_gap: 'EVIDENCE GAP · NO ANSWER GENERATED',
@@ -420,6 +420,7 @@ document.addEventListener('keydown', event => {
 });
 matchMedia('(min-width: 701px)').addEventListener('change', event => navigation(event.matches));
 addEventListener('hashchange', route);
+$('#auth-photo').addEventListener('error', () => { $('#auth-photo').hidden = true; $('#auth-photo-caption').hidden = true; });
 $('#cover-image').addEventListener('error', () => { $('#cover-image').hidden = true; $('.cover-fallback').hidden = false; });
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
 $('#auth-form').addEventListener('submit', async event => {
