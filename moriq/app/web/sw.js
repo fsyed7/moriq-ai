@@ -1,6 +1,6 @@
 // Keeps the app shell available so it opens like an installed app. Chats and answers never pass through this cache.
-const CACHE = 'moriq-shell-v1';
-const SHELL = ['/', '/app.js', '/styles.css', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-180.png'];
+const CACHE = 'moriq-shell-v2';
+const SHELL = ['/', '/app.js', '/welcome.js', '/styles.css', '/welcome.css', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-180.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));

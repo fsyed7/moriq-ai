@@ -344,7 +344,7 @@ async function route() {
   if (enter && me.must_change) { showAuth('change'); return; }
   $('#arrival').hidden = enter;
   studio.hidden = !enter;
-  if (!enter) { $('.enter-workspace').focus(); return; }
+  if (!enter) { document.querySelectorAll('.enter-workspace').forEach(link => { link.textContent = me ? 'Open MORIQ AI' : 'Sign In'; }); return; }
   if (!statusLoaded) await loadStatus();
   navigation(innerWidth > 700);
   await refreshChats();
@@ -420,9 +420,7 @@ document.addEventListener('keydown', event => {
 });
 matchMedia('(min-width: 701px)').addEventListener('change', event => navigation(event.matches));
 addEventListener('hashchange', route);
-for (const [image, fallback] of [['#courtyard-image', '.arrival-image .asset-placeholder'], ['#cover-image', '.cover-fallback']]) {
-  $(image).addEventListener('error', () => { $(image).hidden = true; $(fallback).hidden = false; });
-}
+$('#cover-image').addEventListener('error', () => { $('#cover-image').hidden = true; $('.cover-fallback').hidden = false; });
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
 $('#auth-form').addEventListener('submit', async event => {
   event.preventDefault();

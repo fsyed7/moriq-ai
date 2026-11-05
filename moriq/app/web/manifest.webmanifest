@@ -3,7 +3,7 @@
   "short_name": "MORIQ AI",
   "description": "An AI assistant for architects and engineers at MORIQ.",
   "id": "/",
-  "start_url": "/#workspace",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#F2F2F7",

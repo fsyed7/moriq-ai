@@ -40,10 +40,10 @@ def start_server():
 def open_window():
     for path in (*EDGE, *CHROME, shutil.which('msedge'), shutil.which('chrome')):
         if path and Path(path).exists():
-            subprocess.Popen([path, f'--app={URL}/#workspace'])
+            subprocess.Popen([path, f'--app={URL}/'])
             return
     import webbrowser
-    webbrowser.open(f'{URL}/#workspace')
+    webbrowser.open(f'{URL}/')
 
 
 def main():

@@ -27,6 +27,10 @@ STATIC = {
     '/': (ROOT / 'web' / 'index.html', 'text/html; charset=utf-8'),
     '/app.js': (ROOT / 'web' / 'app.js', 'text/javascript; charset=utf-8'),
     '/styles.css': (ROOT / 'web' / 'ios.css', 'text/css; charset=utf-8'),
+    '/welcome.css': (ROOT / 'web' / 'welcome.css', 'text/css; charset=utf-8'),
+    '/welcome.js': (ROOT / 'web' / 'welcome.js', 'text/javascript; charset=utf-8'),
+    **{f'/projects/{name}.jpg': (ROOT / 'web' / 'projects' / f'{name}.jpg', 'image/jpeg')
+       for name in ('villa-430', 'amwaj-villa', 'aak-villa', 'meenakshi-bamboos', 'apartment-11')},
     '/sw.js': (ROOT / 'web' / 'sw.js', 'text/javascript; charset=utf-8'),
     '/manifest.webmanifest': (ROOT / 'web' / 'manifest.webmanifest', 'application/manifest+json'),
     '/icons/icon.svg': (ROOT / 'web' / 'icon.svg', 'image/svg+xml'),

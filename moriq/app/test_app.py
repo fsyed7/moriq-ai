@@ -334,7 +334,7 @@ What makes a good design presentation for a client?'''.splitlines()
         self.assertEqual(json.loads(self.request('GET', '/api/chats')[1])['chats'][0]['title'], 'Renamed')
         self.assertEqual(self.request('DELETE', f'/api/chats/{chat}')[0], 200)
         self.assertEqual(self.request('GET', f'/api/chats/{chat}')[0], 404)
-        for path in ['/', '/app.js', '/styles.css', '/sw.js', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-180.png',
+        for path in ['/', '/app.js', '/welcome.js', '/welcome.css', '/styles.css', '/sw.js', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-180.png',
                      '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-maskable-512.png']:
             self.assertEqual(self.request('GET', path)[0], 200, path)
         # The approved image is local-only, so a clone gets a 404 and the page shows its placeholder.

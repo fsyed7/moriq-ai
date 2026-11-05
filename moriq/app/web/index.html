@@ -4,23 +4,54 @@
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F2F7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MORIQ AI"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icons/icon-192.png" type="image/png"><link rel="apple-touch-icon" href="/icons/icon-180.png">
-<link rel="stylesheet" href="/styles.css"><script type="module" src="/app.js"></script></head>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/welcome.css"><script type="module" src="/welcome.js"></script><script type="module" src="/app.js"></script></head>
 <body>
 <a class="skip" href="#workspace">Skip to conversation</a>
-<main id="arrival" aria-labelledby="arrival-title">
-  <figure class="arrival-image" aria-label="Courtyard Villa, MORIQ">
-    <img id="courtyard-image" src="/assets/courtyard-villa.jpg" width="1500" height="1000" alt="Courtyard Villa: a planted courtyard framed by concrete living spaces, timber decking and patterned paving." fetchpriority="high">
-    <div class="asset-placeholder" hidden><strong>Courtyard Villa</strong><span>Image not included in this copy</span></div>
-    <figcaption>Courtyard Villa, a portfolio reference</figcaption>
-  </figure>
-  <section class="arrival-copy">
-    <img class="app-icon" src="/icons/icon-192.png" width="72" height="72" alt="">
-    <h1 id="arrival-title">MORIQ AI</h1>
-    <p class="intro">Your assistant for architecture and engineering work at MORIQ. Every answer shows what it rests on.</p>
-    <a class="enter-workspace" href="#workspace">Get Started</a>
-    <p class="fine-print">Answers are AI drafts to check, not reviewed advice. App icon and name styling are provisional until MORIQ supplies its logo.</p>
+<div id="arrival">
+  <section class="hero" aria-roledescription="carousel" aria-label="Published MORIQ projects">
+    <div id="slides"></div>
+    <header class="hero-top">
+      <span class="wordmark" aria-label="MORIQ AI">MORIQ<span> AI</span></span>
+      <nav class="hero-nav" aria-label="Welcome"><button id="about-link" class="hero-link" type="button">About MORIQ</button><a class="enter-workspace" href="#workspace">Sign In</a></nav>
+    </header>
+    <div class="hero-foot">
+      <div><h1 id="arrival-title">Welcome to MORIQ AI</h1><p class="lede">The assistant for architects and engineers at MORIQ. Every answer shows what it rests on.</p></div>
+      <div class="project-caption" id="slides-status">
+        <div class="caption-row"><strong id="slide-name"></strong><span id="slide-place"></span></div>
+        <small id="slide-credit" class="caption-credit"></small>
+        <div class="carousel-controls"><button id="slide-prev" type="button" aria-label="Previous project">←</button><button id="slide-next" type="button" aria-label="Next project">→</button><button id="slide-pause" type="button"></button><span id="slide-count"></span></div>
+      </div>
+    </div>
   </section>
-</main>
+  <section id="about-moriq" class="about" aria-labelledby="about-title">
+    <div class="about-grid">
+      <h2 id="about-title" class="about-label">About MORIQ</h2>
+      <div>
+        <p class="about-statement">MORIQ Interiors &amp; Design Consultants is an architecture and interior design practice in Hyderabad, India, also working in the Middle East.</p>
+        <dl class="about-facts">
+          <div><dt>Disciplines</dt><dd>Architecture, interior design and landscape</dd></div>
+          <div><dt>Led by</dt><dd>Riyaz Quraishi, Chief Consultant, and Simeen Quraishi, Associate Consultant</dd></div>
+          <div><dt>Studio</dt><dd>Banjara Hills, Hyderabad</dd></div>
+          <div><dt>Published work</dt><dd>Mostly private homes and interiors in Hyderabad and Bahrain</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="about-grid">
+      <h2 class="about-label">Selected work</h2>
+      <ol id="project-list" class="project-list"></ol>
+    </div>
+    <div class="about-grid">
+      <h2 class="about-label">What MORIQ AI does</h2>
+      <div class="capabilities">
+        <div><h3>Answers building questions</h3><p>Design, climate, materials, structure, services, drawings and site work, and nothing outside the field.</p></div>
+        <div><h3>Shows its evidence</h3><p>Each answer is labelled, with the passages it used, so you can check it yourself.</p></div>
+        <div><h3>Doesn't invent rules</h3><p>Without a source for a MORIQ standard or a code limit, it says so instead of guessing.</p></div>
+      </div>
+    </div>
+    <div class="about-enter"><strong>Ready to start?</strong><a class="enter-workspace" href="#workspace">Sign In</a></div>
+    <p class="about-notes">Details about MORIQ come from public listings, including <a href="https://www.archdaily.com/office/moriq" target="_blank" rel="noopener noreferrer">ArchDaily</a> and <a href="https://www.houzz.com/pro/moriq321" target="_blank" rel="noopener noreferrer">Houzz</a>, and have not been confirmed by MORIQ. Photographs are used for this private preview only and belong to their owners. MORIQ AI's icon and name styling are provisional. Answers are AI drafts to check, not reviewed advice.</p>
+  </section>
+</div>
 <main id="signin" hidden aria-labelledby="auth-title">
   <form id="auth-form" class="auth-card" novalidate>
     <img class="app-icon" src="/icons/icon-192.png" width="64" height="64" alt="">
@@ -37,6 +68,7 @@
     <button id="auth-submit" class="primary" type="submit">Sign In</button>
     <button id="auth-cancel" class="plain" type="button" hidden>Cancel</button>
     <p id="auth-help" class="fine-print"></p>
+    <a id="auth-back" href="#landing">← Back to welcome</a>
   </form>
 </main>
 <div class="studio evidence-closed" hidden>

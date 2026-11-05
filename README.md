@@ -54,7 +54,7 @@ Run on 4 November 2026 with the local model on a laptop CPU:
 |Check|Result|
 |---|---|
 |App, account and security tests, with a simulated model|61 of 61 pass|
-|Browser click-through, including sign-in, team management, live answers and phone sizes|31 of 31 pass|
+|Browser click-through, including the welcome carousel, sign-in, team management, live answers and phone sizes|36 of 36 pass|
 |Live spot check of routing, scope and references|22 of 22 pass, with most answers taking about 25 to 45 seconds|
 |Backend, contract and knowledge suites|57, 66 and 116 pass|
 
@@ -85,4 +85,4 @@ Earlier branches are kept as `archive/*` tags.
 
 ## Licence
 
-This repository grew from [Open WebUI](https://github.com/open-webui/open-webui). Its [licence](LICENSE), [notice](LICENSE_NOTICE), [history](LICENSE_HISTORY) and [original README](README-OPEN-WEBUI.md) are preserved. The Courtyard Villa photograph is approved for local preview only, so it's left out of this repository and a clone shows a labelled placeholder instead.
+This repository grew from [Open WebUI](https://github.com/open-webui/open-webui). Its [licence](LICENSE), [notice](LICENSE_NOTICE), [history](LICENSE_HISTORY) and [original README](README-OPEN-WEBUI.md) are preserved. Project photographs are used for a private local preview only and are left out of this repository, so a clone shows each project's name instead. Using them more widely needs MORIQ's permission.
