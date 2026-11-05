@@ -21,6 +21,24 @@
     <p class="fine-print">Answers are AI drafts to check, not reviewed advice. App icon and name styling are provisional until MORIQ supplies its logo.</p>
   </section>
 </main>
+<main id="signin" hidden aria-labelledby="auth-title">
+  <form id="auth-form" class="auth-card" novalidate>
+    <img class="app-icon" src="/icons/icon-192.png" width="64" height="64" alt="">
+    <h1 id="auth-title">Sign In</h1>
+    <p id="auth-intro" class="muted"></p>
+    <div class="auth-fields">
+      <label id="auth-code-row">Setup code<input id="auth-code" autocomplete="off" spellcheck="false"></label>
+      <label id="auth-name-row">Your name<input id="auth-name" maxlength="60" autocomplete="name"></label>
+      <label id="auth-username-row">Username<input id="auth-username" maxlength="40" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label id="auth-password-row"><span id="auth-password-label">Password</span><input id="auth-password" type="password" maxlength="256"></label>
+      <label id="auth-new-row">New password<input id="auth-new" type="password" maxlength="256" autocomplete="new-password"></label>
+    </div>
+    <p id="auth-error" role="alert"></p>
+    <button id="auth-submit" class="primary" type="submit">Sign In</button>
+    <button id="auth-cancel" class="plain" type="button" hidden>Cancel</button>
+    <p id="auth-help" class="fine-print"></p>
+  </form>
+</main>
 <div class="studio evidence-closed" hidden>
 <aside class="sidebar" id="navigation" aria-label="Disciplines and chats">
   <div class="sidebar-head"><h2>MORIQ AI</h2><button id="close-navigation" class="plain" aria-label="Close sidebar">Done</button></div>
@@ -29,7 +47,7 @@
   <nav id="projects" class="group" aria-label="Disciplines"></nav>
   <h3 class="group-title">Chats</h3>
   <nav id="chat-list" class="group" aria-label="Saved chats"></nav>
-  <div class="sidebar-footer"><span id="model-state">Checking model…</span><small>Chats are saved on this computer. No sign-in.</small></div>
+  <div class="sidebar-footer"><button id="account-button" class="account-button" aria-haspopup="dialog"><span id="account-initial" class="project-symbol" aria-hidden="true"></span><span><strong id="account-name"></strong><small id="model-state">Checking model…</small></span></button></div>
 </aside>
 <section class="main-shell">
   <header class="workspace-header">
@@ -60,7 +78,7 @@
       <textarea id="prompt" rows="1" maxlength="1200" aria-describedby="composer-help" placeholder="Ask MORIQ AI"></textarea>
       <button class="send" type="submit" disabled aria-label="Send message">↑</button>
     </form>
-    <p class="fine-print" id="composer-help">AI drafts can be wrong, so check anything you rely on. With a cloud model, questions go to Anthropic. Don't enter confidential client details.</p>
+    <p class="fine-print" id="composer-help">AI drafts can be wrong, so check anything you rely on. Don't enter confidential client details.</p>
   </div>
 </section>
 <aside class="inspector" id="inspector" role="dialog" aria-modal="true" aria-labelledby="evidence-title">
@@ -71,4 +89,18 @@
 </div>
 <dialog id="chat-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
 <form id="chat-dialog-form"><h2 id="dialog-title"></h2><p id="dialog-description"></p><div id="rename-field"><label class="sr-only" for="chat-name">Chat name</label><input id="chat-name" maxlength="60" autocomplete="off"></div><p id="dialog-error" role="alert"></p><div class="dialog-actions"><button type="button" id="dialog-cancel">Cancel</button><button type="submit" id="dialog-confirm">Save</button></div></form></dialog>
+<dialog id="account-dialog" class="sheet-dialog" aria-labelledby="account-title">
+  <h2 id="account-title"></h2><p id="account-detail" class="muted"></p>
+  <div class="group dialog-list"><button id="change-password">Change Password</button><button id="manage-team" hidden>Manage Team</button><button id="sign-out" class="destructive">Sign Out</button></div>
+  <button id="account-close" class="plain" type="button">Done</button>
+</dialog>
+<dialog id="team-dialog" class="sheet-dialog" aria-labelledby="team-title">
+  <div class="dialog-head"><h2 id="team-title">Team</h2><button id="team-close" class="plain" type="button">Done</button></div>
+  <div id="team-result" class="team-result" role="status" hidden></div>
+  <h3 class="group-title">Add someone</h3>
+  <form id="team-form" class="auth-fields"><label>Full name<input id="team-name" maxlength="60" autocomplete="off" required></label><label>Username<input id="team-username" maxlength="40" autocomplete="off" autocapitalize="none" spellcheck="false" required></label><label>Role<select id="team-role"><option value="member">Member</option><option value="admin">Admin</option></select></label><p id="team-error" role="alert"></p><button class="primary" type="submit">Add Person</button></form>
+  <h3 class="group-title">People</h3>
+  <div id="team-list" class="group"></div>
+  <p class="fine-print">Each person sees only their own chats. Admins cannot read other people's chats in the app, but whoever runs the server can reach the database.</p>
+</dialog>
 </body></html>

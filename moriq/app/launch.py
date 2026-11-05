@@ -18,8 +18,8 @@ CHROME = (r'C:\Program Files\Google\Chrome\Application\chrome.exe',)
 
 def running():
     try:
-        with urllib.request.urlopen(f'{URL}/api/status', timeout=2) as response:
-            return json.load(response).get('release_allowed') is False
+        with urllib.request.urlopen(f'{URL}/api/health', timeout=2) as response:
+            return json.load(response).get('app') == 'moriq-ai'
     except (OSError, ValueError):
         return False
 

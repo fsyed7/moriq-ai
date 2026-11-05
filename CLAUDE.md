@@ -5,7 +5,7 @@ Read [current status](docs/moriq-project/CURRENT-PROJECT-STATUS.md), [security l
 
 Source: moriq/app is the app; moriq/brain is the prompt; moriq/knowledge is registry and retrieval; experimental/source_gate holds review boundaries; offline_evaluation, offline_integration and synthetic_pilot hold frozen offline tests; studio-preview holds the design. backend and src are inherited Open WebUI; moriq/brain/tests reads backend paths, so do not move them.
 
-Tests: py -3.12 -B -m unittest moriq.app.test_app moriq.app.test_security, and py -3.12 -B -m moriq.app.evaluate for a live check. Run other suites in isolated processes as described in the testing document; they need an existing pytest 9.0.0.
+Tests: py -3.12 -B -m unittest moriq.app.test_app moriq.app.test_auth moriq.app.test_security, and py -3.12 -B -m moriq.app.evaluate for a live check. Run other suites in isolated processes as described in the testing document; they need an existing pytest 9.0.0.
 
 Ten tracked files show as modified locally (three EOL-only differences, seven byte-identical to HEAD). Do not stage them or normalize their line endings. main is the working branch; earlier branches are archive/* tags.
 

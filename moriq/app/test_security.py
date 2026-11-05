@@ -26,7 +26,10 @@ class SecurityTest(unittest.TestCase):
         self.dir = tempfile.TemporaryDirectory()
         self.store = Store(str(Path(self.dir.name) / 'chats.sqlite3'))
         self.provider = FakeProvider()
-        self.server = make_server(Service(self.store, build_registry(), self.provider, Knowledge()), 0)
+        self.service = Service(self.store, build_registry(), self.provider, Knowledge())
+        user = self.service.accounts.create_user('tester', 'Tester', 'long test passphrase', 'admin')
+        self.cookie = f"moriq_session={self.service.accounts.start_session(user['id'], 'tester')[0]}"
+        self.server = make_server(self.service, 0)
         self.port = self.server.server_address[1]
         threading.Thread(target=self.server.serve_forever, daemon=True).start()
 
@@ -39,7 +42,7 @@ class SecurityTest(unittest.TestCase):
     def request(self, method, path, body=None, headers=None):
         conn = http.client.HTTPConnection('127.0.0.1', self.port, timeout=10)
         data = json.dumps(body) if type(body) is dict else body
-        conn.request(method, path, data, {'Content-Type': 'application/json', **(headers or {})})
+        conn.request(method, path, data, {'Content-Type': 'application/json', 'Cookie': self.cookie, **(headers or {})})
         response = conn.getresponse()
         payload = response.read()
         conn.close()

@@ -148,6 +148,46 @@ main#workspace{flex:1;overflow-y:auto;width:100%;outline:none;padding:18px max(2
 .dialog-actions button{min-height:var(--control);border-radius:0;color:var(--accent)}
 .dialog-actions button+button{border-left:.5px solid var(--separator);font-weight:600}
 
+/* Sign in */
+#signin{min-height:100dvh;display:grid;place-items:center;padding:max(24px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+.auth-card{width:min(400px,100%);display:flex;flex-direction:column;align-items:stretch;gap:10px;background:var(--surface);padding:28px 24px;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.auth-card .app-icon{align-self:center}
+.auth-card h1{font-size:1.65rem;font-weight:700;letter-spacing:-.02em;text-align:center}
+.auth-card .muted{margin:0;text-align:center}
+.auth-card .fine-print{text-align:center}
+.auth-fields{display:grid;gap:10px;margin-top:6px}
+.auth-fields label{display:block;font-size:.8rem;color:var(--secondary)}
+.auth-fields input,.auth-fields select{display:block;width:100%;min-height:var(--control);margin-top:4px;padding:0 12px;border:0;border-radius:10px;background:var(--surface-2);color:var(--text);font-size:1rem}
+#auth-error,#team-error{font-size:.85rem;color:var(--danger)}
+#auth-error:empty,#team-error:empty{display:none}
+.primary{min-height:50px;border-radius:14px;background:var(--accent);color:var(--on-accent);font-weight:600}
+.primary:hover:not(:disabled){filter:brightness(1.08)}
+
+/* Account and team */
+.account-button{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:6px 8px;text-align:left}
+.account-button:hover{background:var(--surface-2)}
+.account-button strong{display:block;color:var(--text);font-weight:600;overflow-wrap:anywhere}
+.account-button small{display:block;margin:0;font-size:.74rem;color:var(--secondary)}
+.sheet-dialog{width:min(460px,calc(100% - 24px));max-height:calc(100dvh - 24px);overflow:auto;padding:20px;border:0;border-radius:var(--radius-lg);background:var(--bg);color:var(--text);box-shadow:var(--shadow)}
+.sheet-dialog::backdrop{background:rgba(0,0,0,.4)}
+.sheet-dialog h2{font-size:1.3rem;font-weight:700}
+.dialog-head{display:flex;align-items:center;justify-content:space-between}
+.dialog-list{margin-top:14px}
+.dialog-list button{display:flex;align-items:center;width:100%;min-height:var(--control);padding:0 16px;border-radius:0;text-align:left}
+.dialog-list button+button{border-top:.5px solid var(--separator)}
+.dialog-list button:hover{background:var(--surface-2)}
+#account-close{display:flex;margin:10px auto 0}
+.team-result{display:grid;gap:4px;margin-top:10px;padding:12px 14px;border-radius:var(--radius);background:var(--surface)}
+.team-result code{font-size:1.05rem;font-family:ui-monospace,Consolas,monospace;overflow-wrap:anywhere;user-select:all}
+.team-result small{font-size:.76rem;color:var(--secondary)}
+#team-form{padding:14px;background:var(--surface);border-radius:var(--radius);margin:0}
+.team-row{display:flex;align-items:center;gap:2px;padding:6px 6px 6px 14px}
+.team-row+.team-row{border-top:.5px solid var(--separator)}
+.team-row>span{flex:1;min-width:0}
+.team-row strong{display:block;font-weight:600}
+.team-row small{display:block;font-size:.74rem;color:var(--secondary);overflow-wrap:anywhere}
+.sheet-dialog>.fine-print{margin-top:12px}
+
 /* Compact width: full-screen sidebar, bottom sheet */
 @media(max-width:700px){
   #arrival{display:flex;flex-direction:column}

@@ -25,7 +25,7 @@ const CHECKS = {
   unsupported_limit: 'The draft states a measurement that no retrieved source contains. It may be invented, so verify it.',
 };
 const ERRORS = {
-  busy: 'The local model is already answering another question. Try again when it finishes.',
+  busy: 'The model is busy with other people\u2019s questions. Try again in a few minutes.',
   unknown_chat: 'This chat no longer exists. Start a new one.',
   invalid_message: 'Enter a message of up to 1,200 characters.',
   chat_full: 'This chat is full. Start a new one.',
@@ -34,12 +34,105 @@ const ERRORS = {
 };
 let workspaces = [], workspace = 'architecture', chats = [], current = null, activeRequest = null;
 let reader = null, evidenceReturn = null, dialogAction = null, dialogReturn = null;
+let me = null, sessionState = {}, authMode = 'signin', statusLoaded = false;
+const AUTH_ERRORS = {
+  bad_credentials: 'That username or password is not right.',
+  locked: 'Too many failed attempts. Wait 15 minutes, then try again.',
+  weak_password: 'Use at least 10 characters that are hard to guess and don\u2019t contain your username.',
+  wrong_password: 'Your current password is not right.',
+  invalid_username: 'Use 2 to 40 lowercase letters, numbers, dots, dashes or underscores.',
+  invalid_name: 'Enter a name.',
+  username_taken: 'That username is already in use.',
+  bad_setup_code: 'That setup code is not right.',
+  already_set_up: 'This app is already set up. Sign in instead.',
+  cannot_disable_self: 'You can\u2019t disable your own account.',
+  last_admin: 'The team needs at least one active admin.',
+};
 
 async function api(path, options = {}) {
   const response = await fetch(path, options.body
     ? {...options, headers: {'Content-Type': 'application/json'}, body: JSON.stringify(options.body)} : options);
-  if (!response.ok) throw Error(response.status);
-  return response.json();
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    if (response.status === 401 && data.code === 'signed_out') signedOut();
+    if (response.status === 403 && data.code === 'password_change_required') showAuth('change');
+    throw Object.assign(Error(response.status), {code: data.code});
+  }
+  return data;
+}
+function signedOut() {
+  me = null; sessionState = {user: null}; chats = []; current = null; statusLoaded = false;
+  $('#conversation').replaceChildren();
+  showAuth('signin');
+}
+function field(id, visible) { $(id).hidden = !visible; }
+function showAuth(mode, cancellable = false) {
+  authMode = mode;
+  closeDialogs();
+  $('#arrival').hidden = true; studio.hidden = true; $('#signin').hidden = false;
+  const setup = mode === 'setup', change = mode === 'change';
+  $('#auth-title').textContent = setup ? 'Set Up MORIQ AI' : change ? 'Change Password' : 'Sign In';
+  $('#auth-intro').textContent = setup ? 'Create the first account. It becomes the admin, who can add the rest of the team.'
+    : change ? (me?.must_change ? 'Choose your own password to finish signing in.' : 'Other devices will need to sign in again.')
+    : 'Sign in with the account your admin gave you.';
+  field('#auth-code-row', setup && Boolean(sessionState.setup_code_required));
+  field('#auth-name-row', setup);
+  field('#auth-username-row', !change);
+  field('#auth-new-row', change);
+  $('#auth-password-label').textContent = change ? 'Current password' : setup ? 'Choose a password' : 'Password';
+  $('#auth-password').autocomplete = setup ? 'new-password' : 'current-password';
+  $('#auth-submit').textContent = setup ? 'Create Account' : change ? 'Save Password' : 'Sign In';
+  $('#auth-cancel').hidden = !cancellable;
+  $('#auth-help').textContent = setup || change ? 'Use at least 10 characters.' : 'Forgotten your password? Ask your admin to reset it.';
+  $('#auth-error').textContent = '';
+  for (const id of ['#auth-password', '#auth-new', '#auth-code']) $(id).value = '';
+  (setup && sessionState.setup_code_required ? $('#auth-code') : setup ? $('#auth-name') : change ? $('#auth-password') : $('#auth-username')).focus();
+}
+async function acceptSession(state) {
+  sessionState = state; me = state.user;
+  if (me?.must_change) { showAuth('change'); return; }
+  $('#signin').hidden = true;
+  await loadStatus();
+  if (location.hash.slice(1).startsWith('conversation/') || location.hash === '#workspace') route(); else location.hash = '#workspace';
+}
+async function loadStatus() {
+  $('#account-name').textContent = me.name;
+  $('#account-initial').textContent = me.name[0].toUpperCase();
+  try {
+    const status = await api('/api/status');
+    workspaces = status.workspaces; statusLoaded = true;
+    $('#model-state').textContent = `${status.model_label} ${status.model_ready ? 'ready' : 'offline'}`;
+    $('#model-state').classList.toggle('offline', !status.model_ready);
+  } catch { $('#model-state').textContent = 'App unavailable'; }
+}
+function closeDialogs() { document.querySelectorAll('dialog[open]').forEach(dialog => dialog.close()); }
+async function renderTeam() {
+  const {users} = await api('/api/users');
+  $('#team-list').replaceChildren(...users.map(user => {
+    const row = element('div', undefined, 'team-row');
+    const label = element('span');
+    label.append(element('strong', user.name), element('small', `${user.username} \u00b7 ${user.role}${user.active ? '' : ' \u00b7 disabled'}${user.must_change ? ' \u00b7 temporary password' : ''}`));
+    const reset = element('button', 'Reset', 'plain');
+    reset.setAttribute('aria-label', `Reset password for ${user.name}`);
+    reset.addEventListener('click', async () => {
+      try { showTemporary(user.username, (await api(`/api/users/${user.id}/reset`, {method: 'POST', body: {}})).temporary_password); await renderTeam(); }
+      catch (error) { $('#team-error').textContent = AUTH_ERRORS[error.code] || 'That did not work.'; }
+    });
+    const toggle = element('button', user.active ? 'Disable' : 'Enable', 'plain' + (user.active ? ' destructive' : ''));
+    toggle.setAttribute('aria-label', `${user.active ? 'Disable' : 'Enable'} ${user.name}`);
+    toggle.addEventListener('click', async () => {
+      $('#team-error').textContent = '';
+      try { await api(`/api/users/${user.id}/active`, {method: 'POST', body: {active: !user.active}}); await renderTeam(); }
+      catch (error) { $('#team-error').textContent = AUTH_ERRORS[error.code] || 'That did not work.'; }
+    });
+    row.append(label, reset, toggle);
+    return row;
+  }));
+}
+function showTemporary(username, password) {
+  const box = $('#team-result');
+  box.hidden = false;
+  box.replaceChildren(element('strong', `Temporary password for ${username}`), element('code', password), element('small', 'Shown once. Share it privately. They must change it when they first sign in.'));
 }
 function closeMenus() { document.querySelectorAll('details[open]').forEach(item => { item.open = false; }); }
 function setStatus(text) { $('#chat-status').textContent = text; }
@@ -51,7 +144,7 @@ function sendControl() {
 }
 function panels() {
   const evidenceOpen = studio.classList.contains('inspector-open');
-  const navOpen = innerWidth <= 650 && studio.classList.contains('nav-open');
+  const navOpen = innerWidth <= 700 && studio.classList.contains('nav-open');
   $('.main-shell').inert = evidenceOpen || navOpen;
   $('#navigation').inert = evidenceOpen;
   $('#inspector').inert = !evidenceOpen;
@@ -63,7 +156,7 @@ function navigation(open) {
   panels();
 }
 function inspector(open, trigger = null) {
-  if (open) { evidenceReturn = trigger || document.activeElement; if (innerWidth <= 650) navigation(false); }
+  if (open) { evidenceReturn = trigger || document.activeElement; if (innerWidth <= 700) navigation(false); }
   studio.classList.toggle('inspector-open', open);
   studio.classList.toggle('evidence-closed', !open);
   $('#evidence-toggle').setAttribute('aria-expanded', String(open));
@@ -195,6 +288,8 @@ async function ask(text) {
     response = await fetch('/api/ask', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
       chat: current.id, message, jurisdiction: $('#jurisdiction').value, edition: $('#edition').value, level: $('#level').value,
     })});
+    if (response.status === 401) { signedOut(); return; }
+    if (response.status === 403) { showAuth('change'); return; }
     reader = response.body.getReader();
     sendControl();
     const decoder = new TextDecoder();
@@ -221,6 +316,7 @@ async function ask(text) {
   $('#prompt').focus();
 }
 function handle(event, article, body) {
+  if (event.type === 'queued') setStatus('Someone else is getting an answer. You\u2019re in the queue.');
   if (event.type === 'start') { activeRequest = event.request_id; setStatus('Generating an unreviewed draft. Stop is available.'); }
   if (event.type === 'token') { body.textContent += event.text; setStatus('Generating an unreviewed draft. Stop is available.'); $('#workspace').scrollTop = $('#workspace').scrollHeight; }
   if (event.type === 'error') { body.textContent = ERRORS[event.code] || 'Something went wrong.'; decorate(article, {label: 'failed'}); setStatus(''); }
@@ -243,10 +339,14 @@ async function route() {
   const hash = location.hash.slice(1);
   const requested = hash.startsWith('conversation/') ? hash.slice(13) : null;
   const enter = hash === 'workspace' || Boolean(requested);
+  $('#signin').hidden = true;
+  if (enter && !me) { showAuth(sessionState.needs_setup ? 'setup' : 'signin'); return; }
+  if (enter && me.must_change) { showAuth('change'); return; }
   $('#arrival').hidden = enter;
   studio.hidden = !enter;
   if (!enter) { $('.enter-workspace').focus(); return; }
-  navigation(innerWidth > 650);
+  if (!statusLoaded) await loadStatus();
+  navigation(innerWidth > 700);
   await refreshChats();
   setStatus('');
   if (requested) {
@@ -261,7 +361,7 @@ function openDialog(action) {
   closeMenus();
   dialogAction = action; dialogReturn = document.activeElement;
   $('#dialog-title').textContent = action === 'rename' ? 'Rename chat' : 'Delete chat?';
-  $('#dialog-description').textContent = action === 'rename' ? 'Use 1 to 60 characters.' : `Delete “${current.title}” from this computer? This cannot be undone.`;
+  $('#dialog-description').textContent = action === 'rename' ? 'Use 1 to 60 characters.' : `Delete “${current.title}”? This cannot be undone.`;
   $('#rename-field').hidden = action !== 'rename';
   $('#chat-name').required = action === 'rename';
   $('#chat-name').value = current.title;
@@ -312,24 +412,66 @@ $('#chat-dialog-form').addEventListener('submit', async event => {
   } catch { $('#dialog-error').textContent = 'That did not work. Try again.'; }
 });
 document.addEventListener('keydown', event => {
-  if ($('#chat-dialog').open) return;
+  if (document.querySelector('dialog[open]')) return;
   if (event.key !== 'Escape') return;
   if (document.querySelector('details[open]')) { closeMenus(); return; }
   if (studio.classList.contains('inspector-open')) inspector(false);
-  else if (innerWidth <= 650 && studio.classList.contains('nav-open')) { navigation(false); $('#project-toggle').focus(); }
+  else if (innerWidth <= 700 && studio.classList.contains('nav-open')) { navigation(false); $('#project-toggle').focus(); }
 });
-matchMedia('(min-width: 651px)').addEventListener('change', event => navigation(event.matches));
+matchMedia('(min-width: 701px)').addEventListener('change', event => navigation(event.matches));
 addEventListener('hashchange', route);
 for (const [image, fallback] of [['#courtyard-image', '.arrival-image .asset-placeholder'], ['#cover-image', '.cover-fallback']]) {
   $(image).addEventListener('error', () => { $(image).hidden = true; $(fallback).hidden = false; });
 }
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
+$('#auth-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const username = $('#auth-username').value, password = $('#auth-password').value;
+  $('#auth-error').textContent = '';
+  $('#auth-submit').disabled = true;
+  try {
+    if (authMode === 'setup') await acceptSession(await api('/api/setup', {method: 'POST', body: {username, password, name: $('#auth-name').value, code: $('#auth-code').value}}));
+    else if (authMode === 'change') await acceptSession(await api('/api/password', {method: 'POST', body: {current: password, new: $('#auth-new').value}}));
+    else await acceptSession(await api('/api/login', {method: 'POST', body: {username, password}}));
+  } catch (error) {
+    if (!$('#signin').hidden) $('#auth-error').textContent = AUTH_ERRORS[error.code] || 'That did not work. Check your connection and try again.';
+  } finally { $('#auth-submit').disabled = false; }
+});
+$('#auth-cancel').addEventListener('click', () => { $('#signin').hidden = true; route(); });
+$('#account-button').addEventListener('click', () => {
+  $('#account-title').textContent = me.name;
+  $('#account-detail').textContent = `${me.username} \u00b7 ${me.role === 'admin' ? 'Admin' : 'Member'}`;
+  $('#manage-team').hidden = me.role !== 'admin';
+  $('#account-dialog').showModal();
+});
+$('#account-close').addEventListener('click', () => $('#account-dialog').close());
+$('#change-password').addEventListener('click', () => showAuth('change', true));
+$('#manage-team').addEventListener('click', async () => {
+  $('#account-dialog').close();
+  $('#team-result').hidden = true; $('#team-error').textContent = '';
+  $('#team-dialog').showModal();
+  try { await renderTeam(); } catch { $('#team-error').textContent = 'Could not load the team.'; }
+});
+$('#team-close').addEventListener('click', () => $('#team-dialog').close());
+$('#team-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  $('#team-error').textContent = '';
+  try {
+    const reply = await api('/api/users', {method: 'POST', body: {name: $('#team-name').value, username: $('#team-username').value, role: $('#team-role').value}});
+    showTemporary(reply.user.username, reply.temporary_password);
+    $('#team-form').reset();
+    await renderTeam();
+  } catch (error) { $('#team-error').textContent = AUTH_ERRORS[error.code] || 'That did not work.'; }
+});
+$('#sign-out').addEventListener('click', async () => {
+  try { await api('/api/logout', {method: 'POST', body: {}}); } catch { /* the screen still locks */ }
+  location.hash = '#workspace';
+  signedOut();
+});
 (async () => {
   try {
-    const status = await api('/api/status');
-    workspaces = status.workspaces;
-    $('#model-state').textContent = `${status.model_label} ${status.model_ready ? 'ready' : 'offline'}`;
-    $('#model-state').classList.toggle('offline', !status.model_ready);
-  } catch { $('#model-state').textContent = 'App unavailable'; }
+    sessionState = await api('/api/session'); me = sessionState.user;
+    if (me && !me.must_change) await loadStatus();
+  } catch { sessionState = {user: null}; }
   route();
 })();

@@ -52,6 +52,9 @@ class AppTest(unittest.TestCase):
         self.registry = build_registry()
         self.knowledge = Knowledge()
         self.service = Service(self.store, self.registry, self.provider, self.knowledge)
+        self.service.queue_seconds = 0
+        user = self.service.accounts.create_user('tester', 'Tester', 'long test passphrase', 'admin')
+        self.cookie = f"moriq_session={self.service.accounts.start_session(user['id'], 'tester')[0]}"
         self.server = make_server(self.service, 0)
         self.port = self.server.server_address[1]
         threading.Thread(target=self.server.serve_forever, daemon=True).start()
@@ -64,7 +67,7 @@ class AppTest(unittest.TestCase):
 
     def request(self, method, path, body=None, headers=None):
         conn = http.client.HTTPConnection('127.0.0.1', self.port, timeout=10)
-        all_headers = {'Content-Type': 'application/json', **(headers or {})}
+        all_headers = {'Content-Type': 'application/json', 'Cookie': self.cookie, **(headers or {})}
         conn.request(method, path, json.dumps(body) if body is not None else None, all_headers)
         response = conn.getresponse()
         data = response.read()
@@ -229,7 +232,7 @@ class AppTest(unittest.TestCase):
         chat = self.chat()
         conn = http.client.HTTPConnection('127.0.0.1', self.port, timeout=10)
         conn.request('POST', '/api/ask', json.dumps({'chat': chat, 'message': 'Explain thermal mass'}),
-                     {'Content-Type': 'application/json'})
+                     {'Content-Type': 'application/json', 'Cookie': self.cookie})
         response = conn.getresponse()
         start = json.loads(response.readline())
         self.assertEqual(start['type'], 'start')
@@ -241,7 +244,7 @@ class AppTest(unittest.TestCase):
         rest = [json.loads(line) for line in response.read().splitlines()]
         conn.close()
         self.assertEqual(rest[-1]['status'], 'cancelled')
-        self.assertEqual([text for _, text in self.store.history(chat)], ['Explain thermal mass'])
+        self.assertEqual([text for _, text in self.store.history(chat, self.service.accounts.list_users()[0]['id'])], ['Explain thermal mass'])
 
     def test_model_failure_is_reported_and_releases_slot(self):
         self.provider.fail = True

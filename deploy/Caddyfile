@@ -1,0 +1,4 @@
+# Caddy gets and renews the HTTPS certificate automatically. Replace the domain with yours.
+moriq.example.com {
+	reverse_proxy 127.0.0.1:5180
+}

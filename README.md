@@ -2,7 +2,7 @@
 
 **An AI assistant for architects and engineers at MORIQ.** It answers questions on design, climate, materials, structure, services, drawings and site coordination, and it declines everything else. Every answer says what it rests on.
 
-> **Version 1, working prototype.** It runs for one person on one computer. Answers are unreviewed drafts to check, not professional advice. It has no login and is not ready for a shared deployment.
+> **Version 1, working prototype.** It has individual accounts and runs on one computer, and it can be hosted for a small team, though that setup has not yet been run on a real server. Answers are unreviewed drafts to check, not professional advice.
 
 ## What it does
 
@@ -12,6 +12,7 @@
 - **Labels every answer:** each one shows whether it used general knowledge, the built-in guide or a loaded document, with an evidence panel to inspect.
 - **Warns about likely inventions:** it flags made-up citations, code sections and measurements that no source contains.
 - **Teaches juniors:** a "Guide me" setting adds definitions and checklists.
+- **Private accounts:** each person signs in and sees only their own chats, and an admin manages the team.
 
 ## What it knows
 
@@ -52,8 +53,8 @@ Run on 4 November 2026 with the local model on a laptop CPU:
 
 |Check|Result|
 |---|---|
-|App and security tests, with a simulated model|34 of 34 pass|
-|Browser click-through, including live answers and phone sizes|20 of 20 pass|
+|App, account and security tests, with a simulated model|57 of 57 pass|
+|Browser click-through, including sign-in, team management, live answers and phone sizes|31 of 31 pass|
 |Live spot check of routing, scope and references|18 of 18 pass, with most answers taking about 25 to 35 seconds|
 |Backend, contract and knowledge suites|57, 66 and 116 pass|
 
@@ -64,7 +65,7 @@ The spot check is a small set that was adjusted against during development. It d
 - Add MORIQ's own documents, which it does not have yet, and have the firm confirm the public record.
 - Have an architect or engineer review answer quality and the AI-written starter guide.
 - Run the live evaluation on a stronger model.
-- Add logins and access control before anyone else uses it, then host it with a domain and HTTPS.
+- Host it with a domain and HTTPS using the [hosting guide](docs/moriq-project/DEPLOYMENT-AND-SECURITY.md).
 - Run a penetration test such as Strix.
 - Confirm the rights to use company images and documents.
 

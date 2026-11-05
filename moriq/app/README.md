@@ -46,7 +46,7 @@ This is not a model trained on MORIQ's work. It is a general language model rest
 - **Starter guide:** most of the `guide` folder is general guidance written by AI. No architect or engineer has reviewed it, and every answer using it says so. Its regulation pointers rely partly on secondary sources, so confirm them with the authority.
 - **Public record:** `guide/moriq-public.md` summarises public listings in our own words, with links and no photographs. MORIQ has not confirmed it. It cannot establish internal practice, so practice questions need loaded documents.
 - **Scope lock:** keyword rules plus the model's own judgement, so unusual wording can slip through in either direction.
-- **Access:** there is no login or audit trail, and the app listens on this computer only. Do not expose it to a network or enter confidential client information.
+- **Access:** each person signs in and sees only their own chats, and the app listens on this computer only. Host it only behind HTTPS, as the [hosting guide](../../docs/moriq-project/DEPLOYMENT-AND-SECURITY.md) explains. Do not enter confidential client information.
 - **Stop:** closing the connection asks the model to stop, but nothing proves it has gone idle.
 - **Offline facade:** the Task 6.1B facade refuses generation by design, so this app does not route through it. It reuses the same registry, retrieval, citation checks and public status fields.
 - **Design:** the interface follows Apple's Human Interface Guidelines as principles, in a web app. It uses no Apple artwork or SF Symbols, and it is not a native iOS app. The icon and name styling are provisional, not MORIQ's logo.
@@ -56,7 +56,7 @@ This is not a model trained on MORIQ's work. It is a general language model rest
 ## Test it
 
 ```shell
-py -3.12 -B -m unittest moriq.app.test_app moriq.app.test_security
+py -3.12 -B -m unittest moriq.app.test_app moriq.app.test_auth moriq.app.test_security
 py -3.12 -B -m moriq.app.evaluate results.json
 ```
 

@@ -1,0 +1,19 @@
+# systemd service for a Linux server. Copy to /etc/systemd/system/, then: systemctl enable --now moriq
+[Unit]
+Description=MORIQ AI
+After=network.target ollama.service
+
+[Service]
+User=moriq
+WorkingDirectory=/opt/moriq-ai
+EnvironmentFile=/etc/moriq.env
+ExecStart=/usr/bin/python3.12 -m moriq.app
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/moriq
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
