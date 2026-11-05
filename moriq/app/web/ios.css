@@ -49,6 +49,7 @@ h1,h2,h3,p{margin:0}
 .studio.nav-collapsed{grid-template-columns:minmax(0,1fr)}
 .nav-collapsed .sidebar{display:none}
 .sidebar{display:flex;flex-direction:column;overflow-y:auto;padding:max(10px,env(safe-area-inset-top)) 14px max(12px,env(safe-area-inset-bottom));background:var(--bg);border-right:.5px solid var(--separator)}
+.sidebar>*{flex-shrink:0}
 .sidebar-head{display:flex;align-items:center;justify-content:space-between;min-height:var(--control)}
 .sidebar-head h2{font-size:1.65rem;font-weight:700;letter-spacing:-.02em;padding-left:4px}
 #close-navigation{display:none}

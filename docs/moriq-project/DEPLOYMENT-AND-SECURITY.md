@@ -19,7 +19,7 @@ Logins now exist, so the app can be hosted for a team using the steps below. Do 
 |Native iPhone app in SwiftUI|iPhone, through the App Store|A Mac with Xcode, an Apple Developer account at USD 99 a year, a rewrite of the interface and App Review|
 |Native Windows app with Tauri or Electron|Windows and Mac|A packaging toolchain, with little benefit over the installed web app|
 
-Install on Windows by running `install-moriq.ps1` once, then use the MORIQ AI icon. The local server keeps running in the background after the window closes, until you sign out or end `pythonw.exe`.
+Install on Windows by running `install-moriq.ps1` once, then use the MORIQ AI icon. The local server keeps running in the background after the window closes, until you sign out of Windows or end `pythonw.exe`.
 
 ## Accounts
 
