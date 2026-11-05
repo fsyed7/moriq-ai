@@ -84,7 +84,7 @@ class SecurityTest(unittest.TestCase):
         self.assertIn('no-store', response.getheader('Cache-Control'))
 
     def test_interface_never_inserts_text_as_html(self):
-        script = (WEB / 'app.js').read_text(encoding='utf-8') + (WEB / 'welcome.js').read_text(encoding='utf-8')
+        script = (WEB / 'app.js').read_text(encoding='utf-8') + (WEB / 'welcome.js').read_text(encoding='utf-8') + (WEB / 'answer.js').read_text(encoding='utf-8') + (WEB / 'facts.js').read_text(encoding='utf-8')
         for sink in ['innerHTML', 'outerHTML', 'insertAdjacentHTML', 'document.write', 'eval(', 'new Function']:
             self.assertNotIn(sink, script)
 

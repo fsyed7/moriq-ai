@@ -4,7 +4,7 @@
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F1EB"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#141411">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MORIQ AI"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icons/icon-192.png" type="image/png"><link rel="apple-touch-icon" href="/icons/icon-180.png">
-<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/welcome.css"><script type="module" src="/welcome.js"></script><script type="module" src="/app.js"></script></head>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/welcome.css"><link rel="stylesheet" href="/chat.css"><script type="module" src="/welcome.js"></script><script type="module" src="/app.js"></script></head>
 <body>
 <a class="skip" href="#workspace">Skip to conversation</a>
 <div id="arrival">
@@ -93,24 +93,37 @@
       <button id="evidence-toggle" class="plain" aria-expanded="false" aria-controls="inspector">Evidence</button>
     </div>
   </header>
+  <aside id="fact-dock" class="fact-dock" aria-label="Architecture facts">
+    <button id="fact-toggle" class="fact-pill" type="button" aria-expanded="false" aria-controls="fact-card" aria-label="Did you know? Architecture facts"><span aria-hidden="true">✦</span><span class="wide-only">Did you know?</span></button>
+    <div id="fact-card" class="fact-card" hidden>
+      <p id="fact-text" aria-live="polite"></p>
+      <div class="fact-actions"><button id="fact-ask" type="button">Ask about this</button><button id="fact-next" type="button">Another fact</button></div>
+      <small>General knowledge, written by AI. Worth checking before you quote it.</small>
+    </div>
+  </aside>
   <main id="workspace" tabindex="-1">
     <div id="welcome">
+      <p id="greeting" class="greeting"></p>
       <h1>What are you working on?</h1>
-      <figure class="cover-photo"><img id="cover-image" src="/assets/courtyard-villa.jpg" width="1500" height="1000" alt="" loading="lazy"><span class="cover-fallback" hidden>Courtyard Villa image not included in this copy</span></figure>
-      <h3 class="group-title">Try asking</h3>
-      <div class="suggestions group"><button data-prompt="How can a courtyard help cool a home in a hot climate?">How can a courtyard cool a home in a hot climate?<span aria-hidden="true">›</span></button><button data-prompt="How does vaastu affect kitchen placement on a narrow linear plot?">Vaastu kitchen placement on a narrow plot<span aria-hidden="true">›</span></button><button data-prompt="What should I check where timber decking meets pebble paving?">Timber decking meeting pebble paving<span aria-hidden="true">›</span></button><button data-prompt="How do I get a building permit in Bahrain?">Getting a building permit in Bahrain<span aria-hidden="true">›</span></button><button data-prompt="What projects has MORIQ designed in Bahrain?">MORIQ's published projects in Bahrain<span aria-hidden="true">›</span></button></div>
+      <figure class="cover-photo"><img id="cover-image" alt=""><figcaption id="cover-caption"></figcaption></figure>
+      <div class="suggestions-head"><h3 class="group-title" id="suggestions-title">Try asking</h3><button id="surprise" type="button" class="plain"><span id="surprise-mark" aria-hidden="true">✦</span> Surprise me</button></div>
+      <div id="suggestions" class="suggestions" aria-labelledby="suggestions-title"></div>
     </div>
     <div id="conversation" hidden role="log" aria-label="Conversation" aria-live="polite"></div>
   </main>
   <div class="composer-dock">
     <p id="chat-status" role="status" aria-live="polite"></p>
+    <button id="jump" type="button" hidden aria-label="Jump to the latest message">↓</button>
     <form id="composer">
-      <details class="options"><summary class="plain icon" aria-label="Answer options"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></summary>
-        <div class="code-context"><label>Jurisdiction <input id="jurisdiction" maxlength="80" autocomplete="off" placeholder="For code questions"></label><label>Code edition <input id="edition" maxlength="80" autocomplete="off" placeholder="Adopted edition"></label><label>Answer depth <select id="level"><option value="standard">Standard</option><option value="freshie">Guide me (junior)</option></select></label></div>
-      </details>
       <label class="sr-only" for="prompt">Your question</label>
-      <textarea id="prompt" rows="1" maxlength="1200" aria-describedby="composer-help" placeholder="Ask MORIQ AI"></textarea>
-      <button class="send" type="submit" disabled aria-label="Send message">↑</button>
+      <textarea id="prompt" rows="1" maxlength="1200" aria-describedby="composer-help" placeholder="Ask a design or site question"></textarea>
+      <div class="composer-row">
+        <div class="segmented" role="group" aria-label="Answer depth"><button type="button" data-level="standard" aria-pressed="true">Standard</button><button type="button" data-level="freshie" aria-pressed="false">Guide me</button></div>
+        <details class="options" id="code-options"><summary class="plain" aria-label="Building code jurisdiction and edition">Code<span class="wide-only">context</span></summary>
+          <div class="code-context"><label>Jurisdiction <input id="jurisdiction" maxlength="80" autocomplete="off" placeholder="The authority for this project"></label><label>Code edition <input id="edition" maxlength="80" autocomplete="off" placeholder="The adopted edition"></label></div>
+        </details>
+        <button class="send" type="submit" disabled aria-label="Send message">↑</button>
+      </div>
     </form>
     <p class="fine-print" id="composer-help">AI drafts can be wrong, so check anything you rely on. Don't enter confidential client details.</p>
   </div>
@@ -137,4 +150,5 @@
   <div id="team-list" class="group"></div>
   <p class="fine-print">Each person sees only their own chats. Admins cannot read other people's chats in the app, but whoever runs the server can reach the database.</p>
 </dialog>
+<template id="sketch-template"><svg class="sketch" viewBox="0 0 240 72" aria-hidden="true"><path pathLength="1" d="M4 66H236"/><path pathLength="1" d="M28 66V34L92 12l64 22v32"/><path pathLength="1" d="M44 66V42h24v24M84 40h24v14H84zM122 66V42h20v24"/><path pathLength="1" d="M156 66V46h56v20M168 46V36h32v10"/><path pathLength="1" d="M222 66V48m-7 4a7 9 0 0 1 14 0 7 9 0 0 1-14 0"/></svg></template>
 </body></html>

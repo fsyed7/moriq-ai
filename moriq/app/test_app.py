@@ -2,6 +2,7 @@
 
 import http.client
 import json
+import re
 import tempfile
 import threading
 import types
@@ -108,6 +109,22 @@ class AppTest(unittest.TestCase):
             _, events = self.ask(question)
             self.assertEqual((events[-1]['status'], events[-1]['code']), ('blocked', 'out_of_scope'), question)
         self.assertEqual(self.provider.calls, [])
+
+    def test_every_fact_question_passes_the_scope_check(self):
+        source = (Path(__file__).parent / 'web' / 'facts.js').read_text(encoding='utf-8')
+        subjects = re.findall(r"about: '([^']+)'", source)
+        self.assertGreaterEqual(len(subjects), 25)
+        self.assertEqual(len(subjects), len(set(subjects)))
+        for subject in subjects:
+            question = f'What can architects learn from {subject}?'
+            self.assertEqual(decide(question, self.registry, self.knowledge).action, 'answer', question)
+
+    def test_progress_names_sources_and_discipline_reaches_the_prompt(self):
+        chat = json.loads(self.request('POST', '/api/chats', {'workspace': 'interiors'})[1])['id']
+        self.provider.reply = ['Seal it [1].']
+        _, events = self.ask('Which marble care issues matter in a kitchen?', chat=chat)
+        self.assertTrue(any('marble' in title.lower() for title in events[0]['sources']))
+        self.assertIn('interiors discipline', self.provider.calls[0][0]['content'])
 
     def test_questions_with_no_link_to_the_field_never_reach_the_model(self):
         for question in ['who is spiderman', 'Who is Batman?', 'Who won the election last year?', 'What is the meaning of life?',
@@ -334,7 +351,7 @@ What makes a good design presentation for a client?'''.splitlines()
         self.assertEqual(json.loads(self.request('GET', '/api/chats')[1])['chats'][0]['title'], 'Renamed')
         self.assertEqual(self.request('DELETE', f'/api/chats/{chat}')[0], 200)
         self.assertEqual(self.request('GET', f'/api/chats/{chat}')[0], 404)
-        for path in ['/', '/app.js', '/welcome.js', '/welcome.css', '/styles.css', '/sw.js', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-180.png',
+        for path in ['/', '/app.js', '/answer.js', '/facts.js', '/chat.css', '/welcome.js', '/welcome.css', '/styles.css', '/sw.js', '/manifest.webmanifest', '/icons/icon.svg', '/icons/icon-180.png',
                      '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-maskable-512.png']:
             self.assertEqual(self.request('GET', path)[0], 200, path)
         # The approved image is local-only, so a clone gets a 404 and the page shows its placeholder.

@@ -27,6 +27,9 @@ STATIC = {
     '/': (ROOT / 'web' / 'index.html', 'text/html; charset=utf-8'),
     '/app.js': (ROOT / 'web' / 'app.js', 'text/javascript; charset=utf-8'),
     '/styles.css': (ROOT / 'web' / 'ios.css', 'text/css; charset=utf-8'),
+    '/chat.css': (ROOT / 'web' / 'chat.css', 'text/css; charset=utf-8'),
+    '/answer.js': (ROOT / 'web' / 'answer.js', 'text/javascript; charset=utf-8'),
+    '/facts.js': (ROOT / 'web' / 'facts.js', 'text/javascript; charset=utf-8'),
     '/welcome.css': (ROOT / 'web' / 'welcome.css', 'text/css; charset=utf-8'),
     '/welcome.js': (ROOT / 'web' / 'welcome.js', 'text/javascript; charset=utf-8'),
     **{f'/projects/{name}.jpg': (ROOT / 'web' / 'projects' / f'{name}.jpg', 'image/jpeg')
@@ -139,8 +142,9 @@ def chat_events(service, body, user):
     stream = None
     declined = False
     try:
-        yield {'type': 'start', 'request_id': request_id, 'category': decision.category, **PUBLIC}
-        stream = service.provider.stream(build_messages(decision, text, history, level), cancelled)
+        titles = [h.chunk.provenance.metadata.title for h in decision.hits] + [n.title for n in decision.notes]
+        yield {'type': 'start', 'request_id': request_id, 'category': decision.category, 'sources': titles, **PUBLIC}
+        stream = service.provider.stream(build_messages(decision, text, history, level, chat['workspace']), cancelled)
         released = False
         for piece in stream:
             pieces.append(piece)
