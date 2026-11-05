@@ -1,7 +1,6 @@
 @echo off
-rem Starts MORIQ AI on this computer and opens it in the browser.
+rem Starts MORIQ AI on this computer and shows any startup errors. For normal use, run install-moriq.ps1 once and use the icon.
 cd /d "%~dp0"
-rem Opens in its own window once the server is up, using Edge app mode.
-start "" /min cmd /c "timeout /t 2 /nobreak >nul & start msedge --app=http://127.0.0.1:5180"
+start "" /min cmd /c "timeout /t 2 /nobreak >nul & start msedge --app=http://127.0.0.1:5180/#workspace"
 py -3.12 -m moriq.app
 pause

@@ -34,7 +34,15 @@ cd moriq-ai
 py -3.12 -m moriq.app
 ```
 
-Then open http://127.0.0.1:5180. On Windows, double-click `start-moriq.bat` instead to open it in its own app window.
+Then open http://127.0.0.1:5180.
+
+**To use it as an app on Windows,** run this once, then open MORIQ AI from the Desktop or Start menu icon:
+
+```shell
+powershell -ExecutionPolicy Bypass -File .\install-moriq.ps1
+```
+
+Browsers can also install it from the address bar. On a phone it needs hosting first, as explained in [installing, hosting and security testing](docs/moriq-project/DEPLOYMENT-AND-SECURITY.md).
 
 See the [app guide](moriq/app/README.md) for choosing a model and adding MORIQ documents.
 
@@ -44,29 +52,30 @@ Run on 4 November 2026 with the local model on a laptop CPU:
 
 |Check|Result|
 |---|---|
-|App tests, with a simulated model|24 of 24 pass|
+|App and security tests, with a simulated model|34 of 34 pass|
 |Browser click-through, including live answers and phone sizes|20 of 20 pass|
 |Live spot check of routing, scope and references|18 of 18 pass, with most answers taking about 25 to 35 seconds|
 |Backend, contract and knowledge suites|57, 66 and 116 pass|
 
-The spot check is a small set that was adjusted against during development. It does not grade whether answers are correct, and a passing run still included a wrong answer that missed a published project, which was then fixed in the record. No architect or engineer has reviewed the answers. The Claude connection has only been tested against a simulated model.
+The spot check is a small set that was adjusted against during development. It does not grade whether answers are correct, and a passing run still included a wrong answer that missed a published project, which was then fixed in the record. No architect or engineer has reviewed the answers. The Claude connection has only been tested against a simulated model. The Strix penetration test has not been run, since it needs Docker and a paid AI key.
 
 ## Before wider use
 
 - Add MORIQ's own documents, which it does not have yet, and have the firm confirm the public record.
 - Have an architect or engineer review answer quality and the AI-written starter guide.
 - Run the live evaluation on a stronger model.
-- Add logins and access control before anyone else uses it.
+- Add logins and access control before anyone else uses it, then host it with a domain and HTTPS.
+- Run a penetration test such as Strix.
 - Confirm the rights to use company images and documents.
 
 ## What's where
 
 |Folder|Contents|
 |---|---|
-|[`moriq/app`](moriq/app)|**The MORIQ AI app:** server, question routing, model connection, starter guide and interface|
+|[`moriq/app`](moriq/app)|**The MORIQ AI app:** server, question routing, model connection, knowledge guide and iOS-style interface|
 |[`moriq/brain`](moriq/brain)|The assistant's instructions and earlier reliability experiments|
 |[`moriq/knowledge`](moriq/knowledge)|Source registry, retrieval and citation checks|
-|[`studio-preview`](studio-preview)|Studio design and styles used by the app|
+|[`studio-preview`](studio-preview)|The earlier dark Studio prototype, kept for reference|
 |[`offline_integration`](offline_integration), [`offline_evaluation`](offline_evaluation), [`synthetic_pilot`](synthetic_pilot)|Earlier offline contracts and test suites|
 |[`docs/moriq-project`](docs/moriq-project/DOCUMENTATION-INDEX.md)|Project history, architecture, status and limitations|
 |`backend`, `src`, `static` and root config files|Inherited Open WebUI code, which the app doesn't run on|

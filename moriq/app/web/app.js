@@ -41,6 +41,7 @@ async function api(path, options = {}) {
   if (!response.ok) throw Error(response.status);
   return response.json();
 }
+function closeMenus() { document.querySelectorAll('details[open]').forEach(item => { item.open = false; }); }
 function setStatus(text) { $('#chat-status').textContent = text; }
 function busy() { return reader !== null; }
 function sendControl() {
@@ -106,7 +107,7 @@ function showEvidence(meta, trigger) {
   inspector(true, trigger);
 }
 function addMessage(label, text) {
-  const article = element('article', undefined, 'message');
+  const article = element('article', undefined, 'message ' + (label === 'YOU' ? 'user' : 'assistant'));
   article.append(element('div', label, 'message-label'));
   const body = element('p', text);
   article.append(body);
@@ -145,7 +146,7 @@ function renderWorkspaces() {
     button.setAttribute('aria-current', item.id === workspace ? 'page' : 'false');
     const label = element('span');
     label.append(element('strong', item.name), element('small', item.description));
-    const symbol = element('span', '▱', 'project-symbol');
+    const symbol = element('span', item.name[0], 'project-symbol');
     symbol.setAttribute('aria-hidden', 'true');
     button.append(symbol, label);
     button.addEventListener('click', () => { workspace = item.id; current = null; location.hash = '#workspace'; route(); });
@@ -185,6 +186,9 @@ async function ask(text) {
   const {article, body} = addMessage('MORIQ AI', '');
   body.classList.add('streaming');
   $('#prompt').value = '';
+  $('#prompt').style.height = 'auto';
+  closeMenus();
+  article.scrollIntoView({block: 'nearest'});
   setStatus('Thinking. With the local model an answer can take a minute or more.');
   let response;
   try {
@@ -213,11 +217,12 @@ async function ask(text) {
   await refreshChats();
   try { current = await api('/api/chats/' + current.id); } catch { /* keep what is on screen */ }
   renderChats(); renderWorkspaces();
+  $('#workspace').scrollTop = $('#workspace').scrollHeight;
   $('#prompt').focus();
 }
 function handle(event, article, body) {
   if (event.type === 'start') { activeRequest = event.request_id; setStatus('Generating an unreviewed draft. Stop is available.'); }
-  if (event.type === 'token') { body.textContent += event.text; setStatus('Generating an unreviewed draft. Stop is available.'); }
+  if (event.type === 'token') { body.textContent += event.text; setStatus('Generating an unreviewed draft. Stop is available.'); $('#workspace').scrollTop = $('#workspace').scrollHeight; }
   if (event.type === 'error') { body.textContent = ERRORS[event.code] || 'Something went wrong.'; decorate(article, {label: 'failed'}); setStatus(''); }
   if (event.type === 'done') {
     if (event.text) body.textContent = event.text;
@@ -232,6 +237,7 @@ async function stop() {
   try { await api('/api/cancel', {method: 'POST', body: {request_id: activeRequest}}); } catch { setStatus('Could not stop the answer.'); }
 }
 async function route() {
+  closeMenus();
   if ($('#chat-dialog').open) $('#chat-dialog').close();
   inspector(false);
   const hash = location.hash.slice(1);
@@ -252,6 +258,7 @@ async function route() {
 }
 function openDialog(action) {
   if (!current) return;
+  closeMenus();
   dialogAction = action; dialogReturn = document.activeElement;
   $('#dialog-title').textContent = action === 'rename' ? 'Rename chat' : 'Delete chat?';
   $('#dialog-description').textContent = action === 'rename' ? 'Use 1 to 60 characters.' : `Delete “${current.title}” from this computer? This cannot be undone.`;
@@ -264,7 +271,12 @@ function openDialog(action) {
   (action === 'rename' ? $('#chat-name') : $('#dialog-cancel')).focus();
 }
 $('#composer').addEventListener('submit', event => { event.preventDefault(); ask($('#prompt').value); });
-$('#prompt').addEventListener('input', sendControl);
+$('#prompt').addEventListener('input', () => {
+  sendControl();
+  $('#prompt').style.height = 'auto';
+  $('#prompt').style.height = `${Math.min($('#prompt').scrollHeight, 160)}px`;
+});
+document.addEventListener('click', event => { if (!event.target.closest('details')) closeMenus(); });
 $('#prompt').addEventListener('keydown', event => {
   if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) { event.preventDefault(); ask(event.target.value); }
 });
@@ -302,6 +314,7 @@ $('#chat-dialog-form').addEventListener('submit', async event => {
 document.addEventListener('keydown', event => {
   if ($('#chat-dialog').open) return;
   if (event.key !== 'Escape') return;
+  if (document.querySelector('details[open]')) { closeMenus(); return; }
   if (studio.classList.contains('inspector-open')) inspector(false);
   else if (innerWidth <= 650 && studio.classList.contains('nav-open')) { navigation(false); $('#project-toggle').focus(); }
 });
@@ -310,6 +323,7 @@ addEventListener('hashchange', route);
 for (const [image, fallback] of [['#courtyard-image', '.arrival-image .asset-placeholder'], ['#cover-image', '.cover-fallback']]) {
   $(image).addEventListener('error', () => { $(image).hidden = true; $(fallback).hidden = false; });
 }
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
 (async () => {
   try {
     const status = await api('/api/status');

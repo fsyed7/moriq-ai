@@ -41,6 +41,7 @@ Local provenance/backup/Git/media manifests are in the review output folder link
 - [Task 6.1B error investigation](TASK-6.1B-TEST-ERROR-ANALYSIS.md)
 - [Task 6.1B closeout record](TASK-6.1B-CLOSEOUT.md)
 - [MORIQ AI app](../../moriq/app/README.md)
+- [Installing, hosting and security testing](DEPLOYMENT-AND-SECURITY.md)
 
 ## Task history summaries
 - [Task 1 — Foundation](development-history/01/README.md)

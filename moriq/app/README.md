@@ -4,7 +4,7 @@ An AI assistant for architects and engineers at MORIQ. It connects the Studio in
 
 ## Run it
 
-Double-click `start-moriq.bat` in the repository root, or run this from the root:
+Run `install-moriq.ps1` once for a Desktop and Start menu icon, use `start-moriq.bat` to see startup errors, or run this from the root:
 
 ```shell
 py -3.12 -m moriq.app
@@ -49,13 +49,14 @@ This is not a model trained on MORIQ's work. It is a general language model rest
 - **Access:** there is no login or audit trail, and the app listens on this computer only. Do not expose it to a network or enter confidential client information.
 - **Stop:** closing the connection asks the model to stop, but nothing proves it has gone idle.
 - **Offline facade:** the Task 6.1B facade refuses generation by design, so this app does not route through it. It reuses the same registry, retrieval, citation checks and public status fields.
+- **Design:** the interface follows Apple's Human Interface Guidelines as principles, in a web app. It uses no Apple artwork or SF Symbols, and it is not a native iOS app. The icon and name styling are provisional, not MORIQ's logo.
 - **Image:** `courtyard-villa.jpg` is approved for local preview only and is left out of Git. A clone without it shows the labelled placeholder.
 - **Firm website:** the site listed by ArchDaily, moriq.co.in, could not be reached on 2026-11-04, so nothing comes from it.
 
 ## Test it
 
 ```shell
-py -3.12 -B -m unittest moriq.app.test_app
+py -3.12 -B -m unittest moriq.app.test_app moriq.app.test_security
 py -3.12 -B -m moriq.app.evaluate results.json
 ```
 

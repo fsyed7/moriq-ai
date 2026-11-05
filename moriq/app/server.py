@@ -4,6 +4,7 @@ Trusted single-user prototype. It has no login and must not be exposed beyond th
 """
 
 import json
+import os
 import re
 import threading
 import uuid
@@ -19,9 +20,13 @@ STUDIO = ROOT.parents[1] / 'studio-preview'
 STATIC = {
     '/': (ROOT / 'web' / 'index.html', 'text/html; charset=utf-8'),
     '/app.js': (ROOT / 'web' / 'app.js', 'text/javascript; charset=utf-8'),
-    '/live.css': (ROOT / 'web' / 'live.css', 'text/css; charset=utf-8'),
-    '/styles.css': (STUDIO / 'styles.css', 'text/css; charset=utf-8'),
+    '/styles.css': (ROOT / 'web' / 'ios.css', 'text/css; charset=utf-8'),
+    '/sw.js': (ROOT / 'web' / 'sw.js', 'text/javascript; charset=utf-8'),
+    '/manifest.webmanifest': (ROOT / 'web' / 'manifest.webmanifest', 'application/manifest+json'),
+    '/icons/icon.svg': (ROOT / 'web' / 'icon.svg', 'image/svg+xml'),
     '/assets/courtyard-villa.jpg': (STUDIO / 'assets' / 'courtyard-villa.jpg', 'image/jpeg'),
+    **{f'/icons/icon-{name}.png': (ROOT / 'web' / 'icons' / f'icon-{name}.png', 'image/png')
+       for name in ('180', '192', '512', 'maskable-512')},
 }
 CSP = ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; "
        "object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
@@ -160,6 +165,9 @@ class Handler(BaseHTTPRequestHandler):
     def _allowed(self):
         port = self.server.server_address[1]
         allowed = {f'127.0.0.1:{port}', f'localhost:{port}'}
+        # Only for a local scanner reaching the app from a container, such as host.docker.internal.
+        if os.environ.get('MORIQ_SCAN_HOST'):
+            allowed.add(f"{os.environ['MORIQ_SCAN_HOST']}:{port}")
         if self.headers.get('Host') not in allowed:
             return False
         origin = self.headers.get('Origin')
